@@ -7,13 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0c0c0c;--card:#161616;--border:#2a2a2a;
-  --green:#7CA73F;--green2:#89B647;--green3:#C0D886;
-  --grey:#AFAEB2;--white:#f5f5f5;
-  --red:#d9534f;--warn:#f0a500;
-  --radius:8px;
-}
+:root{--bg:#0c0c0c;--card:#161616;--border:#2a2a2a;--green:#7CA73F;--green2:#89B647;--green3:#C0D886;--grey:#AFAEB2;--white:#f5f5f5;--red:#d9534f;--radius:8px}
 body{background:var(--bg);color:var(--white);font-family:'Raleway',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
 a{color:var(--green);text-decoration:none}
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;display:flex;align-items:center;justify-content:center}
@@ -39,11 +33,7 @@ a{color:var(--green);text-decoration:none}
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--grey);font-weight:600}
 .field label .req{color:var(--green)}
-input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],textarea,select{
-  background:#1e1e1e;border:1px solid var(--border);border-radius:6px;color:var(--white);
-  font-family:'Raleway',sans-serif;font-size:.9rem;padding:10px 14px;width:100%;
-  transition:border-color .2s
-}
+input[type=text],input[type=email],input[type=tel],input[type=number],textarea,select{background:#1e1e1e;border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Raleway',sans-serif;font-size:.9rem;padding:10px 14px;width:100%;transition:border-color .2s}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--green)}
 textarea{resize:vertical;min-height:80px}
 select option{background:#1e1e1e}
@@ -52,6 +42,18 @@ select option{background:#1e1e1e}
 .color-row{display:flex;align-items:center;gap:10px}
 .color-row input[type=color]{width:44px;height:44px;border:2px solid var(--border);border-radius:6px;padding:2px;cursor:pointer;background:none}
 .color-row input[type=text]{max-width:110px}
+/* Agent panels */
+.agent-panel{background:#111;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.agent-hd{padding:14px 16px;background:#191919;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.agent-hd-name{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green)}
+.agent-body{padding:14px 16px;display:grid;gap:10px}
+.upload-row{display:flex;align-items:center;gap:10px}
+.upload-row input[type=file]{display:none}
+.upload-label{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#1a1a1a;border:1px solid var(--border);border-radius:6px;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--grey);cursor:pointer;transition:all .2s;white-space:nowrap}
+.upload-label:hover{border-color:var(--green);color:var(--green)}
+.upload-label.has-file{border-color:var(--green2);color:var(--green2)}
+.agent-hint{font-size:.78rem;color:#555;font-style:italic}
+/* Woningtype blocks */
 .wt-block{background:#1a1a1a;border:1px solid var(--border);border-radius:8px;padding:20px;position:relative;margin-bottom:12px}
 .wt-block .wt-title{font-size:.85rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px}
 .wt-remove{position:absolute;top:14px;right:14px;background:none;border:1px solid var(--border);color:var(--grey);cursor:pointer;border-radius:4px;padding:4px 8px;font-size:.75rem;transition:all .2s}
@@ -64,6 +66,7 @@ select option{background:#1e1e1e}
 .check-item:hover{border-color:var(--green2)}
 .check-item input{accent-color:var(--green);cursor:pointer}
 .check-item span{font-size:.85rem}
+/* Buttons */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:6px;font-family:'Raleway',sans-serif;font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;border:none;transition:all .2s}
 .btn-primary{background:var(--green);color:#fff}
 .btn-primary:hover{background:var(--green2)}
@@ -72,8 +75,10 @@ select option{background:#1e1e1e}
 .btn-sm{padding:8px 16px;font-size:.8rem}
 .btn-add{background:#1a1a1a;color:var(--green);border:1px dashed var(--green2);width:100%;justify-content:center;margin-top:4px}
 .btn-add:hover{background:#222}
+/* Gen bar */
 .gen-bar{background:var(--card);border-top:1px solid var(--border);padding:24px 28px;position:sticky;bottom:0;z-index:50}
 .gen-bar-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+/* Status */
 .status-wrap{max-width:900px;margin:20px auto;padding:0 28px}
 .step-list{display:flex;flex-direction:column;gap:8px}
 .step{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:8px;transition:border-color .3s}
@@ -87,12 +92,14 @@ select option{background:#1e1e1e}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .step-label{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em}
 .step-detail{font-size:.8rem;color:var(--grey);margin-left:auto}
+/* Preview */
 .preview-wrap{max-width:900px;margin:20px auto;padding:0 28px}
 .preview-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .preview-bar h3{font-size:.9rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green)}
 .preview-actions{display:flex;gap:8px}
 .iframe-container{border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
 iframe{width:100%;height:680px;border:none;display:block}
+/* SEO card */
 .seo-card{background:var(--card);border:1px solid var(--border);border-radius:8px;margin-top:16px;overflow:hidden}
 .seo-card details summary{padding:16px 20px;cursor:pointer;font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--green);font-weight:700;list-style:none;display:flex;align-items:center;justify-content:space-between}
 .seo-card details summary::-webkit-details-marker{display:none}
@@ -103,14 +110,17 @@ iframe{width:100%;height:680px;border:none;display:block}
 .seo-lbl{color:var(--grey);font-weight:600;text-transform:uppercase;font-size:.75rem;letter-spacing:.06em;padding-top:2px}
 .seo-val{color:var(--white)}
 .tag{display:inline-block;background:#1e1e1e;border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:.75rem;color:var(--grey);margin:2px}
+/* Feedback */
+.feedback-card{background:var(--card);border:1px solid var(--green);border-radius:8px;padding:24px;margin-top:16px}
+.feedback-card h3{font-size:.9rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:700;margin-bottom:8px}
+.feedback-card p{color:var(--grey);font-size:.85rem;margin-bottom:14px}
+.feedback-card textarea{min-height:90px}
+.feedback-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center}
+.feedback-hint{font-size:.78rem;color:#555;font-style:italic}
 .err-msg{color:var(--red);font-size:.82rem;padding:8px 12px;background:rgba(217,83,79,.1);border:1px solid rgba(217,83,79,.3);border-radius:6px}
 footer{text-align:center;padding:24px;color:#444;font-size:.75rem;border-top:1px solid var(--border);margin-top:40px}
 footer .s{color:var(--green);font-weight:900}
-@media(max-width:600px){
-  .grid2,.grid3{grid-template-columns:1fr}
-  .hero h1{font-size:1.6rem}
-  .plan-item{grid-template-columns:28px 1fr}
-}
+@media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr}.hero h1{font-size:1.6rem}.plan-item{grid-template-columns:28px 1fr}}
 </style>
 </head>
 <body>
@@ -118,7 +128,7 @@ footer .s{color:var(--green);font-weight:900}
 <div class="modal-bg" id="setupModal">
   <div class="modal">
     <h2>Groq API-sleutel</h2>
-    <p>Vul je Groq API-sleutel in om de agent te starten. De sleutel wordt lokaal opgeslagen en nooit gedeeld.</p>
+    <p>Vul je Groq API-sleutel in. De sleutel wordt lokaal opgeslagen en nooit gedeeld.</p>
     <div class="field" style="margin-bottom:16px">
       <label>API-sleutel</label>
       <input type="text" id="keyInput" placeholder="gsk_..." autocomplete="off">
@@ -142,6 +152,116 @@ footer .s{color:var(--green);font-weight:900}
 
 <div class="form-wrap">
 
+  <!-- 0: Agent outputs -->
+  <div class="section-card">
+    <div class="section-hd open" onclick="tog('sec0')">
+      <h2>0 &nbsp;·&nbsp; Agent Outputs <span style="color:var(--grey);font-weight:400;font-size:.8rem;text-transform:none;letter-spacing:0">&nbsp;(optioneel maar aanbevolen)</span></h2>
+      <span class="ico">▼</span>
+    </div>
+    <div class="section-body" id="sec0">
+      <p style="color:var(--grey);font-size:.84rem;margin-bottom:4px">Plak de uitkomsten van de Spring agents hieronder of upload de bestanden. De Website Agent gebruikt deze input voor een betere en consistentere output.</p>
+
+      <div class="agent-panel">
+        <div class="agent-hd">
+          <span class="agent-hd-name">1 · Positionering Agent</span>
+          <a href="https://samklijn.github.io/doelgroepen-agent/" target="_blank" class="btn btn-sm btn-secondary" style="padding:6px 12px;font-size:.75rem">↗ Open agent</a>
+        </div>
+        <div class="agent-body">
+          <div class="field"><label>Output / aantekeningen</label>
+            <textarea id="agPos" rows="4" placeholder="Plak hier de output van de Positionering Agent (doelgroepen, emoties, onderscheidend vermogen, verkoopargumenten)..."></textarea>
+          </div>
+          <div class="upload-row">
+            <input type="file" id="fPos" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fPos','agPos','lblPos')">
+            <label for="fPos" class="upload-label" id="lblPos">📎 Bestand uploaden</label>
+            <span class="agent-hint">Ondersteund: .txt .md .html .json .csv .rtf</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-panel">
+        <div class="agent-hd">
+          <span class="agent-hd-name">2 · Branding Agent</span>
+          <a href="https://samklijn.github.io/branding-agent/" target="_blank" class="btn btn-sm btn-secondary" style="padding:6px 12px;font-size:.75rem">↗ Open agent</a>
+        </div>
+        <div class="agent-body">
+          <div class="field"><label>Output / aantekeningen</label>
+            <textarea id="agBrand" rows="4" placeholder="Plak hier de output van de Branding Agent (Brand DNA, kernwaarden, tone of voice, USPs)..."></textarea>
+          </div>
+          <div class="upload-row">
+            <input type="file" id="fBrand" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fBrand','agBrand','lblBrand')">
+            <label for="fBrand" class="upload-label" id="lblBrand">📎 Bestand uploaden</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-panel">
+        <div class="agent-hd">
+          <span class="agent-hd-name">3 · Naming Agent</span>
+          <a href="https://samklijn.github.io/naming-agent/" target="_blank" class="btn btn-sm btn-secondary" style="padding:6px 12px;font-size:.75rem">↗ Open agent</a>
+        </div>
+        <div class="agent-body">
+          <div class="field"><label>Output / aantekeningen</label>
+            <textarea id="agNaming" rows="3" placeholder="Plak hier de output van de Naming Agent (gekozen projectnaam, pay-off, onderbouwing)..."></textarea>
+          </div>
+          <div class="upload-row">
+            <input type="file" id="fNaming" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fNaming','agNaming','lblNaming')">
+            <label for="fNaming" class="upload-label" id="lblNaming">📎 Bestand uploaden</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-panel">
+        <div class="agent-hd">
+          <span class="agent-hd-name">4 · Storytelling Agent</span>
+          <a href="https://samklijn.github.io/storytelling-agent/" target="_blank" class="btn btn-sm btn-secondary" style="padding:6px 12px;font-size:.75rem">↗ Open agent</a>
+        </div>
+        <div class="agent-body">
+          <div class="field"><label>Output / aantekeningen</label>
+            <textarea id="agStory" rows="4" placeholder="Plak hier de output van de Storytelling Agent (projectverhaal, locatiebeleving, merkgevoel)..."></textarea>
+          </div>
+          <div class="upload-row">
+            <input type="file" id="fStory" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fStory','agStory','lblStory')">
+            <label for="fStory" class="upload-label" id="lblStory">📎 Bestand uploaden</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-panel">
+        <div class="agent-hd">
+          <span class="agent-hd-name">5 · Visual Identity Agent</span>
+          <span class="agent-hint" style="font-size:.78rem;color:#555">Komt binnenkort online</span>
+        </div>
+        <div class="agent-body">
+          <div class="field"><label>Output / aantekeningen</label>
+            <textarea id="agVisual" rows="4" placeholder="Plak hier de output van de Visual Identity Agent (kleuren, typografie, fotografie, moodboard-beschrijving, uitstraling)..."></textarea>
+          </div>
+          <div class="upload-row">
+            <input type="file" id="fVisual" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fVisual','agVisual','lblVisual')">
+            <label for="fVisual" class="upload-label" id="lblVisual">📎 Bestand uploaden</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-panel">
+        <div class="agent-hd">
+          <span class="agent-hd-name">Overige bestanden / aanvullende info</span>
+        </div>
+        <div class="agent-body">
+          <div class="field"><label>Aanvullende opmerkingen of documenten</label>
+            <textarea id="agExtra" rows="3" placeholder="Bijv. eerder gemaakte teksten, bestaande brochure-inhoud, locatiebeschrijving, speciale eisen..."></textarea>
+          </div>
+          <div class="upload-row">
+            <input type="file" id="fExtra" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fExtra','agExtra','lblExtra')" multiple>
+            <label for="fExtra" class="upload-label" id="lblExtra">📎 Bestanden uploaden</label>
+            <span class="agent-hint">Meerdere bestanden selecteerbaar</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 1: Project -->
   <div class="section-card">
     <div class="section-hd open" onclick="tog('sec1')">
       <h2>1 &nbsp;·&nbsp; Projectinformatie</h2>
@@ -157,22 +277,18 @@ footer .s{color:var(--green);font-weight:900}
         <div class="field"><label>Wijk / Buurt</label><input type="text" id="wijk" placeholder="bijv. Noorderhaven"></div>
       </div>
       <div class="grid2">
-        <div class="field">
-          <label>Type transactie</label>
-          <select id="transactie">
-            <option value="koopwoningen">Koopwoningen</option>
-            <option value="huurwoningen">Huurwoningen</option>
-            <option value="koop en huur">Koop &amp; Huur</option>
-          </select>
-        </div>
+        <div class="field"><label>Type transactie</label><select id="transactie"><option value="koopwoningen">Koopwoningen</option><option value="huurwoningen">Huurwoningen</option><option value="koop en huur">Koop &amp; Huur</option></select></div>
         <div class="field"><label>Totaal aantal woningen</label><input type="number" id="aantalTotaal" placeholder="bijv. 42"></div>
       </div>
       <div class="field"><label>Projectomschrijving <span class="req">*</span></label><textarea id="omschrijving" rows="3" placeholder="Wat maakt dit project bijzonder? Architectuur, sfeer, concept..."></textarea></div>
-      <div class="field"><label>Architectuur / bouwstijl</label><input type="text" id="architectuur" placeholder="bijv. industrieel erfgoed, moderne jaren-30 interpretatie"></div>
-      <div class="field"><label>Duurzaamheid &amp; energielabel</label><input type="text" id="duurzaamheid" placeholder="bijv. Energie A++, warmtepomp, zonnepanelen"></div>
+      <div class="grid2">
+        <div class="field"><label>Architectuur / bouwstijl</label><input type="text" id="architectuur" placeholder="bijv. industrieel erfgoed, moderne jaren-30 interpretatie"></div>
+        <div class="field"><label>Duurzaamheid &amp; energielabel</label><input type="text" id="duurzaamheid" placeholder="bijv. Energie A++, warmtepomp, zonnepanelen"></div>
+      </div>
     </div>
   </div>
 
+  <!-- 2: Woningtypen -->
   <div class="section-card">
     <div class="section-hd open" onclick="tog('sec2')">
       <h2>2 &nbsp;·&nbsp; Woningtypen</h2>
@@ -184,13 +300,14 @@ footer .s{color:var(--green);font-weight:900}
     </div>
   </div>
 
+  <!-- 3: Planning -->
   <div class="section-card">
     <div class="section-hd open" onclick="tog('sec3')">
       <h2>3 &nbsp;·&nbsp; Planning</h2>
       <span class="ico">▼</span>
     </div>
     <div class="section-body" id="sec3">
-      <div class="planning-items" id="planItems">
+      <div class="planning-items">
         <div class="plan-item"><div class="plan-nr">1</div><div class="field"><label>Fase</label><input type="text" id="fase1" value="Ori&#235;ntatie &amp; Informatie"></div><div class="field"><label>Datum / kwartaal</label><input type="text" id="datum1" placeholder="bijv. Q3 2025"></div></div>
         <div class="plan-item"><div class="plan-nr">2</div><div class="field"><label>Fase</label><input type="text" id="fase2" value="Start verkoop"></div><div class="field"><label>Datum / kwartaal</label><input type="text" id="datum2" placeholder="bijv. Q4 2025"></div></div>
         <div class="plan-item"><div class="plan-nr">3</div><div class="field"><label>Fase</label><input type="text" id="fase3" value="Start bouw"></div><div class="field"><label>Datum / kwartaal</label><input type="text" id="datum3" placeholder="bijv. Q1 2026"></div></div>
@@ -200,6 +317,7 @@ footer .s{color:var(--green);font-weight:900}
     </div>
   </div>
 
+  <!-- 4: Branding -->
   <div class="section-card">
     <div class="section-hd open" onclick="tog('sec4')">
       <h2>4 &nbsp;·&nbsp; Branding &amp; Visual</h2>
@@ -207,44 +325,21 @@ footer .s{color:var(--green);font-weight:900}
     </div>
     <div class="section-body" id="sec4">
       <div class="grid2">
-        <div class="field">
-          <label>Primaire kleur</label>
-          <div class="color-row">
-            <input type="color" id="cpPrim" value="#1C3A4A" oninput="syncColor('cpPrim','hPrim')">
-            <input type="text" id="hPrim" value="#1C3A4A" oninput="syncHex('hPrim','cpPrim')" maxlength="7" placeholder="#000000">
-          </div>
-        </div>
-        <div class="field">
-          <label>Accentkleur</label>
-          <div class="color-row">
-            <input type="color" id="cpAcc" value="#C9A84C" oninput="syncColor('cpAcc','hAcc')">
-            <input type="text" id="hAcc" value="#C9A84C" oninput="syncHex('hAcc','cpAcc')" maxlength="7" placeholder="#000000">
-          </div>
-        </div>
+        <div class="field"><label>Primaire kleur</label><div class="color-row"><input type="color" id="cpPrim" value="#1C3A4A" oninput="syncColor('cpPrim','hPrim')"><input type="text" id="hPrim" value="#1C3A4A" oninput="syncHex('hPrim','cpPrim')" maxlength="7"></div></div>
+        <div class="field"><label>Accentkleur</label><div class="color-row"><input type="color" id="cpAcc" value="#C9A84C" oninput="syncColor('cpAcc','hAcc')"><input type="text" id="hAcc" value="#C9A84C" oninput="syncHex('hAcc','cpAcc')" maxlength="7"></div></div>
       </div>
       <div class="grid2">
-        <div class="field">
-          <label>Achtergrondkleur</label>
-          <div class="color-row">
-            <input type="color" id="cpBg" value="#F7F3EC" oninput="syncColor('cpBg','hBg')">
-            <input type="text" id="hBg" value="#F7F3EC" oninput="syncHex('hBg','cpBg')" maxlength="7" placeholder="#ffffff">
-          </div>
-        </div>
-        <div class="field">
-          <label>Font-stijl</label>
-          <select id="fontStijl">
-            <option value="modern">Modern — Inter (strak, zakelijk)</option>
-            <option value="klassiek">Klassiek — Cormorant (elegant, tijdloos)</option>
-            <option value="bold">Bold — Archivo Black (statement, krachtig)</option>
-            <option value="minimal">Minimaal — DM Sans (rustig, helder)</option>
-          </select>
-        </div>
+        <div class="field"><label>Achtergrondkleur</label><div class="color-row"><input type="color" id="cpBg" value="#F7F3EC" oninput="syncColor('cpBg','hBg')"><input type="text" id="hBg" value="#F7F3EC" oninput="syncHex('hBg','cpBg')" maxlength="7"></div></div>
+        <div class="field"><label>Font-stijl</label><select id="fontStijl"><option value="modern">Modern — Inter</option><option value="klassiek">Klassiek — Cormorant</option><option value="bold">Bold — Archivo Black</option><option value="minimal">Minimaal — DM Sans</option></select></div>
       </div>
-      <div class="field"><label>Merkrichting / sfeerwoorden</label><input type="text" id="sfeer" placeholder="bijv. industrieel, warm, historisch, eigentijds, vakmanschap"></div>
-      <div class="field"><label>Tagline</label><input type="text" id="tagline" placeholder="bijv. Wonen waar het water werkt."></div>
+      <div class="grid2">
+        <div class="field"><label>Merkrichting / sfeerwoorden</label><input type="text" id="sfeer" placeholder="bijv. industrieel, warm, historisch, vakmanschap"></div>
+        <div class="field"><label>Tagline</label><input type="text" id="tagline" placeholder="bijv. Wonen waar het water werkt."></div>
+      </div>
     </div>
   </div>
 
+  <!-- 5: Storytelling -->
   <div class="section-card">
     <div class="section-hd open" onclick="tog('sec5')">
       <h2>5 &nbsp;·&nbsp; Storytelling &amp; Positionering</h2>
@@ -253,11 +348,12 @@ footer .s{color:var(--green);font-weight:900}
     <div class="section-body" id="sec5">
       <div class="field"><label>Kernboodschap <span class="req">*</span></label><textarea id="kernboodschap" rows="3" placeholder="Wat is de essentie van dit project? Waarom is dit bijzonder voor de doelgroep?"></textarea></div>
       <div class="field"><label>Doelgroep <span class="req">*</span></label><textarea id="doelgroep" rows="3" placeholder="bijv. Jonge professionals en stellen die bewust kiezen voor karaktervolle, binnenstedelijke woningen."></textarea></div>
-      <div class="field"><label>Belangrijkste USPs (1 per regel)</label><textarea id="usps" rows="4" placeholder="bijv.&#10;Monumentale industriële uitstraling&#10;Aan het water, centrum op loopafstand&#10;Hoge plafonds en grote ramen&#10;Duurzaam en energiezuinig (A++)"></textarea></div>
+      <div class="field"><label>Belangrijkste USPs (1 per regel)</label><textarea id="usps" rows="4" placeholder="bijv.&#10;Monumentale industriële uitstraling&#10;Aan het water, centrum op loopafstand&#10;Hoge plafonds en grote ramen"></textarea></div>
       <div class="field"><label>Omgeving / locatievoordelen</label><textarea id="omgeving" rows="3" placeholder="Wat is bijzonder aan de omgeving? Voorzieningen, bereikbaarheid, natuur, cultuur..."></textarea></div>
     </div>
   </div>
 
+  <!-- 6: Verkoop & Contact -->
   <div class="section-card">
     <div class="section-hd open" onclick="tog('sec6')">
       <h2>6 &nbsp;·&nbsp; Verkoop &amp; Contact</h2>
@@ -310,6 +406,7 @@ footer .s{color:var(--green);font-weight:900}
     <div class="step" id="s1"><div class="step-dot">1</div><div class="step-label">Locatieonderzoek</div><div class="step-detail" id="s1d">Wacht...</div></div>
     <div class="step" id="s2"><div class="step-dot">2</div><div class="step-label">Webcopy genereren (12 secties)</div><div class="step-detail" id="s2d">Wacht...</div></div>
     <div class="step" id="s3"><div class="step-dot">3</div><div class="step-label">FAQ &amp; SEO genereren</div><div class="step-detail" id="s3d">Wacht...</div></div>
+    <div class="step" id="s4" style="display:none"><div class="step-dot">↺</div><div class="step-label">Feedback verwerken</div><div class="step-detail" id="s4d">Wacht...</div></div>
   </div>
   <div id="errBox" style="display:none;margin-top:12px"></div>
 </div>
@@ -323,11 +420,22 @@ footer .s{color:var(--green);font-weight:900}
     </div>
   </div>
   <div class="iframe-container"><iframe id="previewFrame" title="Website preview"></iframe></div>
-  <div class="seo-card" id="seoCard">
+  <div class="seo-card">
     <details>
       <summary>SEO-gegevens</summary>
       <div class="seo-inner" id="seoInner"></div>
     </details>
+  </div>
+  <!-- Feedback -->
+  <div class="feedback-card" id="feedbackCard">
+    <h3>Feedback geven</h3>
+    <p>Beschrijf wat je anders wilt. Noem specifieke secties als dat van toepassing is (bijv. "hero", "wonen", "FAQ").</p>
+    <textarea id="feedbackInput" placeholder="bijv. 'De hero-tekst is te formeel, maak hem warmer' of 'Voeg meer nadruk toe op duurzaamheid in de Wonen-sectie' of 'Genereer een andere tagline'..."></textarea>
+    <div class="feedback-actions">
+      <button class="btn btn-primary btn-sm" onclick="applyFeedback()">Verwerk feedback</button>
+      <button class="btn btn-secondary btn-sm" onclick="document.getElementById('feedbackInput').value=''">Wis</button>
+      <span class="feedback-hint">De one-pager wordt bijgewerkt op basis van je feedback.</span>
+    </div>
   </div>
 </div>
 
@@ -340,58 +448,70 @@ footer .s{color:var(--green);font-weight:900}
 var GU='https://api.groq.com/openai/v1/chat/completions';
 var wtCount=0;
 var generatedHtml='';
+var lastFormData=null;
+var lastContent=null;
+var lastFaq=[];
 
-function saveKey(){
-  var k=document.getElementById('keyInput').value.trim();
-  if(!k){alert('Vul een API-sleutel in.');return;}
-  localStorage.setItem('spring_groq_key',k);
-  document.getElementById('setupModal').style.display='none';
-}
+/* ---- API key ---- */
+function saveKey(){var k=document.getElementById('keyInput').value.trim();if(!k){alert('Vul een API-sleutel in.');return;}localStorage.setItem('spring_groq_key',k);document.getElementById('setupModal').style.display='none';}
 function showSetup(){document.getElementById('setupModal').style.display='flex';}
 (function(){if(!localStorage.getItem('spring_groq_key'))showSetup();else document.getElementById('setupModal').style.display='none';})();
 
-function tog(id){
-  var b=document.getElementById(id);
-  var h=b.previousElementSibling;
-  if(b.classList.contains('hidden')){b.classList.remove('hidden');h.classList.add('open');}
-  else{b.classList.add('hidden');h.classList.remove('open');}
-}
+/* ---- Sections ---- */
+function tog(id){var b=document.getElementById(id);var h=b.previousElementSibling;if(b.classList.contains('hidden')){b.classList.remove('hidden');h.classList.add('open');}else{b.classList.add('hidden');h.classList.remove('open');}}
 
+/* ---- Color pickers ---- */
 function syncColor(cid,tid){document.getElementById(tid).value=document.getElementById(cid).value;}
-function syncHex(tid,cid){
-  var v=document.getElementById(tid).value.trim();
-  if(/^#[0-9a-fA-F]{6}$/.test(v))document.getElementById(cid).value=v;
+function syncHex(tid,cid){var v=document.getElementById(tid).value.trim();if(/^#[0-9a-fA-F]{6}$/.test(v))document.getElementById(cid).value=v;}
+
+/* ---- File upload ---- */
+function handleFile(inputId,textareaId,labelId){
+  var input=document.getElementById(inputId);
+  var files=Array.from(input.files);
+  if(!files.length)return;
+  var ta=document.getElementById(textareaId);
+  var lbl=document.getElementById(labelId);
+  var textExts=['.txt','.md','.html','.htm','.csv','.json','.rtf','.xml'];
+  files.forEach(function(file){
+    var isText=file.type.startsWith('text/')||textExts.some(function(e){return file.name.toLowerCase().endsWith(e);});
+    if(isText){
+      var reader=new FileReader();
+      reader.onload=function(e){
+        var existing=ta.value.trim();
+        ta.value=(existing?existing+'\n\n':'')+'--- '+file.name+' ---\n'+e.target.result;
+        if(lbl){lbl.textContent='✓ '+file.name;lbl.classList.add('has-file');}
+      };
+      reader.readAsText(file,'UTF-8');
+    }else{
+      var existing=ta.value.trim();
+      ta.value=(existing?existing+'\n':'')+'[Bestand: '+file.name+' — type niet automatisch leesbaar, plak de tekst handmatig]';
+      if(lbl){lbl.textContent='⚠ '+file.name+' (handmatig plakken)';lbl.classList.add('has-file');}
+    }
+  });
+  input.value='';
 }
 
+/* ---- Woningtypen ---- */
 function addWt(){
-  wtCount++;
-  var n=wtCount;
-  var div=document.createElement('div');
-  div.className='wt-block';div.id='wt'+n;
-  div.innerHTML=
-    '<div class="wt-title">Woningtype '+n+'</div>'+
+  wtCount++;var n=wtCount;
+  var div=document.createElement('div');div.className='wt-block';div.id='wt'+n;
+  div.innerHTML='<div class="wt-title">Woningtype '+n+'</div>'+
     '<button class="wt-remove" onclick="removeWt('+n+')">Verwijder</button>'+
-    '<div class="grid2" style="margin-bottom:12px">'+
-      '<div class="field"><label>Naam type</label><input type="text" id="wtnaam'+n+'" placeholder="bijv. Type A &#8211; Loft"></div>'+
-      '<div class="field"><label>Woningtype</label><select id="wttype'+n+'"><option>Appartement</option><option>Loft</option><option>Penthouse</option><option>Maisonnette</option><option>Woning</option><option>Tussenwoning</option><option>Hoekwoning</option><option>Vrijstaand</option></select></div>'+
-    '</div>'+
-    '<div class="grid3" style="margin-bottom:12px">'+
-      '<div class="field"><label>Opp. van (m&#178;)</label><input type="number" id="wtopp1'+n+'" placeholder="70"></div>'+
-      '<div class="field"><label>Opp. tot (m&#178;)</label><input type="number" id="wtopp2'+n+'" placeholder="120"></div>'+
-      '<div class="field"><label>Kamers</label><input type="number" id="wtkamers'+n+'" placeholder="3"></div>'+
-    '</div>'+
-    '<div class="grid2" style="margin-bottom:12px">'+
-      '<div class="field"><label>Prijs vanaf (&#8364;)</label><input type="number" id="wtprijs'+n+'" placeholder="395000"></div>'+
-      '<div class="field"><label>Aantal woningen</label><input type="number" id="wtaantal'+n+'" placeholder="12"></div>'+
-    '</div>'+
+    '<div class="grid2" style="margin-bottom:12px"><div class="field"><label>Naam type</label><input type="text" id="wtnaam'+n+'" placeholder="bijv. Type A &#8211; Loft"></div>'+
+    '<div class="field"><label>Woningtype</label><select id="wttype'+n+'"><option>Appartement</option><option>Loft</option><option>Penthouse</option><option>Maisonnette</option><option>Woning</option><option>Tussenwoning</option><option>Hoekwoning</option><option>Vrijstaand</option></select></div></div>'+
+    '<div class="grid3" style="margin-bottom:12px"><div class="field"><label>Opp. van (m&#178;)</label><input type="number" id="wtopp1'+n+'" placeholder="70"></div>'+
+    '<div class="field"><label>Opp. tot (m&#178;)</label><input type="number" id="wtopp2'+n+'" placeholder="120"></div>'+
+    '<div class="field"><label>Kamers</label><input type="number" id="wtkamers'+n+'" placeholder="3"></div></div>'+
+    '<div class="grid2" style="margin-bottom:12px"><div class="field"><label>Prijs vanaf (&#8364;)</label><input type="number" id="wtprijs'+n+'" placeholder="395000"></div>'+
+    '<div class="field"><label>Aantal woningen</label><input type="number" id="wtaantal'+n+'" placeholder="12"></div></div>'+
     '<div class="field"><label>Bijzonderheden</label><textarea id="wtbijz'+n+'" rows="2" placeholder="bijv. eigen parkeerplaats, privé terras, uitzicht op water"></textarea></div>';
   document.getElementById('wtList').appendChild(div);
 }
 function removeWt(n){var el=document.getElementById('wt'+n);if(el)el.remove();}
 addWt();
 
+/* ---- Collect form data ---- */
 function gv(id){var el=document.getElementById(id);return el?el.value.trim():'';}
-
 function gfd(){
   var f={
     naam:gv('naam'),slug:gv('slug')||(gv('naam').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')),
@@ -403,20 +523,22 @@ function gfd(){
     ontwnaam:gv('ontwnaam'),ontwsite:gv('ontwsite'),ontwbio:gv('ontwbio'),
     cpnaam:gv('cpnaam'),cptitel:gv('cptitel'),cpmail:gv('cpmail'),cptel:gv('cptel'),
     cta1:gv('cta1')||'Meld je aan',cta2:gv('cta2')||'Download brochure',
-    downloads:[],planning:[],woningtypen:[]
+    downloads:[],planning:[],woningtypen:[],
+    agentOutputs:{
+      positionering:gv('agPos'),branding:gv('agBrand'),naming:gv('agNaming'),
+      storytelling:gv('agStory'),visual:gv('agVisual'),extra:gv('agExtra')
+    }
   };
-  [['dlBrochure','Verkoopbrochure'],['dlPlattegrond','Plattegronden'],['dlPrijslijst','Prijslijst'],['dlKopersinfo','Kopershandleiding']].forEach(function(d){
-    var el=document.getElementById(d[0]);if(el&&el.checked)f.downloads.push(d[1]);
-  });
+  [['dlBrochure','Verkoopbrochure'],['dlPlattegrond','Plattegronden'],['dlPrijslijst','Prijslijst'],['dlKopersinfo','Kopershandleiding']].forEach(function(d){var el=document.getElementById(d[0]);if(el&&el.checked)f.downloads.push(d[1]);});
   for(var i=1;i<=5;i++){var fa=gv('fase'+i),da=gv('datum'+i);if(fa&&da)f.planning.push({fase:fa,datum:da});}
   document.querySelectorAll('[id^="wtnaam"]').forEach(function(el){
-    var n=el.id.replace('wtnaam','');
-    if(!el.value.trim())return;
+    var n=el.id.replace('wtnaam','');if(!el.value.trim())return;
     f.woningtypen.push({naam:el.value.trim(),type:gv('wttype'+n),opp1:gv('wtopp1'+n),opp2:gv('wtopp2'+n),kamers:gv('wtkamers'+n),prijs:gv('wtprijs'+n),aantal:gv('wtaantal'+n),bijz:gv('wtbijz'+n)});
   });
   return f;
 }
 
+/* ---- Font map ---- */
 var fontMap={
   'modern':{url:'Inter:wght@300;400;600;700;800',hf:"'Inter',sans-serif",bf:"'Inter',sans-serif"},
   'klassiek':{url:'Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400',hf:"'Cormorant Garamond',serif",bf:"'Inter',sans-serif"},
@@ -424,45 +546,37 @@ var fontMap={
   'minimal':{url:'DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400',hf:"'DM Sans',sans-serif",bf:"'DM Sans',sans-serif"}
 };
 
-function contrast(hex){
-  var h=(hex||'').replace('#','');
-  if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
-  if(h.length!==6)return '#ffffff';
-  var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);
-  return(0.299*r+0.587*g+0.114*b)/255>0.55?'#111111':'#ffffff';
-}
-function lighten(hex,amt){
-  var h=(hex||'#000000').replace('#','');
-  if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
-  var r=Math.min(255,Math.max(0,parseInt(h.substr(0,2),16)+amt));
-  var g=Math.min(255,Math.max(0,parseInt(h.substr(2,2),16)+amt));
-  var b=Math.min(255,Math.max(0,parseInt(h.substr(4,2),16)+amt));
-  return '#'+(r<16?'0':'')+r.toString(16)+(g<16?'0':'')+g.toString(16)+(b<16?'0':'')+b.toString(16);
-}
-function alpha(hex,a){
-  var h=(hex||'#000000').replace('#','');
-  if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
-  var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);
-  return 'rgba('+r+','+g+','+b+','+a+')';
-}
+/* ---- Color helpers ---- */
+function contrast(hex){var h=(hex||'').replace('#','');if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];if(h.length!==6)return '#ffffff';var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return(0.299*r+0.587*g+0.114*b)/255>0.55?'#111111':'#ffffff';}
+function lighten(hex,amt){var h=(hex||'#000000').replace('#','');if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];var r=Math.min(255,Math.max(0,parseInt(h.substr(0,2),16)+amt));var g=Math.min(255,Math.max(0,parseInt(h.substr(2,2),16)+amt));var b=Math.min(255,Math.max(0,parseInt(h.substr(4,2),16)+amt));return '#'+(r<16?'0':'')+r.toString(16)+(g<16?'0':'')+g.toString(16)+(b<16?'0':'')+b.toString(16);}
+function alpha(hex,a){var h=(hex||'#000000').replace('#','');if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return 'rgba('+r+','+g+','+b+','+a+')';}
 
-function setStep(n,state,detail){
-  var el=document.getElementById('s'+n);
-  el.className='step'+(state?' '+state:'');
-  if(detail!==undefined)document.getElementById('s'+n+'d').textContent=detail;
-}
+/* ---- Step UI ---- */
+function setStep(n,state,detail){var el=document.getElementById('s'+n);if(!el)return;el.className='step'+(state?' '+state:'');if(detail!==undefined)document.getElementById('s'+n+'d').textContent=detail;}
 function showErr(msg){var b=document.getElementById('errBox');b.style.display='block';b.innerHTML='<div class="err-msg">'+msg+'</div>';}
 
+/* ---- Agent outputs as context string ---- */
+function agentContext(ao){
+  var parts=[];
+  if(ao.positionering)parts.push('=== POSITIONERING AGENT ===\n'+ao.positionering);
+  if(ao.branding)parts.push('=== BRANDING AGENT ===\n'+ao.branding);
+  if(ao.naming)parts.push('=== NAMING AGENT ===\n'+ao.naming);
+  if(ao.storytelling)parts.push('=== STORYTELLING AGENT ===\n'+ao.storytelling);
+  if(ao.visual)parts.push('=== VISUAL IDENTITY AGENT ===\n'+ao.visual);
+  if(ao.extra)parts.push('=== AANVULLENDE INFO ===\n'+ao.extra);
+  return parts.length?'\n\nGEGOEDGEKEURDE AGENT OUTPUTS (gebruik deze als leidraad):\n'+parts.join('\n\n'):'';
+}
+
+/* ---- Main generate ---- */
 async function generate(){
   var key=localStorage.getItem('spring_groq_key');
   if(!key){showSetup();return;}
   var f=gfd();
-  if(!f.naam||!f.loc||!f.omschrijving||!f.kernboodschap||!f.doelgroep){
-    alert('Vul minimaal in: projectnaam, locatie, projectomschrijving, kernboodschap en doelgroep.');return;
-  }
+  if(!f.naam||!f.loc||!f.omschrijving||!f.kernboodschap||!f.doelgroep){alert('Vul minimaal in: projectnaam, locatie, projectomschrijving, kernboodschap en doelgroep.');return;}
   document.getElementById('genBar').style.display='none';
   document.getElementById('statusWrap').style.display='block';
   document.getElementById('previewWrap').style.display='none';
+  document.getElementById('s4').style.display='none';
   document.getElementById('errBox').style.display='none';
   setStep(1,'active','Locatie opzoeken...');setStep(2,'','Wacht...');setStep(3,'','Wacht...');
   try{
@@ -474,17 +588,42 @@ async function generate(){
     setStep(3,'active','FAQ en SEO...');
     var faqSeo=await step3(key,f,content);
     setStep(3,'done','Klaar');
-    var html=buildOnepager(f,content,faqSeo.faq||[]);
+    lastFormData=f;lastContent=content;lastFaq=faqSeo.faq||[];
+    var html=buildOnepager(f,content,lastFaq);
     generatedHtml=html;
     showPreview(html,faqSeo.seo||{});
   }catch(e){
-    var active=document.querySelector('.step.active');
-    if(active)active.className='step error';
+    var active=document.querySelector('.step.active');if(active)active.className='step error';
     showErr('Fout: '+(e.message||String(e)));
     document.getElementById('genBar').style.display='block';
   }
 }
 
+/* ---- Feedback ---- */
+async function applyFeedback(){
+  var key=localStorage.getItem('spring_groq_key');
+  if(!key){showSetup();return;}
+  var feedback=document.getElementById('feedbackInput').value.trim();
+  if(!feedback){alert('Vul feedback in.');return;}
+  if(!lastContent||!lastFormData){alert('Genereer eerst een website.');return;}
+  document.getElementById('s4').style.display='flex';
+  setStep(4,'active','Feedback verwerken...');
+  document.getElementById('errBox').style.display='none';
+  try{
+    var updated=await step4(key,lastFormData,lastContent,feedback);
+    lastContent=updated;
+    var html=buildOnepager(lastFormData,updated,lastFaq);
+    generatedHtml=html;
+    document.getElementById('previewFrame').srcdoc=html;
+    setStep(4,'done','Klaar');
+    document.getElementById('feedbackInput').value='';
+  }catch(e){
+    setStep(4,'error','Fout');
+    showErr('Feedback fout: '+(e.message||String(e)));
+  }
+}
+
+/* ---- Groq step 1: location ---- */
 async function step1(key,f){
   var loc=f.loc+(f.wijk?' ('+f.wijk+')':'');
   var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
@@ -493,407 +632,119 @@ async function step1(key,f){
   return(await r.json()).choices[0].message.content||'';
 }
 
+/* ---- Groq step 2: copy ---- */
 async function step2(key,f,locCtx){
-  var wtSummary=f.woningtypen.map(function(w,i){
-    return (i+1)+'. '+w.naam+' ('+w.type+'): '+(w.opp1||'?')+(w.opp2?'–'+w.opp2:'')+'m², '+(w.kamers?w.kamers+' kamers, ':'')+
-      (w.prijs?'v.a. €'+Number(w.prijs).toLocaleString('nl-NL'):'')+
-      (w.aantal?', '+w.aantal+' woningen':'')+(w.bijz?', '+w.bijz:'');
-  }).join('\n')||'Niet opgegeven';
+  var wt=f.woningtypen.map(function(w,i){return (i+1)+'. '+w.naam+' ('+w.type+'): '+(w.opp1||'?')+(w.opp2?'–'+w.opp2:'')+'m², '+(w.kamers?w.kamers+' kamers, ':'')+' '+(w.prijs?'v.a. €'+Number(w.prijs).toLocaleString('nl-NL'):'')+' '+(w.bijz||'');}).join('\n')||'Niet opgegeven';
+  var agCtx=agentContext(f.agentOutputs);
   var prompt='Je bent een senior UX-copywriter voor Nederlandse nieuwbouwprojecten. Schrijf directe, publiceerbare webcopy in het Nederlands.\n\n'+
     'PROJECT: '+f.naam+'\nLocatie: '+f.loc+(f.wijk?' ('+f.wijk+')':'')+'\nType: '+f.transactie+(f.aantalTotaal?', '+f.aantalTotaal+' woningen':'')+
     '\nOmschrijving: '+f.omschrijving+'\nArchitectuur: '+(f.architectuur||'nvt')+'\nDuurzaamheid: '+(f.duurzaamheid||'nvt')+
     '\nTagline: '+(f.tagline||'nvt')+'\nSfeer: '+(f.sfeer||'nvt')+'\nKernboodschap: '+f.kernboodschap+
     '\nDoelgroep: '+f.doelgroep+'\nUSPs:\n'+(f.usps||'nvt')+'\nOmgeving: '+(f.omgeving||'nvt')+
-    '\nWoningtypen:\n'+wtSummary+'\nLocatiecontext (internet):\n'+locCtx+
-    '\n\nGeef UITSLUITEND een geldig JSON-object terug met deze exacte sleutels:\n'+
+    '\nWoningtypen:\n'+wt+'\nLocatiecontext:\n'+locCtx+agCtx+
+    '\n\nGeef UITSLUITEND een geldig JSON-object terug:\n'+
     '{"hero_titel":"H1 max 6 woorden","hero_subtitel":"ondertitel max 10 woorden","hero_intro":"1-2 zinnen","hero_beeld":"beschrijving ideaal sfeerbeeld",'+
-    '"waarom_intro":"intro waarom-sectie 1-2 zinnen","waarom_usps":[{"icoon":"emoji","titel":"kort","tekst":"2 zinnen"}],"waarom_slot":"afsluitende zin",'+
-    '"wonen_intro":"2-3 zinnen over kwaliteit architectuur duurzaamheid","wonen_punten":["punt1","punt2","punt3","punt4"],'+
+    '"waarom_intro":"intro 1-2 zinnen","waarom_usps":[{"icoon":"emoji","titel":"kort","tekst":"2 zinnen"}],"waarom_slot":"afsluitende zin",'+
+    '"wonen_intro":"2-3 zinnen","wonen_punten":["punt1","punt2","punt3","punt4"],'+
     '"locatie_intro":"2 zinnen","locatie_punten":[{"label":"categorie","tekst":"korte beschrijving"}],'+
-    '"leven_intro":"H2 voor leven-sectie","leven_tekst":"inspirerend 3-4 zinnen GEEN verkooptaal",'+
+    '"leven_intro":"H2","leven_tekst":"inspirerend 3-4 zinnen GEEN verkooptaal",'+
     '"aanbod_intro":"1 zin","planning_intro":"1 zin","impressies_tekst":"1-2 zinnen",'+
     '"ontwikkelaar_intro":"1 zin","contact_intro":"2 zinnen","footer_quote":"afsluitende zin"}\n'+
-    'Minimaal 4 waarom_usps en 4 locatie_punten. Geen lege marketingtaal.';
+    'Minimaal 4 waarom_usps en 4 locatie_punten. Gebruik agent outputs als leidraad voor toon en inhoud.';
   var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
     body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:prompt}],response_format:{type:'json_object'},max_tokens:2400,temperature:0.72})});
   if(!r.ok){var t=await r.text();throw new Error('Groq stap 2: HTTP '+r.status+' – '+t.substr(0,200));}
   var txt=(await r.json()).choices[0].message.content||'{}';
-  try{return JSON.parse(txt);}catch(e){throw new Error('JSON-parse stap 2 mislukt: '+txt.substr(0,200));}
+  try{return JSON.parse(txt);}catch(e){throw new Error('JSON-parse stap 2: '+txt.substr(0,200));}
 }
 
+/* ---- Groq step 3: FAQ + SEO ---- */
 async function step3(key,f,content){
-  var prompt='Je bent een SEO-specialist voor nieuwbouwprojecten. Schrijf in het Nederlands.\n\n'+
-    'PROJECT: '+f.naam+' – '+f.loc+(f.wijk?', '+f.wijk:'')+'\nDoelgroep: '+f.doelgroep+
-    '\nKernboodschap: '+f.kernboodschap+'\nTagline: '+(f.tagline||'')+'\nHero-titel: '+(content.hero_titel||'')+
-    '\n\nGeef UITSLUITEND een geldig JSON-object terug:\n'+
-    '{"faq":[{"vraag":"...","antwoord":"uitgebreid antwoord minimaal 2 zinnen"}],"seo":{"title":"paginatitel max 60 tekens","meta_description":"150-160 tekens","h1":"H1 tekst","h2_structuur":["H2 1","H2 2"],"focus_keyword":"primair zoekwoord","secundaire_zoekwoorden":["woord1","woord2","woord3"],"url_slug":"'+f.slug+'","og_titel":"Open Graph titel","og_beschrijving":"OG beschrijving"}}\n'+
-    'FAQ minimaal 10 vragen over: prijs, planning, registreren, bezichtigen, financiering, parkeren, duurzaamheid, omgeving, contracten, oplevering.';
+  var prompt='Je bent een SEO-specialist voor nieuwbouwprojecten.\n\n'+
+    'PROJECT: '+f.naam+' – '+f.loc+(f.wijk?', '+f.wijk:'')+'\nDoelgroep: '+f.doelgroep+'\nKernboodschap: '+f.kernboodschap+'\nHero-titel: '+(content.hero_titel||'')+
+    '\n\nGeef UITSLUITEND een geldig JSON-object:\n'+
+    '{"faq":[{"vraag":"...","antwoord":"minimaal 2 zinnen"}],"seo":{"title":"max 60 tekens","meta_description":"150-160 tekens","h1":"","h2_structuur":[""],"focus_keyword":"","secundaire_zoekwoorden":[""],"url_slug":"'+f.slug+'","og_titel":"","og_beschrijving":""}}\n'+
+    'FAQ minimaal 10 vragen: prijs, planning, registreren, bezichtigen, financiering, parkeren, duurzaamheid, omgeving, contracten, oplevering.';
   var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
     body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:prompt}],response_format:{type:'json_object'},max_tokens:2200,temperature:0.6})});
   if(!r.ok){var t=await r.text();throw new Error('Groq stap 3: HTTP '+r.status+' – '+t.substr(0,200));}
   var txt=(await r.json()).choices[0].message.content||'{}';
-  try{return JSON.parse(txt);}catch(e){throw new Error('JSON-parse stap 3 mislukt: '+txt.substr(0,200));}
+  try{return JSON.parse(txt);}catch(e){throw new Error('JSON-parse stap 3: '+txt.substr(0,200));}
 }
 
+/* ---- Groq step 4: feedback ---- */
+async function step4(key,f,content,feedback){
+  var prompt='Je hebt eerder webcopy gemaakt voor nieuwbouwproject "'+f.naam+'" in '+f.loc+'. De gebruiker heeft feedback gegeven.\n\n'+
+    'Huidige content:\n'+JSON.stringify(content,null,2)+'\n\n'+
+    'Feedback: '+feedback+'\n\n'+
+    'Pas ALLEEN de secties aan die in de feedback worden genoemd of die duidelijk verbetering behoeven. Laat de rest ongewijzigd. '+
+    'Geef UITSLUITEND de complete bijgewerkte JSON-content terug met EXACT dezelfde sleutels.';
+  var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:prompt}],response_format:{type:'json_object'},max_tokens:2400,temperature:0.65})});
+  if(!r.ok){var t=await r.text();throw new Error('Groq stap 4: HTTP '+r.status+' – '+t.substr(0,200));}
+  var txt=(await r.json()).choices[0].message.content||'{}';
+  try{return JSON.parse(txt);}catch(e){throw new Error('JSON-parse feedback: '+txt.substr(0,200));}
+}
+
+/* ---- HTML escape ---- */
 function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
+/* ---- Build one-pager ---- */
 function buildOnepager(f,c,faq){
   var fm=fontMap[f.fontStijl]||fontMap.modern;
-  var prim=f.cpPrim||'#1C3A4A';
-  var acc=f.cpAcc||'#C9A84C';
-  var bg=f.cpBg||'#F7F3EC';
-  var primTxt=contrast(prim);
-  var accTxt=contrast(acc);
-  var bgTxt=contrast(bg);
-  var primD=lighten(prim,-20);
+  var prim=f.cpPrim||'#1C3A4A',acc=f.cpAcc||'#C9A84C',bg=f.cpBg||'#F7F3EC';
+  var primTxt=contrast(prim),accTxt=contrast(acc),bgTxt=contrast(bg);
 
-  var uspCards=(c.waarom_usps||[]).map(function(u){
-    return '<div style="background:'+alpha(prim,.06)+';border:1px solid '+alpha(prim,.15)+';border-radius:10px;padding:24px;">'+
-      '<div style="font-size:2rem;margin-bottom:12px;">'+(u.icoon||'•')+'</div>'+
-      '<h3 style="font-family:'+fm.hf+';font-size:1rem;font-weight:700;color:'+bgTxt+';margin-bottom:8px;">'+esc(u.titel||'')+'</h3>'+
-      '<p style="color:'+alpha(bgTxt,.7)+';font-size:.9rem;line-height:1.65;">'+esc(u.tekst||'')+'</p></div>';
-  }).join('');
+  var uspCards=(c.waarom_usps||[]).map(function(u){return '<div style="background:'+alpha(prim,.06)+';border:1px solid '+alpha(prim,.15)+';border-radius:10px;padding:24px;"><div style="font-size:2rem;margin-bottom:12px;">'+(u.icoon||'•')+'</div><h3 style="font-family:'+fm.hf+';font-size:1rem;font-weight:700;color:'+bgTxt+';margin-bottom:8px;">'+esc(u.titel||'')+'</h3><p style="color:'+alpha(bgTxt,.7)+';font-size:.9rem;line-height:1.65;">'+esc(u.tekst||'')+'</p></div>';}).join('');
+  var wonenPunten=(c.wonen_punten||[]).map(function(p){return '<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><span style="color:'+acc+';line-height:1.4;flex-shrink:0;">&#10003;</span><span style="color:'+alpha(primTxt,.85)+';font-size:.95rem;">'+esc(p)+'</span></li>';}).join('');
+  var locPunten=(c.locatie_punten||[]).map(function(p){return '<div style="padding:13px 0;border-bottom:1px solid '+alpha(bgTxt,.1)+'"><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';font-weight:700;margin-bottom:3px;">'+esc(p.label||'')+'</div><div style="font-size:.95rem;color:'+bgTxt+'">'+esc(p.tekst||'')+'</div></div>';}).join('');
+  var wtCards=f.woningtypen.map(function(w){var prijs=w.prijs?'v.a. &#8364;'+Number(w.prijs).toLocaleString('nl-NL'):'Op aanvraag';var opp=w.opp1?(w.opp1+(w.opp2?'&#8211;'+w.opp2:'')+' m&#178;'):'';return '<div style="background:'+bg+';border:1px solid '+alpha(bgTxt,.12)+';border-radius:10px;overflow:hidden;display:flex;flex-direction:column;"><div style="background:'+prim+';padding:22px 24px;"><div style="color:'+alpha(primTxt,.5)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">'+esc(w.type)+'</div><h3 style="color:'+primTxt+';font-family:'+fm.hf+';font-size:1.2rem;font-weight:700;margin-bottom:8px;">'+esc(w.naam)+'</h3><div style="color:'+acc+';font-size:1.05rem;font-weight:700;">'+prijs+'</div></div><div style="padding:18px 24px;flex:1;display:flex;flex-direction:column;gap:8px;">'+(opp?'<div style="font-size:.88rem;color:'+bgTxt+'">□ '+opp+'</div>':'')+(w.kamers?'<div style="font-size:.88rem;color:'+bgTxt+'">&#8498; '+w.kamers+' kamers</div>':'')+(w.aantal?'<div style="font-size:.82rem;color:'+alpha(bgTxt,.55)+'">'+w.aantal+' woningen</div>':'')+(w.bijz?'<p style="color:'+alpha(bgTxt,.65)+';font-size:.82rem;margin-top:4px;">'+esc(w.bijz)+'</p>':'')+'<a href="#contact" style="margin-top:auto;padding-top:12px;color:'+acc+';font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;">Meer info &#8594;</a></div></div>';}).join('');
+  var planItems=f.planning.map(function(p,i){var last=i===f.planning.length-1;return '<div style="display:flex;gap:16px;align-items:flex-start;'+(last?'':'margin-bottom:22px')+'"><div style="display:flex;flex-direction:column;align-items:center;"><div style="width:34px;height:34px;border-radius:50%;background:'+acc+';display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:'+accTxt+';flex-shrink:0;">'+(i+1)+'</div>'+(last?'':'<div style="width:2px;flex:1;min-height:20px;background:'+alpha(acc,.3)+';margin-top:4px;"></div>')+'</div><div style="padding-top:7px;"><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';font-weight:700;margin-bottom:2px;">'+esc(p.datum)+'</div><div style="font-family:'+fm.hf+';font-size:.98rem;font-weight:600;color:'+primTxt+'">'+esc(p.fase)+'</div></div></div>';}).join('');
+  var faqItems=(faq||[]).map(function(q){return '<details style="border-bottom:1px solid '+alpha(bgTxt,.1)+'"><summary style="padding:16px 0;cursor:pointer;font-family:'+fm.hf+';font-size:.98rem;font-weight:600;color:'+bgTxt+';list-style:none;display:flex;align-items:center;justify-content:space-between;"><span>'+esc(q.vraag||q.question||'')+'</span><span style="color:'+acc+';font-size:1.3rem;line-height:1;flex-shrink:0;margin-left:16px;">+</span></summary><div style="padding-bottom:16px;color:'+alpha(bgTxt,.72)+';font-size:.93rem;line-height:1.72;">'+esc(q.antwoord||q.answer||'')+'</div></details>';}).join('');
+  var dlLinks=f.downloads.map(function(d){return '<a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid '+acc+';border-radius:6px;color:'+bgTxt+';font-size:.85rem;font-weight:700;text-decoration:none;">&#8595; '+esc(d)+'</a>';}).join('');
+  var wtOpts=f.woningtypen.map(function(w){return '<option>'+esc(w.naam)+'</option>';}).join('');
 
-  var wonenPunten=(c.wonen_punten||[]).map(function(p){
-    return '<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">'+
-      '<span style="color:'+acc+';line-height:1.4;flex-shrink:0;">&#10003;</span>'+
-      '<span style="color:'+alpha(primTxt,.85)+';font-size:.95rem;">'+esc(p)+'</span></li>';
-  }).join('');
-
-  var locPunten=(c.locatie_punten||[]).map(function(p){
-    return '<div style="padding:14px 0;border-bottom:1px solid '+alpha(bgTxt,.1)+';">'+
-      '<div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';font-weight:700;margin-bottom:3px;">'+esc(p.label||'')+'</div>'+
-      '<div style="font-size:.95rem;color:'+bgTxt+';">'+esc(p.tekst||'')+'</div></div>';
-  }).join('');
-
-  var wtCards=f.woningtypen.map(function(w){
-    var prijs=w.prijs?'v.a. €'+Number(w.prijs).toLocaleString('nl-NL'):'Op aanvraag';
-    var opp=w.opp1?(w.opp1+(w.opp2?'–'+w.opp2:'')+' m²'):'';
-    return '<div style="background:'+bg+';border:1px solid '+alpha(bgTxt,.12)+';border-radius:10px;overflow:hidden;display:flex;flex-direction:column;">'+
-      '<div style="background:'+prim+';padding:22px 24px;">'+
-        '<div style="color:'+alpha(primTxt,.55)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">'+esc(w.type)+'</div>'+
-        '<h3 style="color:'+primTxt+';font-family:'+fm.hf+';font-size:1.2rem;font-weight:700;margin-bottom:8px;">'+esc(w.naam)+'</h3>'+
-        '<div style="color:'+acc+';font-size:1.05rem;font-weight:700;">'+prijs+'</div>'+
-      '</div>'+
-      '<div style="padding:18px 24px;flex:1;display:flex;flex-direction:column;gap:8px;">'+
-        (opp?'<div style="font-size:.88rem;color:'+bgTxt+';">□ '+opp+'</div>':'')+
-        (w.kamers?'<div style="font-size:.88rem;color:'+bgTxt+';">⎕ '+w.kamers+' kamers</div>':'')+
-        (w.aantal?'<div style="font-size:.82rem;color:'+alpha(bgTxt,.55)+'">' +w.aantal+' woningen</div>':'')+
-        (w.bijz?'<p style="color:'+alpha(bgTxt,.65)+';font-size:.82rem;margin-top:4px;">'+esc(w.bijz)+'</p>':'')+
-        '<a href="#contact" style="margin-top:auto;padding-top:12px;color:'+acc+';font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;">Meer info &#8594;</a>'+
-      '</div></div>';
-  }).join('');
-
-  var planItems=f.planning.map(function(p,i){
-    var last=i===f.planning.length-1;
-    return '<div style="display:flex;gap:16px;align-items:flex-start;'+(last?'':' margin-bottom:24px')+'">'+
-      '<div style="display:flex;flex-direction:column;align-items:center;">'+
-        '<div style="width:34px;height:34px;border-radius:50%;background:'+acc+';display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:'+accTxt+';flex-shrink:0;">'+(i+1)+'</div>'+
-        (last?'':'<div style="width:2px;flex:1;min-height:20px;background:'+alpha(acc,.3)+';margin-top:4px;"></div>')+
-      '</div>'+
-      '<div style="padding-top:7px;">'+
-        '<div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';font-weight:700;margin-bottom:2px;">'+esc(p.datum)+'</div>'+
-        '<div style="font-family:'+fm.hf+';font-size:.98rem;font-weight:600;color:'+primTxt+';">'+esc(p.fase)+'</div>'+
-      '</div></div>';
-  }).join('');
-
-  var faqItems=(faq||[]).map(function(q){
-    return '<details style="border-bottom:1px solid '+alpha(bgTxt,.1)+';">'+
-      '<summary style="padding:16px 0;cursor:pointer;font-family:'+fm.hf+';font-size:.98rem;font-weight:600;color:'+bgTxt+';list-style:none;display:flex;align-items:center;justify-content:space-between;">'+
-        '<span>'+esc(q.vraag||q.question||'')+'</span>'+
-        '<span style="color:'+acc+';font-size:1.3rem;line-height:1;flex-shrink:0;margin-left:16px;font-weight:300;transition:transform .2s;">+</span>'+
-      '</summary>'+
-      '<div style="padding-bottom:16px;color:'+alpha(bgTxt,.72)+';font-size:.93rem;line-height:1.72;">'+esc(q.antwoord||q.answer||'')+'</div>'+
-    '</details>';
-  }).join('');
-
-  var dlLinks=f.downloads.map(function(d){
-    return '<a href="#" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid '+acc+';border-radius:6px;color:'+bgTxt+';font-size:.85rem;font-weight:700;text-decoration:none;">↓ '+esc(d)+'</a>';
-  }).join('');
-
-  var wtOptions=f.woningtypen.map(function(w){return '<option>'+esc(w.naam)+'</option>';}).join('');
-
-  return '<!DOCTYPE html>\n<html lang="nl">\n<head>\n'+
-'<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n'+
-'<title>'+esc(f.naam)+' – '+esc(f.loc)+'</title>\n'+
-'<link href="https://fonts.googleapis.com/css2?family='+fm.url+'&display=swap" rel="stylesheet">\n'+
-'<style>\n*{box-sizing:border-box;margin:0;padding:0}\nhtml{scroll-behavior:smooth}\n'+
-'body{background:'+bg+';color:'+bgTxt+';font-family:'+fm.bf+';line-height:1.65}\n'+
-'h1,h2,h3,h4{font-family:'+fm.hf+';line-height:1.15}\n'+
-'.c{max-width:1100px;margin:0 auto;padding:0 24px}\n'+
-'details summary::-webkit-details-marker{display:none}\n'+
-'@media(max-width:768px){.desk2{grid-template-columns:1fr!important}}\n'+
-'</style>\n</head>\n<body>\n\n'+
-
-'<!-- NAV: sticky, merkkleur, CTA-knop rechts -->\n'+
-'<nav style="background:'+prim+';position:sticky;top:0;z-index:100;border-bottom:2px solid '+acc+';">\n'+
-'<div class="c" style="display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;">\n'+
-'<div style="font-family:'+fm.hf+';font-weight:800;font-size:1rem;color:'+primTxt+';text-transform:uppercase;letter-spacing:.05em;">'+esc(f.naam)+'</div>\n'+
-'<div style="display:flex;align-items:center;gap:20px;">\n'+
-'<a href="#wonen" style="color:'+alpha(primTxt,.7)+';font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Woning</a>\n'+
-'<a href="#locatie" style="color:'+alpha(primTxt,.7)+';font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Locatie</a>\n'+
-'<a href="#aanbod" style="color:'+alpha(primTxt,.7)+';font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Aanbod</a>\n'+
-'<a href="#contact" style="background:'+acc+';color:'+accTxt+';padding:8px 18px;border-radius:5px;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;text-decoration:none;">'+esc(f.cta1)+'</a>\n'+
-'</div></div></nav>\n\n'+
-
-'<!-- SECTIE 1: HERO\n'+
-'     UX-doel: eerste indruk = merkgevoel, tagline direct zichtbaar, 2 CTAs\n'+
-'     Emotie: verlangen, trots, thuis komen\n'+
-'     Afbeeldingssuggestie: '+esc(c.hero_beeld||'Sfeerimpressie project')+'-->\n'+
-'<section style="background:'+prim+';min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;">\n'+
-'<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,'+alpha(acc,.08)+' 0%,transparent 65%);pointer-events:none;"></div>\n'+
-'<div class="c" style="position:relative;z-index:1;padding-top:72px;padding-bottom:72px;">\n'+
-'<div style="max-width:660px;">\n'+
-(f.tagline?'<p style="color:'+acc+';font-size:.78rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:18px;">'+esc(f.tagline)+'</p>\n':'')+
-'<h1 style="font-family:'+fm.hf+';font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:'+primTxt+';margin-bottom:14px;text-transform:uppercase;letter-spacing:.02em;">'+esc(c.hero_titel||f.naam)+'</h1>\n'+
-'<p style="font-family:'+fm.hf+';font-size:1.2rem;color:'+alpha(primTxt,.78)+';margin-bottom:14px;font-style:italic;">'+esc(c.hero_subtitel||'')+'</p>\n'+
-'<p style="font-size:.98rem;color:'+alpha(primTxt,.68)+';max-width:500px;margin-bottom:32px;line-height:1.8;">'+esc(c.hero_intro||'')+'</p>\n'+
-'<div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:44px;">\n'+
-'<a href="#contact" style="display:inline-block;background:'+acc+';color:'+accTxt+';padding:13px 30px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.88rem;text-decoration:none;">'+esc(f.cta1)+'</a>\n'+
-'<a href="#aanbod" style="display:inline-block;background:transparent;color:'+primTxt+';padding:13px 30px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.88rem;text-decoration:none;border:1px solid '+alpha(primTxt,.3)+';">↓ Woningaanbod</a>\n'+
-'</div>\n'+
-'<div style="display:flex;flex-wrap:wrap;gap:28px;">\n'+
-(f.aantalTotaal?'<div><div style="font-size:2.2rem;font-weight:800;color:'+acc+';line-height:1;">'+esc(f.aantalTotaal)+'</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.5)+';margin-top:2px;">Woningen</div></div>\n':'')+
-(f.woningtypen.length?'<div><div style="font-size:2.2rem;font-weight:800;color:'+acc+';line-height:1;">'+f.woningtypen.length+'</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.5)+';margin-top:2px;">Typen</div></div>\n':'')+
-(f.wijk?'<div><div style="font-size:1rem;font-weight:700;color:'+acc+';line-height:1.4;">'+esc(f.wijk)+'</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.5)+';margin-top:2px;">'+esc(f.loc)+'</div></div>\n':'')+
-'</div></div></div></section>\n\n'+
-
-'<!-- SECTIE 2: WAAROM DIT PROJECT\n'+
-'     UX-doel: onderscheidend vermogen scanbaar, USP-grid\n'+
-'     Emotie: vertrouwen, overtuiging -->\n'+
-'<section id="waarom" style="background:'+bg+';padding:80px 0;">\n'+
-'<div class="c">\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Waarom dit project</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:800;color:'+bgTxt+';margin-bottom:32px;">'+esc(c.waarom_intro||'Wat dit project onderscheidt')+'</h2>\n'+
-'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-bottom:28px;">\n'+
-uspCards+'\n</div>\n'+
-(c.waarom_slot?'<p style="font-size:.98rem;color:'+alpha(bgTxt,.65)+';font-style:italic;">'+esc(c.waarom_slot)+'</p>\n':'')+
-'</div></section>\n\n'+
-
-'<!-- SECTIE 3: WONEN\n'+
-'     UX-doel: kwaliteitsgevoel, architectuur, duurzaamheid\n'+
-'     Emotie: vakmanschap, trots, kwaliteit -->\n'+
-'<section id="wonen" style="background:'+prim+';padding:80px 0;">\n'+
-'<div class="c">\n'+
-'<div class="desk2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">\n'+
-'<div>\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Het wonen</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+primTxt+';margin-bottom:18px;">Wonen met karakter</h2>\n'+
-'<p style="font-size:.98rem;color:'+alpha(primTxt,.78)+';line-height:1.8;margin-bottom:24px;">'+esc(c.wonen_intro||'')+'</p>\n'+
-'<ul style="list-style:none;">\n'+wonenPunten+'\n</ul></div>\n'+
-'<div style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">\n'+
-'<div style="text-align:center;color:'+alpha(primTxt,.25)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🏗</div><div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Sfeerimpressie</div></div>\n'+
-'</div></div></div></section>\n\n'+
-
-'<!-- SECTIE 4: LOCATIE\n'+
-'     UX-doel: locatievoordelen per categorie, kaartplaatshouder\n'+
-'     Emotie: zekerheid, bevestiging leefstijl -->\n'+
-'<section id="locatie" style="background:'+bg+';padding:80px 0;">\n'+
-'<div class="c">\n'+
-'<div class="desk2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">\n'+
-'<div>\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">De locatie</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+bgTxt+';margin-bottom:14px;">'+esc(f.wijk||f.loc)+'</h2>\n'+
-'<p style="font-size:.98rem;color:'+alpha(bgTxt,.7)+';line-height:1.8;margin-bottom:24px;">'+esc(c.locatie_intro||'')+'</p>\n'+
-locPunten+'\n</div>\n'+
-'<div style="background:'+alpha(bgTxt,.04)+';border:1px solid '+alpha(bgTxt,.1)+';border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;">\n'+
-'<div style="text-align:center;color:'+alpha(bgTxt,.25)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🗺</div><div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Kaart / omgeving</div></div>\n'+
-'</div></div></div></section>\n\n'+
-
-'<!-- SECTIE 5: LEVEN HIER\n'+
-'     UX-doel: bewoner herkent zichzelf, identificatie met leefstijl\n'+
-'     Emotie: verlangen, dromen, herkenning\n'+
-'     Let op: GEEN verkooptaal -->\n'+
-'<section style="background:'+prim+';padding:80px 0;">\n'+
-'<div class="c"><div style="max-width:680px;margin:0 auto;text-align:center;">\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:14px;">Het leven hier</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:800;color:'+primTxt+';margin-bottom:20px;">'+esc(c.leven_intro||'Zo voelt het wonen hier')+'</h2>\n'+
-'<p style="font-size:1rem;color:'+alpha(primTxt,.78)+';line-height:1.85;margin-bottom:28px;">'+esc(c.leven_tekst||'')+'</p>\n'+
-'<a href="#aanbod" style="display:inline-block;background:transparent;color:'+acc+';border:1px solid '+alpha(acc,.6)+';padding:11px 26px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.84rem;text-decoration:none;">Bekijk het woningaanbod</a>\n'+
-'</div></div></section>\n\n'+
-
-'<!-- SECTIE 6: WONINGAANBOD\n'+
-'     UX-doel: kaarten per type, prijs en specs scanbaar, directe CTA\n'+
-'     Emotie: concreet, haalbaar, beslisbaar -->\n'+
-'<section id="aanbod" style="background:'+bg+';padding:80px 0;">\n'+
-'<div class="c">\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Woningaanbod</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+bgTxt+';margin-bottom:8px;">Kies jouw type</h2>\n'+
-'<p style="color:'+alpha(bgTxt,.62)+';margin-bottom:36px;">'+esc(c.aanbod_intro||'')+'</p>\n'+
-'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px;">\n'+
-(wtCards||'<p style="color:'+alpha(bgTxt,.45)+';font-style:italic;">Woningtypen worden toegevoegd.</p>')+'\n</div>\n'+
-(dlLinks?'<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:36px;">'+dlLinks+'</div>\n':'')+
-'</div></section>\n\n'+
-
-'<!-- SECTIE 7: PLANNING\n'+
-'     UX-doel: visuele tijdlijn, mijlpalen scanbaar\n'+
-'     Emotie: vertrouwen, overzicht -->\n'+
-'<section id="planning" style="background:'+prim+';padding:80px 0;">\n'+
-'<div class="c">\n'+
-'<div class="desk2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">\n'+
-'<div>\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Tijdlijn</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+primTxt+';margin-bottom:14px;">Planning &amp; Fasering</h2>\n'+
-'<p style="font-size:.98rem;color:'+alpha(primTxt,.72)+';line-height:1.8;margin-bottom:32px;">'+esc(c.planning_intro||'')+'</p>\n'+
-planItems+'\n</div>\n'+
-'<div style="background:'+alpha(primTxt,.05)+';border:1px solid '+alpha(primTxt,.1)+';border-radius:12px;padding:30px;">\n'+
-'<h3 style="font-family:'+fm.hf+';font-size:1rem;font-weight:700;color:'+acc+';margin-bottom:12px;">Wil je op de hoogte blijven?</h3>\n'+
-'<p style="font-size:.88rem;color:'+alpha(primTxt,.65)+';margin-bottom:18px;line-height:1.7;">Meld je aan en ontvang updates over planning, aanbod en oplevering direct in je inbox.</p>\n'+
-'<a href="#contact" style="display:inline-block;background:'+acc+';color:'+accTxt+';padding:11px 22px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.84rem;text-decoration:none;">'+esc(f.cta1)+'</a>\n'+
-'</div></div></div></section>\n\n'+
-
-'<!-- SECTIE 8: IMPRESSIES\n'+
-'     UX-doel: renders, sfeerbeelden, plattegronden\n'+
-'     Emotie: verlangen, visualisatie -->\n'+
-'<section id="impressies" style="background:'+bg+';padding:80px 0;">\n'+
-'<div class="c">\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Impressies</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+bgTxt+';margin-bottom:10px;">Sfeer &amp; Ontwerp</h2>\n'+
-'<p style="color:'+alpha(bgTxt,.62)+';margin-bottom:32px;">'+esc(c.impressies_tekst||'')+'</p>\n'+
-'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">\n'+
-'<div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.2)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Render exterieur</span></div>\n'+
-'<div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.15)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Render interieur</span></div>\n'+
-'<div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.2)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Sfeerimpressie</span></div>\n'+
-'<div style="background:'+alpha(prim,.06)+';border:1px solid '+alpha(prim,.12)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;grid-column:span 2;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Plattegrond</span></div>\n'+
-'<div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.15)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Omgeving</span></div>\n'+
-'</div></div></section>\n\n'+
-
-'<!-- SECTIE 9: FAQ\n'+
-'     UX-doel: CSS-only accordion, bezwaren wegnemen\n'+
-'     Emotie: vertrouwen, transparantie -->\n'+
-'<section id="faq" style="background:'+prim+';padding:80px 0;">\n'+
-'<div class="c">\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Veelgestelde vragen</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+primTxt+';margin-bottom:32px;">Alles wat je wilt weten</h2>\n'+
-'<div style="max-width:740px;">\n'+
-faqItems+'\n</div></div></section>\n\n'+
-
-'<!-- SECTIE 10: OVER DE ONTWIKKELAAR\n'+
-'     UX-doel: track record, betrouwbaarheid\n'+
-'     Emotie: vertrouwen, zekerheid -->\n'+
-'<section id="ontwikkelaar" style="background:'+bg+';padding:80px 0;">\n'+
-'<div class="c">\n'+
-'<div class="desk2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">\n'+
-'<div>\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Over ons</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:800;color:'+bgTxt+';margin-bottom:14px;">'+esc(f.ontwnaam||'De ontwikkelaar')+'</h2>\n'+
-'<p style="font-size:.98rem;color:'+alpha(bgTxt,.68)+';line-height:1.8;margin-bottom:12px;">'+esc(c.ontwikkelaar_intro||'')+'</p>\n'+
-(f.ontwbio?'<p style="font-size:.93rem;color:'+alpha(bgTxt,.62)+';line-height:1.8;">'+esc(f.ontwbio)+'</p>\n':'')+
-(f.ontwsite?'<a href="https://'+f.ontwsite+'" target="_blank" style="display:inline-block;margin-top:18px;color:'+acc+';font-size:.83rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-decoration:none;">'+esc(f.ontwsite)+' ↗</a>\n':'')+
-'</div>\n'+
-'<div style="background:'+alpha(bgTxt,.04)+';border:1px solid '+alpha(bgTxt,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">\n'+
-'<div style="text-align:center;color:'+alpha(bgTxt,.22)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🏢</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Logo ontwikkelaar</div></div>\n'+
-'</div></div></div></section>\n\n'+
-
-'<!-- SECTIE 11: CONTACT\n'+
-'     UX-doel: aanmeldformulier + contactgegevens, privacytekst\n'+
-'     Emotie: actie, concreet, dichtbij -->\n'+
-'<section id="contact" style="background:'+prim+';padding:80px 0;">\n'+
-'<div class="c">\n'+
-'<div class="desk2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">\n'+
-'<div>\n'+
-'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Contact</p>\n'+
-'<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+primTxt+';margin-bottom:14px;">'+esc(f.cta1)+'</h2>\n'+
-'<p style="font-size:.98rem;color:'+alpha(primTxt,.75)+';line-height:1.8;margin-bottom:24px;">'+esc(c.contact_intro||'')+'</p>\n'+
-'<form style="display:grid;gap:12px;" onsubmit="return false;">\n'+
-'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">\n'+
-'<input type="text" placeholder="Voornaam" style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+primTxt+';font-size:.88rem;font-family:inherit;width:100%;">\n'+
-'<input type="text" placeholder="Achternaam" style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+primTxt+';font-size:.88rem;font-family:inherit;width:100%;"></div>\n'+
-'<input type="email" placeholder="E-mailadres" style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+primTxt+';font-size:.88rem;font-family:inherit;width:100%;">\n'+
-'<input type="tel" placeholder="Telefoonnummer (optioneel)" style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+primTxt+';font-size:.88rem;font-family:inherit;width:100%;">\n'+
-(wtOptions?'<select style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+alpha(primTxt,.75)+';font-size:.88rem;font-family:inherit;width:100%;"><option value="">Interesse in type... (optioneel)</option>'+wtOptions+'</select>\n':'')+
-'<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">\n'+
-'<input type="checkbox" style="accent-color:'+acc+';margin-top:3px;flex-shrink:0;">\n'+
-'<span style="font-size:.78rem;color:'+alpha(primTxt,.55)+';line-height:1.6;">Ik ga akkoord met het <a href="#" style="color:'+acc+';">privacybeleid</a> en geef toestemming voor het bewaren van mijn gegevens.</span>\n'+
-'</label>\n'+
-'<button type="submit" style="background:'+acc+';color:'+accTxt+';border:none;padding:13px 26px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.88rem;font-family:inherit;cursor:pointer;width:100%;">'+esc(f.cta1)+'</button>\n'+
-'</form></div>\n'+
-'<div style="display:flex;flex-direction:column;gap:20px;">\n'+
-'<div style="background:'+alpha(primTxt,.05)+';border:1px solid '+alpha(primTxt,.1)+';border-radius:10px;padding:26px;">\n'+
-'<h3 style="font-family:'+fm.hf+';font-size:.9rem;font-weight:700;color:'+acc+';margin-bottom:14px;text-transform:uppercase;letter-spacing:.07em;">Contactpersoon</h3>\n'+
-(f.cpnaam?'<div style="font-size:1.02rem;font-weight:700;color:'+primTxt+';margin-bottom:3px;">'+esc(f.cpnaam)+'</div>\n':'')+
-(f.cptitel?'<div style="font-size:.83rem;color:'+alpha(primTxt,.55)+';margin-bottom:14px;">'+esc(f.cptitel)+'</div>\n':'')+
-(f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="display:flex;align-items:center;gap:8px;color:'+primTxt+';font-size:.88rem;margin-bottom:8px;text-decoration:none;">📞 '+esc(f.cptel)+'</a>\n':'')+
-(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="display:flex;align-items:center;gap:8px;color:'+acc+';font-size:.88rem;text-decoration:none;">✉ '+esc(f.cpmail)+'</a>\n':'')+
-'</div>\n'+
-(f.downloads.length?'<div style="background:'+alpha(primTxt,.04)+';border:1px solid '+alpha(primTxt,.08)+';border-radius:10px;padding:22px;"><h3 style="font-family:'+fm.hf+';font-size:.88rem;font-weight:700;color:'+acc+';margin-bottom:12px;text-transform:uppercase;letter-spacing:.07em;">Downloads</h3><div style="display:flex;flex-direction:column;gap:8px;">'+f.downloads.map(function(d){return '<a href="#" style="display:flex;align-items:center;gap:8px;padding:9px 13px;background:'+alpha(acc,.1)+';border:1px solid '+alpha(acc,.3)+';border-radius:6px;color:'+primTxt+';font-size:.83rem;font-weight:600;text-decoration:none;">↓ '+esc(d)+'</a>';}).join('')+'</div></div>\n':'')+
-'</div></div></div></section>\n\n'+
-
-'<!-- SECTIE 12: FOOTER\n'+
-'     UX-doel: navigatie, contact, disclaimer, privacy, cookies -->\n'+
-'<footer style="background:'+lighten(prim,-22)+';padding:48px 0 24px;border-top:2px solid '+alpha(acc,.3)+'">\n'+
-'<div class="c">\n'+
-'<div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:36px;">\n'+
-'<div>\n'+
-'<h3 style="font-family:'+fm.hf+';font-size:1.05rem;font-weight:800;color:'+acc+';text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">'+esc(f.naam)+'</h3>\n'+
-'<p style="font-size:.83rem;color:'+alpha(primTxt,.5)+';line-height:1.75;max-width:310px;">'+esc(c.footer_quote||f.loc)+'</p>\n'+
-'</div>\n'+
-'<div>\n'+
-'<h4 style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.45)+';margin-bottom:10px;">Navigatie</h4>\n'+
-'<div style="display:flex;flex-direction:column;gap:8px;">\n'+
-'<a href="#waarom" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Waarom dit project</a>\n'+
-'<a href="#wonen" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Het wonen</a>\n'+
-'<a href="#aanbod" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Woningaanbod</a>\n'+
-'<a href="#planning" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Planning</a>\n'+
-'<a href="#faq" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">FAQ</a>\n'+
-'<a href="#contact" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Contact</a>\n'+
-'</div></div>\n'+
-'<div>\n'+
-'<h4 style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.45)+';margin-bottom:10px;">Contact</h4>\n'+
-'<div style="display:flex;flex-direction:column;gap:8px;">\n'+
-(f.ontwnaam?'<span style="font-size:.83rem;color:'+alpha(primTxt,.65)+';">'+esc(f.ontwnaam)+'</span>\n':'')+
-(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="font-size:.83rem;color:'+acc+';text-decoration:none;">'+esc(f.cpmail)+'</a>\n':'')+
-(f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">'+esc(f.cptel)+'</a>\n':'')+
-'</div></div>\n'+
-'</div>\n'+
-'<div style="border-top:1px solid '+alpha(primTxt,.1)+';padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">\n'+
-'<span style="font-size:.73rem;color:'+alpha(primTxt,.3)+'">&copy; '+esc(f.naam)+' – '+esc(f.loc)+'. Alle rechten voorbehouden.</span>\n'+
-'<div style="display:flex;gap:16px;"><a href="#" style="font-size:.73rem;color:'+alpha(primTxt,.38)+';text-decoration:none;">Privacybeleid</a><a href="#" style="font-size:.73rem;color:'+alpha(primTxt,.38)+';text-decoration:none;">Cookiebeleid</a><a href="#" style="font-size:.73rem;color:'+alpha(primTxt,.38)+';text-decoration:none;">Disclaimer</a></div>\n'+
-'<span style="font-size:.73rem;color:'+alpha(primTxt,.22)+';">Gemaakt door <a href="https://springrealestate.com" style="color:'+alpha(acc,.65)+';text-decoration:none;">Spring Real Estate</a></span>\n'+
-'</div></div></footer>\n\n'+
-'</body>\n</html>';
+  return '<!DOCTYPE html>\n<html lang="nl">\n<head>\n<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n<title>'+esc(f.naam)+' &#8211; '+esc(f.loc)+'</title>\n<link href="https://fonts.googleapis.com/css2?family='+fm.url+'&display=swap" rel="stylesheet">\n<style>\n*{box-sizing:border-box;margin:0;padding:0}\nhtml{scroll-behavior:smooth}\nbody{background:'+bg+';color:'+bgTxt+';font-family:'+fm.bf+';line-height:1.65}\nh1,h2,h3,h4{font-family:'+fm.hf+';line-height:1.15}\n.c{max-width:1100px;margin:0 auto;padding:0 24px}\ndetails summary::-webkit-details-marker{display:none}\n@media(max-width:768px){.d2{grid-template-columns:1fr!important}}\n</style>\n</head>\n<body>\n\n'+
+  '<!-- NAV -->\n<nav style="background:'+prim+';position:sticky;top:0;z-index:100;border-bottom:2px solid '+acc+';">\n<div class="c" style="display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;">\n<div style="font-family:'+fm.hf+';font-weight:800;font-size:1rem;color:'+primTxt+';text-transform:uppercase;letter-spacing:.05em;">'+esc(f.naam)+'</div>\n<div style="display:flex;align-items:center;gap:20px;">\n<a href="#wonen" style="color:'+alpha(primTxt,.7)+';font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Woning</a>\n<a href="#locatie" style="color:'+alpha(primTxt,.7)+';font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Locatie</a>\n<a href="#aanbod" style="color:'+alpha(primTxt,.7)+';font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Aanbod</a>\n<a href="#contact" style="background:'+acc+';color:'+accTxt+';padding:8px 18px;border-radius:5px;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;text-decoration:none;">'+esc(f.cta1)+'</a>\n</div></div></nav>\n\n'+
+  '<!-- SECTIE 1: HERO\n     UX: eerste indruk = merkgevoel; tagline zichtbaar; 2 CTAs\n     Beeld: '+esc(c.hero_beeld||'Sfeerimpressie project')+'-->\n<section style="background:'+prim+';min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;">\n<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,'+alpha(acc,.08)+' 0%,transparent 65%);pointer-events:none;"></div>\n<div class="c" style="position:relative;z-index:1;padding-top:72px;padding-bottom:72px;">\n<div style="max-width:660px;">\n'+(f.tagline?'<p style="color:'+acc+';font-size:.78rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:18px;">'+esc(f.tagline)+'</p>\n':'')+
+  '<h1 style="font-family:'+fm.hf+';font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:'+primTxt+';margin-bottom:14px;text-transform:uppercase;letter-spacing:.02em;">'+esc(c.hero_titel||f.naam)+'</h1>\n<p style="font-family:'+fm.hf+';font-size:1.2rem;color:'+alpha(primTxt,.78)+';margin-bottom:14px;font-style:italic;">'+esc(c.hero_subtitel||'')+'</p>\n<p style="font-size:.98rem;color:'+alpha(primTxt,.68)+';max-width:500px;margin-bottom:32px;line-height:1.8;">'+esc(c.hero_intro||'')+'</p>\n<div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:44px;">\n<a href="#contact" style="display:inline-block;background:'+acc+';color:'+accTxt+';padding:13px 30px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.88rem;text-decoration:none;">'+esc(f.cta1)+'</a>\n<a href="#aanbod" style="display:inline-block;border:1px solid '+alpha(primTxt,.3)+';color:'+primTxt+';padding:13px 30px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.88rem;text-decoration:none;">&#8595; Woningaanbod</a>\n</div>\n<div style="display:flex;flex-wrap:wrap;gap:28px;">\n'+(f.aantalTotaal?'<div><div style="font-size:2.2rem;font-weight:800;color:'+acc+';line-height:1;">'+esc(f.aantalTotaal)+'</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.5)+';margin-top:2px;">Woningen</div></div>\n':'')+
+  (f.woningtypen.length?'<div><div style="font-size:2.2rem;font-weight:800;color:'+acc+';line-height:1;">'+f.woningtypen.length+'</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.5)+';margin-top:2px;">Typen</div></div>\n':'')+
+  (f.wijk?'<div><div style="font-size:1rem;font-weight:700;color:'+acc+';line-height:1.4;">'+esc(f.wijk)+'</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.5)+';margin-top:2px;">'+esc(f.loc)+'</div></div>\n':'')+
+  '</div></div></div></section>\n\n'+
+  '<!-- SECTIE 2: WAAROM\n     UX: USP-grid scanbaar; onderscheidend vermogen direct zichtbaar -->\n<section id="waarom" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Waarom dit project</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:800;color:'+bgTxt+';margin-bottom:32px;">'+esc(c.waarom_intro||'')+'</h2><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-bottom:28px;">\n'+uspCards+'\n</div>'+(c.waarom_slot?'<p style="font-size:.98rem;color:'+alpha(bgTxt,.65)+';font-style:italic;">'+esc(c.waarom_slot)+'</p>':'')+'\n</div></section>\n\n'+
+  '<!-- SECTIE 3: WONEN\n     UX: kwaliteitsgevoel + checklist; architectuur en duurzaamheid -->\n<section id="wonen" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">\n<div><p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Het wonen</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+primTxt+';margin-bottom:18px;">Wonen met karakter</h2><p style="font-size:.98rem;color:'+alpha(primTxt,.78)+';line-height:1.8;margin-bottom:24px;">'+esc(c.wonen_intro||'')+'</p><ul style="list-style:none;">\n'+wonenPunten+'\n</ul></div>\n<div style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(primTxt,.25)+'"><div style="font-size:2.5rem;margin-bottom:8px;">&#127959;</div><div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Sfeerimpressie</div></div></div>\n</div></div></section>\n\n'+
+  '<!-- SECTIE 4: LOCATIE\n     UX: locatievoordelen per categorie + kaartplaatshouder -->\n<section id="locatie" style="background:'+bg+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">\n<div><p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">De locatie</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+bgTxt+';margin-bottom:14px;">'+esc(f.wijk||f.loc)+'</h2><p style="font-size:.98rem;color:'+alpha(bgTxt,.7)+';line-height:1.8;margin-bottom:24px;">'+esc(c.locatie_intro||'')+'</p>\n'+locPunten+'\n</div>\n<div style="background:'+alpha(bgTxt,.04)+';border:1px solid '+alpha(bgTxt,.1)+';border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(bgTxt,.25)+'"><div style="font-size:2.5rem;margin-bottom:8px;">&#128506;</div><div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Kaart</div></div></div>\n</div></div></section>\n\n'+
+  '<!-- SECTIE 5: LEVEN HIER\n     UX: inspirerend, bewoner herkent zichzelf; GEEN verkooptaal -->\n<section style="background:'+prim+';padding:80px 0;">\n<div class="c"><div style="max-width:680px;margin:0 auto;text-align:center;">\n<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:14px;">Het leven hier</p>\n<h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:800;color:'+primTxt+';margin-bottom:20px;">'+esc(c.leven_intro||'Zo voelt het wonen hier')+'</h2>\n<p style="font-size:1rem;color:'+alpha(primTxt,.78)+';line-height:1.85;margin-bottom:28px;">'+esc(c.leven_tekst||'')+'</p>\n<a href="#aanbod" style="display:inline-block;border:1px solid '+alpha(acc,.6)+';color:'+acc+';padding:11px 26px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.84rem;text-decoration:none;">Bekijk het woningaanbod</a>\n</div></div></section>\n\n'+
+  '<!-- SECTIE 6: WONINGAANBOD\n     UX: kaarten per type, prijs scanbaar, directe CTA -->\n<section id="aanbod" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Woningaanbod</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+bgTxt+';margin-bottom:8px;">Kies jouw type</h2><p style="color:'+alpha(bgTxt,.62)+';margin-bottom:36px;">'+esc(c.aanbod_intro||'')+'</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px;">\n'+(wtCards||'<p style="color:'+alpha(bgTxt,.45)+';font-style:italic;">Woningtypen worden toegevoegd.</p>')+'\n</div>\n'+(dlLinks?'<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:36px;">'+dlLinks+'</div>\n':'')+'\n</div></section>\n\n'+
+  '<!-- SECTIE 7: PLANNING\n     UX: visuele tijdlijn, mijlpalen scanbaar -->\n<section id="planning" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">\n<div><p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Tijdlijn</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+primTxt+';margin-bottom:14px;">Planning &amp; Fasering</h2><p style="font-size:.98rem;color:'+alpha(primTxt,.72)+';line-height:1.8;margin-bottom:32px;">'+esc(c.planning_intro||'')+'</p>\n'+planItems+'\n</div>\n<div style="background:'+alpha(primTxt,.05)+';border:1px solid '+alpha(primTxt,.1)+';border-radius:12px;padding:30px;"><h3 style="font-family:'+fm.hf+';font-size:1rem;font-weight:700;color:'+acc+';margin-bottom:12px;">Wil je op de hoogte blijven?</h3><p style="font-size:.88rem;color:'+alpha(primTxt,.65)+';margin-bottom:18px;line-height:1.7;">Meld je aan voor updates over planning, aanbod en oplevering.</p><a href="#contact" style="display:inline-block;background:'+acc+';color:'+accTxt+';padding:11px 22px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.84rem;text-decoration:none;">'+esc(f.cta1)+'</a></div>\n</div></div></section>\n\n'+
+  '<!-- SECTIE 8: IMPRESSIES\n     UX: renders + sfeerbeelden + plattegronden -->\n<section id="impressies" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Impressies</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+bgTxt+';margin-bottom:10px;">Sfeer &amp; Ontwerp</h2><p style="color:'+alpha(bgTxt,.62)+';margin-bottom:32px;">'+esc(c.impressies_tekst||'')+'</p>\n<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">\n<div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.2)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Render exterieur</span></div>\n<div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.15)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Render interieur</span></div>\n<div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.2)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Sfeerimpressie</span></div>\n<div style="background:'+alpha(prim,.06)+';border:1px solid '+alpha(prim,.12)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;grid-column:span 2;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Plattegrond</span></div>\n<div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.15)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bgTxt,.3)+';font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Omgeving</span></div>\n</div></div></section>\n\n'+
+  '<!-- SECTIE 9: FAQ\n     UX: CSS-only accordion, bezwaren wegnemen -->\n<section id="faq" style="background:'+prim+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Veelgestelde vragen</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+primTxt+';margin-bottom:32px;">Alles wat je wilt weten</h2>\n<div style="max-width:740px;">\n'+faqItems+'\n</div></div></section>\n\n'+
+  '<!-- SECTIE 10: OVER DE ONTWIKKELAAR\n     UX: track record, betrouwbaarheid -->\n<section id="ontwikkelaar" style="background:'+bg+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">\n<div><p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Over ons</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:800;color:'+bgTxt+';margin-bottom:14px;">'+esc(f.ontwnaam||'De ontwikkelaar')+'</h2><p style="font-size:.98rem;color:'+alpha(bgTxt,.68)+';line-height:1.8;margin-bottom:12px;">'+esc(c.ontwikkelaar_intro||'')+'</p>'+(f.ontwbio?'<p style="font-size:.93rem;color:'+alpha(bgTxt,.62)+';line-height:1.8;">'+esc(f.ontwbio)+'</p>\n':'')+
+  (f.ontwsite?'<a href="https://'+f.ontwsite+'" target="_blank" style="display:inline-block;margin-top:18px;color:'+acc+';font-size:.83rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-decoration:none;">'+esc(f.ontwsite)+' &#8599;</a>\n':'')+
+  '</div>\n<div style="background:'+alpha(bgTxt,.04)+';border:1px solid '+alpha(bgTxt,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(bgTxt,.22)+'"><div style="font-size:2.5rem;margin-bottom:8px;">&#127970;</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Logo ontwikkelaar</div></div></div>\n</div></div></section>\n\n'+
+  '<!-- SECTIE 11: CONTACT\n     UX: aanmeldformulier + contactgegevens + privacytekst -->\n<section id="contact" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">\n<div><p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Contact</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:'+primTxt+';margin-bottom:14px;">'+esc(f.cta1)+'</h2><p style="font-size:.98rem;color:'+alpha(primTxt,.75)+';line-height:1.8;margin-bottom:24px;">'+esc(c.contact_intro||'')+'</p>\n<form style="display:grid;gap:12px;" onsubmit="return false;">\n<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><input type="text" placeholder="Voornaam" style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+primTxt+';font-size:.88rem;font-family:inherit;width:100%;">\n<input type="text" placeholder="Achternaam" style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+primTxt+';font-size:.88rem;font-family:inherit;width:100%;"></div>\n<input type="email" placeholder="E-mailadres" style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+primTxt+';font-size:.88rem;font-family:inherit;width:100%;">\n<input type="tel" placeholder="Telefoonnummer (optioneel)" style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+primTxt+';font-size:.88rem;font-family:inherit;width:100%;">\n'+(wtOpts?'<select style="background:'+alpha(primTxt,.06)+';border:1px solid '+alpha(primTxt,.18)+';border-radius:6px;padding:11px 14px;color:'+alpha(primTxt,.75)+';font-size:.88rem;font-family:inherit;width:100%;"><option value="">Interesse in type... (optioneel)</option>'+wtOpts+'</select>\n':'')+
+  '<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;"><input type="checkbox" style="accent-color:'+acc+';margin-top:3px;flex-shrink:0;"><span style="font-size:.78rem;color:'+alpha(primTxt,.55)+';line-height:1.6;">Ik ga akkoord met het <a href="#" style="color:'+acc+';">privacybeleid</a>.</span></label>\n<button type="submit" style="background:'+acc+';color:'+accTxt+';border:none;padding:13px 26px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.88rem;font-family:inherit;cursor:pointer;width:100%;">'+esc(f.cta1)+'</button>\n</form></div>\n<div style="display:flex;flex-direction:column;gap:20px;">\n<div style="background:'+alpha(primTxt,.05)+';border:1px solid '+alpha(primTxt,.1)+';border-radius:10px;padding:26px;">\n<h3 style="font-family:'+fm.hf+';font-size:.9rem;font-weight:700;color:'+acc+';margin-bottom:14px;text-transform:uppercase;letter-spacing:.07em;">Contactpersoon</h3>\n'+(f.cpnaam?'<div style="font-size:1.02rem;font-weight:700;color:'+primTxt+';margin-bottom:3px;">'+esc(f.cpnaam)+'</div>\n':'')+
+  (f.cptitel?'<div style="font-size:.83rem;color:'+alpha(primTxt,.55)+';margin-bottom:14px;">'+esc(f.cptitel)+'</div>\n':'')+
+  (f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="display:flex;align-items:center;gap:8px;color:'+primTxt+';font-size:.88rem;margin-bottom:8px;text-decoration:none;">&#128222; '+esc(f.cptel)+'</a>\n':'')+
+  (f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="display:flex;align-items:center;gap:8px;color:'+acc+';font-size:.88rem;text-decoration:none;">&#9993; '+esc(f.cpmail)+'</a>\n':'')+
+  '</div>\n'+(f.downloads.length?'<div style="background:'+alpha(primTxt,.04)+';border:1px solid '+alpha(primTxt,.08)+';border-radius:10px;padding:22px;"><h3 style="font-family:'+fm.hf+';font-size:.88rem;font-weight:700;color:'+acc+';margin-bottom:12px;text-transform:uppercase;letter-spacing:.07em;">Downloads</h3><div style="display:flex;flex-direction:column;gap:8px;">'+f.downloads.map(function(d){return '<a href="#" style="display:flex;align-items:center;gap:8px;padding:9px 13px;background:'+alpha(acc,.1)+';border:1px solid '+alpha(acc,.3)+';border-radius:6px;color:'+primTxt+';font-size:.83rem;font-weight:600;text-decoration:none;">&#8595; '+esc(d)+'</a>';}).join('')+'</div></div>\n':'')+
+  '</div></div></div></section>\n\n'+
+  '<!-- SECTIE 12: FOOTER -->\n<footer style="background:'+lighten(prim,-22)+';padding:48px 0 24px;border-top:2px solid '+alpha(acc,.3)+'">\n<div class="c"><div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:36px;">\n<div><h3 style="font-family:'+fm.hf+';font-size:1.05rem;font-weight:800;color:'+acc+';text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">'+esc(f.naam)+'</h3><p style="font-size:.83rem;color:'+alpha(primTxt,.5)+';line-height:1.75;max-width:310px;">'+esc(c.footer_quote||f.loc)+'</p></div>\n<div><h4 style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.45)+';margin-bottom:10px;">Navigatie</h4><div style="display:flex;flex-direction:column;gap:8px;"><a href="#waarom" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Waarom dit project</a><a href="#wonen" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Het wonen</a><a href="#aanbod" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Woningaanbod</a><a href="#planning" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Planning</a><a href="#faq" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">FAQ</a><a href="#contact" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">Contact</a></div></div>\n<div><h4 style="font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(primTxt,.45)+';margin-bottom:10px;">Contact</h4><div style="display:flex;flex-direction:column;gap:8px;">'+(f.ontwnaam?'<span style="font-size:.83rem;color:'+alpha(primTxt,.65)+';">'+esc(f.ontwnaam)+'</span>\n':'')+(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="font-size:.83rem;color:'+acc+';text-decoration:none;">'+esc(f.cpmail)+'</a>\n':'')+(f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="font-size:.83rem;color:'+alpha(primTxt,.65)+';text-decoration:none;">'+esc(f.cptel)+'</a>\n':'')+'</div></div>\n</div>\n<div style="border-top:1px solid '+alpha(primTxt,.1)+';padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">\n<span style="font-size:.73rem;color:'+alpha(primTxt,.3)+'">&copy; '+esc(f.naam)+' &#8211; '+esc(f.loc)+'.</span>\n<div style="display:flex;gap:16px;"><a href="#" style="font-size:.73rem;color:'+alpha(primTxt,.38)+';text-decoration:none;">Privacybeleid</a><a href="#" style="font-size:.73rem;color:'+alpha(primTxt,.38)+';text-decoration:none;">Cookiebeleid</a><a href="#" style="font-size:.73rem;color:'+alpha(primTxt,.38)+';text-decoration:none;">Disclaimer</a></div>\n<span style="font-size:.73rem;color:'+alpha(primTxt,.22)+';">Gemaakt door <a href="https://springrealestate.com" style="color:'+alpha(acc,.65)+';text-decoration:none;">Spring Real Estate</a></span>\n</div></div></footer>\n\n</body>\n</html>';
 }
 
+/* ---- Preview / download ---- */
 function showPreview(html,seo){
   document.getElementById('previewWrap').style.display='block';
   document.getElementById('previewFrame').srcdoc=html;
   if(seo&&Object.keys(seo).length)renderSeo(seo);
 }
-
 function renderSeo(s){
-  var rows=[
-    ['Paginatitel',esc(s.title||'')],
-    ['Meta description',esc(s.meta_description||'')],
-    ['H1',esc(s.h1||'')],
-    ['Focus keyword','<span class="tag">'+esc(s.focus_keyword||'')+'</span>'],
-    ['Secundaire zoekwoorden',(s.secundaire_zoekwoorden||[]).map(function(k){return '<span class="tag">'+esc(k)+'</span>';}).join('')],
-    ['URL-slug',esc(s.url_slug||'')],
-    ['OG-titel',esc(s.og_titel||'')],
-    ['OG-beschrijving',esc(s.og_beschrijving||'')],
-    ['H2-structuur',(s.h2_structuur||[]).map(function(h,i){return '<div style="color:var(--grey);font-size:.8rem;margin-bottom:3px;">'+(i+1)+'. '+esc(h)+'</div>';}).join('')]
-  ];
-  document.getElementById('seoInner').innerHTML=rows.map(function(r){
-    return '<div class="seo-row"><div class="seo-lbl">'+r[0]+'</div><div class="seo-val">'+r[1]+'</div></div>';
-  }).join('');
+  var rows=[['Paginatitel',esc(s.title||'')],['Meta description',esc(s.meta_description||'')],['H1',esc(s.h1||'')],['Focus keyword','<span class="tag">'+esc(s.focus_keyword||'')+'</span>'],['Secundaire zoekwoorden',(s.secundaire_zoekwoorden||[]).map(function(k){return '<span class="tag">'+esc(k)+'</span>';}).join('')],['URL-slug',esc(s.url_slug||'')],['OG-titel',esc(s.og_titel||'')],['OG-beschrijving',esc(s.og_beschrijving||'')],['H2-structuur',(s.h2_structuur||[]).map(function(h,i){return '<div style="color:var(--grey);font-size:.8rem;margin-bottom:3px;">'+(i+1)+'. '+esc(h)+'</div>';}).join('')]];
+  document.getElementById('seoInner').innerHTML=rows.map(function(r){return '<div class="seo-row"><div class="seo-lbl">'+r[0]+'</div><div class="seo-val">'+r[1]+'</div></div>';}).join('');
 }
-
-function dlHtml(){
-  if(!generatedHtml)return;
-  var fn=(document.getElementById('naam').value.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')||'onepager')+'.html';
-  var b=new Blob([generatedHtml],{type:'text/html;charset=utf-8'});
-  var u=URL.createObjectURL(b);
-  var a=document.createElement('a');a.href=u;a.download=fn;a.click();
-  setTimeout(function(){URL.revokeObjectURL(u);},2000);
-}
-function openTab(){
-  if(!generatedHtml)return;
-  var b=new Blob([generatedHtml],{type:'text/html'});
-  window.open(URL.createObjectURL(b),'_blank');
-}
-function newProject(){
-  if(!confirm('Reset het formulier? Niet-opgeslagen werk gaat verloren.'))return;
-  location.reload();
-}
+function dlHtml(){if(!generatedHtml)return;var fn=(document.getElementById('naam').value.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')||'onepager')+'.html';var b=new Blob([generatedHtml],{type:'text/html;charset=utf-8'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=fn;a.click();setTimeout(function(){URL.revokeObjectURL(u);},2000);}
+function openTab(){if(!generatedHtml)return;window.open(URL.createObjectURL(new Blob([generatedHtml],{type:'text/html'})),'_blank');}
+function newProject(){if(!confirm('Reset het formulier? Niet-opgeslagen werk gaat verloren.'))return;location.reload();}
 </script>
 </body>
 </html>
