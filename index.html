@@ -4,345 +4,485 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Website Generator · Spring Real Estate</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0c0c0c;--card:#141414;--border:#232323;--green:#7CA73F;--green2:#89B647;--grey:#888;--white:#f0f0f0;--red:#d9534f;--r:8px}
-body{background:var(--bg);color:var(--white);font-family:'Raleway',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
-a{color:var(--green);text-decoration:none}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0c0c;--sur:#161615;--s2:#1f1f1e;
+  --ink:#fff;--muted:#AFAEB2;--koud:#8a8a8c;
+  --bd:#2f2f2d;--line:#3C3C3B;
+  --g:#7CA73F;--gl:#89B647;--rood:#d9713e;
+  --fn:"Raleway",system-ui,-apple-system,sans-serif;
+  --r:12px;--rsm:8px;
+}
+body{font-family:var(--fn);background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
 
-/* modal */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;display:flex;align-items:center;justify-content:center}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:40px;max-width:460px;width:92%}
-.modal h2{font-size:1.1rem;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:8px}
-.modal p{color:var(--grey);font-size:.88rem;margin-bottom:18px;line-height:1.7}
+/* ── MODAL ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:36px;max-width:460px;width:100%}
+.modal-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.modal-mark{width:34px;height:34px;background:var(--g);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#fff}
+.modal-brand{font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--g)}
+.modal h2{font-size:21px;font-weight:800;margin-bottom:8px}
+.modal p{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:22px}
+.modal-link{color:var(--gl);text-decoration:none;font-weight:700}.modal-link:hover{text-decoration:underline}
+.modal-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block}
+.modal-input{width:100%;padding:13px 15px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--ink);font-family:var(--fn);font-size:14px;outline:none;transition:border-color .15s;margin-bottom:14px}
+.modal-input:focus{border-color:var(--g)}.modal-input::placeholder{color:var(--koud)}
+.modal-btn{width:100%;padding:14px;background:var(--g);color:#fff;border:none;border-radius:var(--rsm);font-family:var(--fn);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s}.modal-btn:hover{background:var(--gl)}
+.modal-note{font-size:11.5px;color:var(--koud);margin-top:12px;text-align:center;line-height:1.5}
 
-/* topbar */
-.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:13px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.brand{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--grey)}
-.brand b{color:var(--green)}
-.topbar-actions{display:flex;gap:8px}
+/* ── TOP BAR ── */
+.top{position:sticky;top:0;z-index:20;background:rgba(12,12,12,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:0 24px;height:52px;display:flex;align-items:center;gap:12px}
+.s-mark{width:26px;height:26px;background:var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0}
+.v-sep{width:1px;height:20px;background:var(--line)}
+.brand-col{display:flex;flex-direction:column}
+.brand-name{font-weight:800;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--g);line-height:1.1}
+.brand-sub{font-size:9px;font-weight:600;letter-spacing:.07em;color:var(--muted);margin-top:1px}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.key-btn{background:none;border:1px solid var(--bd);color:var(--koud);font-family:var(--fn);font-size:11px;padding:5px 12px;border-radius:999px;cursor:pointer;transition:border-color .15s,color .15s}
+.key-btn:hover{border-color:var(--g);color:var(--gl)}
 
-/* screens */
-#heroScreen{min-height:calc(100vh - 50px);display:flex;flex-direction:column;justify-content:center}
-#formScreen{display:none}
+/* ── HERO ── */
+.hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:60px 20px 52px;max-width:740px;margin:0 auto}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gl);margin-bottom:20px}
+h1{font-size:clamp(28px,5vw,50px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-bottom:16px}
+h1 em{font-style:normal;color:var(--gl)}
+.sub{font-size:15px;color:var(--muted);max-width:54ch;line-height:1.75;margin-bottom:36px}
+.caps{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:36px}
+.cap-pill{font-size:11px;font-weight:600;padding:5px 13px;border-radius:999px;background:var(--sur);border:1px solid var(--bd);color:var(--muted);display:flex;align-items:center;gap:5px}
+.cap-dot{width:5px;height:5px;border-radius:50%;background:var(--gl);flex-shrink:0}
+.start-btn{padding:15px 34px;background:var(--g);color:#fff;border:none;border-radius:999px;font-family:var(--fn);font-size:12.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background .15s,transform .1s}
+.start-btn:hover{background:var(--gl)}.start-btn:active{transform:scale(.97)}
 
-/* hero */
-.hero-inner{max-width:860px;margin:0 auto;padding:60px 28px 80px}
-.phase-badge{display:inline-block;font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--green);font-weight:700;margin-bottom:22px;background:rgba(124,167,63,.1);border:1px solid rgba(124,167,63,.25);border-radius:20px;padding:5px 14px}
-.hero-h1{font-size:clamp(2.4rem,5.5vw,4rem);font-weight:900;text-transform:uppercase;letter-spacing:.02em;line-height:1.05;margin-bottom:20px}
-.hero-h1 em{color:var(--green);font-style:normal;display:block}
-.hero-sub{color:var(--grey);font-size:1rem;max-width:580px;line-height:1.75;margin-bottom:36px}
-.outputs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:44px}
-.out-chip{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;padding:5px 12px;border:1px solid var(--border);border-radius:4px;color:#555}
-.btn-start{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#fff;padding:15px 36px;border-radius:6px;font-family:'Raleway',sans-serif;font-size:.9rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;cursor:pointer;border:none;transition:background .2s}
-.btn-start:hover{background:var(--green2)}
+/* ── WIZARD ── */
+.wizard{width:100%;max-width:740px;margin:0 auto;padding:40px 20px 80px;display:none}
 
-/* tabs */
-.tab-bar{border-bottom:1px solid var(--border);padding:0 28px;display:flex;gap:0;background:var(--card);position:sticky;top:50px;z-index:90}
-.tab-btn{padding:16px 22px;font-family:'Raleway',sans-serif;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px}
-.tab-btn.active{color:var(--green);border-bottom-color:var(--green)}
-.tab-btn .t-nr{width:20px;height:20px;border-radius:50%;background:#222;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem}
-.tab-btn.active .t-nr{background:var(--green);color:#fff}
-.tab-pane{display:none;max-width:860px;margin:0 auto;padding:32px 28px 100px}
-.tab-pane.active{display:block}
+.progress{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:36px}
+.prog-step{display:flex;align-items:center;gap:8px}
+.prog-dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--koud);background:var(--bg);transition:.2s;flex-shrink:0;cursor:pointer}
+.prog-dot.active{border-color:var(--g);color:var(--g);background:rgba(124,167,63,.08)}
+.prog-dot.done{border-color:var(--g);background:var(--g);color:#fff}
+.prog-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--koud);transition:.2s}
+.prog-dot.active+.prog-label,.prog-dot.done+.prog-label{color:var(--muted)}
+.prog-line{width:40px;height:1px;background:var(--bd);flex-shrink:0;margin:0 4px;transition:background .3s}
+.prog-line.done{background:var(--g)}
 
-/* form */
-.sec-group{margin-bottom:32px}
-.sec-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.14em;font-weight:800;color:var(--green);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
-.field{display:flex;flex-direction:column;gap:5px}
-.field label{font-size:.78rem;font-weight:600;color:#aaa;display:flex;align-items:center;gap:6px}
-.opt{font-size:.7rem;color:#555;font-weight:500;text-transform:lowercase;letter-spacing:0}
-.req{color:var(--green);font-size:.9em}
-input[type=text],input[type=email],input[type=tel],input[type=number],textarea,select{
-  background:#111;border:1px solid var(--border);border-radius:6px;color:var(--white);
-  font-family:'Raleway',sans-serif;font-size:.9rem;padding:10px 13px;width:100%;transition:border-color .2s}
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--green)}
-textarea{resize:vertical;min-height:80px}
-select option{background:#111}
+.step-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);padding:28px;display:none}
+.step-card.active{display:block}
+.step-title{font-size:17px;font-weight:800;margin-bottom:4px}
+.step-sub{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.55}
 
-/* pills */
-.pill-group{display:flex;flex-wrap:wrap;gap:8px}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#111;
-  border:1px solid var(--border);border-radius:20px;cursor:pointer;font-family:'Raleway',sans-serif;
-  font-size:.8rem;font-weight:600;transition:all .2s;user-select:none;color:#aaa}
-.pill:has(input:checked){background:rgba(124,167,63,.12);border-color:var(--green);color:var(--green)}
-.pill input{display:none}
+/* ── FIELDS ── */
+.field{margin-bottom:16px}
+.field-row{display:grid;gap:14px}
+.field-row.c2{grid-template-columns:1fr 1fr}
+.field-row.c3{grid-template-columns:1fr 1fr 1fr}
+.fld-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.opt-tag{font-size:9px;font-weight:600;color:var(--koud);background:var(--bg);border:1px solid var(--bd);padding:1px 6px;border-radius:3px;letter-spacing:.04em}
+.fld-inp{width:100%;padding:10px 13px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--ink);font-family:var(--fn);font-size:13.5px;outline:none;transition:border-color .15s}
+.fld-inp:focus{border-color:var(--g)}.fld-inp::placeholder{color:var(--koud)}
+.fld-sel{width:100%;padding:10px 13px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--ink);font-family:var(--fn);font-size:13.5px;outline:none;transition:border-color .15s;appearance:none;cursor:pointer}
+.fld-sel:focus{border-color:var(--g)}.fld-sel option{background:var(--sur)}
+.fld-ta{width:100%;padding:10px 13px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--ink);font-family:var(--fn);font-size:13.5px;outline:none;transition:border-color .15s;resize:vertical;min-height:80px;line-height:1.6}
+.fld-ta:focus{border-color:var(--g)}.fld-ta::placeholder{color:var(--koud)}
+.section-divider{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--koud);border-bottom:1px solid var(--bd);padding-bottom:8px;margin:22px 0 16px}
+.chip-group{display:flex;flex-wrap:wrap;gap:7px}
+.chip{padding:6px 13px;border-radius:999px;background:var(--bg);border:1px solid var(--bd);color:var(--muted);font-family:var(--fn);font-size:11.5px;font-weight:600;cursor:pointer;transition:.12s;user-select:none}
+.chip:hover{border-color:var(--g);color:var(--gl)}
+.chip.sel{border-color:var(--g);background:rgba(124,167,63,.1);color:var(--gl)}
+.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--bd)}
+.btn-back{background:none;border:1px solid var(--bd);color:var(--muted);font-family:var(--fn);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:11px 22px;border-radius:999px;cursor:pointer;transition:.12s}
+.btn-back:hover{border-color:var(--g);color:var(--gl)}
+.btn-next{background:var(--g);color:#fff;border:none;font-family:var(--fn);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:11px 28px;border-radius:999px;cursor:pointer;transition:.12s}
+.btn-next:hover{background:var(--gl)}.btn-next:active{transform:scale(.97)}
 
-/* color row */
-.color-row{display:flex;align-items:center;gap:10px}
-.color-row input[type=color]{width:40px;height:40px;border:2px solid var(--border);border-radius:6px;padding:2px;cursor:pointer;background:none;flex-shrink:0}
-.color-row input[type=text]{max-width:100px}
+/* ── WONINGTYPE BLOCKS ── */
+.wt-block{background:var(--s2);border:1px solid var(--bd);border-radius:var(--rsm);padding:20px;margin-bottom:10px;position:relative}
+.wt-hd{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--koud);margin-bottom:14px}
+.wt-rm{position:absolute;top:12px;right:12px;background:none;border:1px solid var(--bd);color:var(--koud);cursor:pointer;border-radius:999px;padding:3px 10px;font-size:10px;font-family:var(--fn);transition:.12s}
+.wt-rm:hover{border-color:var(--rood);color:var(--rood)}
 
-/* woningtype */
-.wt-block{background:#111;border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:12px;position:relative}
-.wt-hd{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--green);margin-bottom:14px}
-.wt-rm{position:absolute;top:14px;right:14px;background:none;border:1px solid var(--border);color:var(--grey);cursor:pointer;border-radius:4px;padding:4px 8px;font-size:.72rem;transition:all .2s}
-.wt-rm:hover{border-color:var(--red);color:var(--red)}
-
-/* planning */
+/* ── PLANNING ── */
 .plan-row{display:grid;grid-template-columns:28px 1fr 1fr;gap:12px;align-items:start;margin-bottom:12px}
-.plan-nr{width:24px;height:24px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;margin-top:10px;flex-shrink:0}
+.plan-nr{width:24px;height:24px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;margin-top:28px;flex-shrink:0}
 
-/* agent panels */
-.agent-panel{background:#0e0e0e;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
-.agent-hd{padding:13px 16px;background:#131313;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px}
-.agent-name{font-size:.77rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--green)}
+/* ── AGENT PANELS ── */
+.agent-panel{background:var(--s2);border:1px solid var(--bd);border-radius:var(--rsm);overflow:hidden;margin-bottom:10px}
+.agent-hd{padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.agent-name{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .agent-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
 .upload-row{display:flex;align-items:center;gap:10px}
 .upload-row input[type=file]{display:none}
-.upload-lbl{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;background:#151515;
-  border:1px solid var(--border);border-radius:5px;font-size:.75rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.06em;color:var(--grey);cursor:pointer;transition:all .2s;white-space:nowrap}
-.upload-lbl:hover{border-color:var(--green);color:var(--green)}
-.upload-lbl.ok{border-color:var(--green2);color:var(--green2)}
-.upload-hint{font-size:.75rem;color:#444;font-style:italic}
+.upload-lbl{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--koud);cursor:pointer;transition:.12s;white-space:nowrap;font-family:var(--fn)}
+.upload-lbl:hover{border-color:var(--g);color:var(--gl)}
+.upload-lbl.ok{border-color:var(--gl);color:var(--gl)}
+.upload-hint{font-size:11px;color:var(--koud)}
 
-/* tab nav */
-.tab-nav-row{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
-
-/* buttons */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:6px;font-family:'Raleway',sans-serif;font-size:.84rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;border:none;transition:all .2s}
-.btn-p{background:var(--green);color:#fff}
-.btn-p:hover{background:var(--green2)}
-.btn-s{background:transparent;color:var(--grey);border:1px solid var(--border)}
-.btn-s:hover{border-color:var(--green);color:var(--green)}
-.btn-xs{padding:7px 14px;font-size:.75rem}
-.btn-add{background:#0e0e0e;color:var(--green);border:1px dashed #2a3a1e;width:100%;justify-content:center;margin-top:4px}
-.btn-add:hover{background:#111}
-
-/* status */
-.status-wrap{max-width:860px;margin:28px auto;padding:0 28px}
+/* ── STATUS ── */
+.status-wrap{max-width:740px;margin:24px auto;padding:0 20px}
 .step-list{display:flex;flex-direction:column;gap:8px}
-.step{display:flex;align-items:center;gap:12px;padding:13px 18px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);transition:border-color .25s}
-.step.active{border-color:var(--green2)}
-.step.done{border-color:#2a3a1e}
-.step.err{border-color:var(--red)}
-.sdot{width:22px;height:22px;border-radius:50%;background:#1e1e1e;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.72rem}
-.step.active .sdot{background:var(--green2);animation:pulse 1s infinite}
-.step.done .sdot{background:var(--green)}
-.step.err .sdot{background:var(--red)}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.slabel{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
-.sdetail{font-size:.78rem;color:var(--grey);margin-left:auto}
-.err-box{color:var(--red);font-size:.82rem;padding:10px 14px;background:rgba(217,83,79,.08);border:1px solid rgba(217,83,79,.25);border-radius:6px;margin-top:10px}
+.step{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--rsm);transition:border-color .2s}
+.step.active{border-color:var(--gl)}
+.step.done{border-color:var(--g)}
+.step.err{border-color:var(--rood)}
+.sdot{width:20px;height:20px;border-radius:50%;background:var(--s2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+.step.active .sdot{background:var(--gl);animation:pulse 1s infinite}
+.step.done .sdot{background:var(--g)}
+.step.err .sdot{background:var(--rood)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.slabel{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.sdetail{font-size:11px;color:var(--koud);margin-left:auto}
+.err-msg{font-size:12px;color:var(--rood);padding:10px 14px;background:rgba(217,113,62,.08);border:1px solid rgba(217,113,62,.22);border-radius:var(--rsm);margin-top:10px}
 
-/* preview */
-.preview-wrap{max-width:860px;margin:24px auto;padding:0 28px}
+/* ── PREVIEW ── */
+.preview-wrap{max-width:740px;margin:20px auto;padding:0 20px}
 .preview-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.preview-bar h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:700}
-.iframe-container{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:#fff}
+.preview-bar h3{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gl)}
+.prev-actions{display:flex;gap:7px}
+.prev-btn{padding:7px 16px;border-radius:999px;font-family:var(--fn);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:.12s}
+.prev-btn-s{background:none;border:1px solid var(--bd);color:var(--muted)}.prev-btn-s:hover{border-color:var(--g);color:var(--gl)}
+.prev-btn-p{background:var(--g);color:#fff;border:none}.prev-btn-p:hover{background:var(--gl)}
+.iframe-container{border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;background:#fff}
 iframe{width:100%;height:680px;border:none;display:block}
-.seo-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-top:14px;overflow:hidden}
-.seo-card details summary{padding:14px 18px;cursor:pointer;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--green);font-weight:700;list-style:none;display:flex;align-items:center;justify-content:space-between}
+.seo-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--rsm);margin-top:12px;overflow:hidden}
+.seo-card details summary{padding:13px 16px;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gl);list-style:none;display:flex;align-items:center;justify-content:space-between}
 .seo-card details summary::-webkit-details-marker{display:none}
-.seo-card details summary::after{content:'▼';font-size:.65rem;transition:transform .2s}
+.seo-card details summary::after{content:'▼';font-size:.6rem;color:var(--koud);transition:transform .2s}
 .seo-card details[open] summary::after{transform:rotate(180deg)}
-.seo-inner{padding:18px;display:grid;gap:10px}
-.seo-row{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:start;font-size:.83rem}
-.seo-lbl{color:var(--grey);font-weight:700;text-transform:uppercase;font-size:.7rem;letter-spacing:.06em;padding-top:2px}
-.tag{display:inline-block;background:#161616;border:1px solid var(--border);border-radius:20px;padding:2px 9px;font-size:.73rem;color:var(--grey);margin:2px}
+.seo-inner{padding:16px;display:grid;gap:9px}
+.seo-row{display:grid;grid-template-columns:140px 1fr;gap:10px;align-items:start;font-size:12px}
+.seo-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--koud);padding-top:1px}
+.tag-pill{display:inline-block;background:var(--bg);border:1px solid var(--bd);border-radius:999px;padding:2px 9px;font-size:10.5px;color:var(--koud);margin:2px}
 
-/* feedback */
-.feedback-card{background:var(--card);border:1px solid rgba(124,167,63,.35);border-radius:var(--r);padding:22px;margin-top:14px}
-.feedback-card h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:700;margin-bottom:6px}
-.feedback-card p{color:var(--grey);font-size:.82rem;margin-bottom:12px;line-height:1.65}
-.feedback-card textarea{min-height:80px}
-.fb-actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;align-items:center}
-.fb-hint{font-size:.75rem;color:#444;font-style:italic}
+/* ── FEEDBACK ── */
+.feedback-card{background:var(--sur);border:1px solid rgba(124,167,63,.3);border-radius:var(--r);padding:22px;margin-top:12px}
+.feedback-card h3{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gl);margin-bottom:6px}
+.feedback-card p{font-size:12.5px;color:var(--muted);margin-bottom:12px;line-height:1.65}
+.fb-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center}
+.fb-hint{font-size:11px;color:var(--koud)}
 
-footer{text-align:center;padding:22px;color:#333;font-size:.73rem;border-top:1px solid var(--border);margin-top:40px}
-footer b{color:var(--green);font-weight:900}
+/* ── COLOR SWATCH ── */
+.color-row{display:flex;align-items:center;gap:8px}
+.color-row input[type=color]{width:38px;height:38px;border:1px solid var(--bd);border-radius:var(--rsm);padding:2px;cursor:pointer;background:none;flex-shrink:0}
+.color-hex{max-width:90px}
 
-@media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr}.hero-h1{font-size:2.1rem}.plan-row{grid-template-columns:24px 1fr}}
+footer{text-align:center;padding:20px;color:var(--koud);font-size:11px;border-top:1px solid var(--line);margin-top:auto}
+footer b{color:var(--g)}
+
+@media(max-width:600px){.field-row.c2,.field-row.c3{grid-template-columns:1fr}.prog-label{display:none}.prog-line{width:20px}.plan-row{grid-template-columns:24px 1fr}}
 </style>
 </head>
 <body>
 
-<!-- API key modal -->
+<!-- MODAL -->
 <div class="modal-bg" id="setupModal">
   <div class="modal">
+    <div class="modal-logo">
+      <div class="modal-mark">S</div>
+      <div class="modal-brand">Spring Real Estate</div>
+    </div>
     <h2>Groq API-sleutel instellen</h2>
-    <p>De Website Generator gebruikt Groq AI. Maak een gratis sleutel aan op <a href="https://console.groq.com" target="_blank">console.groq.com</a> &rarr; API Keys &rarr; Create API key.</p>
-    <div class="field" style="margin-bottom:16px">
-      <label>Groq API-sleutel</label>
-      <input type="password" id="keyInput" placeholder="gsk_...">
-    </div>
-    <button class="btn btn-p" onclick="saveKey()">Opslaan &amp; doorgaan</button>
-    <p style="margin-top:10px;font-size:.75rem;color:#444">Sleutel wordt alleen lokaal opgeslagen in jouw browser.</p>
+    <p>De Website Generator gebruikt Groq AI. Maak een gratis sleutel aan op <a href="https://console.groq.com" target="_blank" class="modal-link">console.groq.com</a> &rarr; API Keys &rarr; Create API key.</p>
+    <label class="modal-lbl" for="keyInput">Groq API-sleutel</label>
+    <input class="modal-input" type="password" id="keyInput" placeholder="gsk_...">
+    <button class="modal-btn" onclick="saveKey()">Opslaan &amp; doorgaan</button>
+    <p class="modal-note">Sleutel wordt alleen lokaal opgeslagen in jouw browser &mdash; niet gedeeld.</p>
   </div>
 </div>
 
-<!-- Topbar -->
-<div class="topbar">
-  <div class="brand"><b>S</b>&nbsp; Spring Real Estate &nbsp;&middot;&nbsp; Website Generator</div>
-  <div class="topbar-actions">
-    <button class="btn btn-s btn-xs" id="btnNieuw" style="display:none" onclick="newProject()">Nieuw project</button>
-    <button class="btn btn-s btn-xs" onclick="showSetup()">&cog; Sleutel</button>
+<!-- TOPBAR -->
+<nav class="top">
+  <div class="s-mark">S</div>
+  <div class="v-sep"></div>
+  <div class="brand-col">
+    <div class="brand-name">Spring Real Estate</div>
+    <div class="brand-sub">Website Generator &middot; Nieuwbouw</div>
   </div>
+  <div class="top-right">
+    <button class="key-btn" id="btnNieuw" style="display:none" onclick="newProject()">Nieuw project</button>
+    <button class="key-btn" onclick="showSetup()">&#9881; Sleutel</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="heroWrap">
+  <div class="hero">
+    <div class="eyebrow">Fase 6 &middot; Website Generator &middot; Projectmarketing</div>
+    <h1>Van projectbrief<br><em>naar complete website.</em></h1>
+    <p class="sub">Vul de intake in &mdash; de agent doet locatieonderzoek, schrijft alle copy en genereert een volledige one-page website klaar voor ontwerp en ontwikkeling.</p>
+    <div class="caps">
+      <span class="cap-pill"><span class="cap-dot"></span>Hero &amp; nav</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Waarom</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Wonen</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Locatie</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Leven hier</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Woningaanbod</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Planning</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Impressies</span>
+      <span class="cap-pill"><span class="cap-dot"></span>FAQ (10+)</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Ontwikkelaar</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Contact</span>
+      <span class="cap-pill"><span class="cap-dot"></span>Footer</span>
+    </div>
+    <button class="start-btn" onclick="startIntake()">Start intake &nbsp;&rarr;</button>
+  </div>
+  <footer><b>S</b>&nbsp; Spring Real Estate &middot; Projectmarketing &amp; Makelaardij</footer>
 </div>
 
-<!-- HERO SCREEN -->
-<div id="heroScreen">
-  <div class="hero-inner">
-    <div class="phase-badge">Fase 6 &nbsp;&middot;&nbsp; Website Generator &nbsp;&middot;&nbsp; Projectmarketing</div>
-    <h1 class="hero-h1">Van projectbrief<em>naar complete website.</em></h1>
-    <p class="hero-sub">Vul de intake in &mdash; de agent doet locatieonderzoek, schrijft alle copy en genereert een volledige one-page website klaar voor ontwerp en ontwikkeling.</p>
-    <div class="outputs">
-      <span class="out-chip">Hero &amp; nav</span>
-      <span class="out-chip">Waarom</span>
-      <span class="out-chip">Wonen</span>
-      <span class="out-chip">Locatie</span>
-      <span class="out-chip">Leven hier</span>
-      <span class="out-chip">Woningaanbod</span>
-      <span class="out-chip">Planning</span>
-      <span class="out-chip">Impressies</span>
-      <span class="out-chip">FAQ (10+)</span>
-      <span class="out-chip">Ontwikkelaar</span>
-      <span class="out-chip">Contact</span>
-      <span class="out-chip">Footer</span>
+<!-- WIZARD -->
+<div class="wizard" id="wizardWrap">
+  <!-- Progress -->
+  <div class="progress">
+    <div class="prog-step">
+      <div class="prog-dot active" id="pd0" onclick="goStep(0)">1</div>
+      <div class="prog-label">Project</div>
     </div>
-    <button class="btn-start" onclick="startIntake()">Start intake &nbsp;&rarr;</button>
-  </div>
-  <footer><b>S</b> &nbsp; Spring Real Estate &nbsp;&middot;&nbsp; Projectmarketing &amp; Makelaardij</footer>
-</div>
-
-<!-- FORM SCREEN -->
-<div id="formScreen">
-
-  <div class="tab-bar">
-    <button class="tab-btn active" id="tBtn0" onclick="goTab(0)"><span class="t-nr">1</span> Project &amp; Locatie</button>
-    <button class="tab-btn" id="tBtn1" onclick="goTab(1)"><span class="t-nr">2</span> Branding &amp; Stijl</button>
-    <button class="tab-btn" id="tBtn2" onclick="goTab(2)"><span class="t-nr">3</span> Agent Outputs</button>
-  </div>
-
-  <!-- Tab 0 -->
-  <div class="tab-pane active" id="tab0">
-    <div class="sec-group">
-      <div class="sec-label">Projectgegevens</div>
-      <div class="grid2" style="margin-bottom:14px">
-        <div class="field"><label>Projectnaam <span class="req">*</span></label><input type="text" id="naam" placeholder="bijv. De Houtloods"></div>
-        <div class="field"><label>Locatie / Stad <span class="req">*</span></label><input type="text" id="loc" placeholder="bijv. Zutphen"></div>
-      </div>
-      <div class="grid2" style="margin-bottom:14px">
-        <div class="field"><label>Wijk / Buurt <span class="opt">(optioneel)</span></label><input type="text" id="wijk" placeholder="bijv. Noorderhaven"></div>
-        <div class="field"><label>Type transactie</label>
-          <select id="transactie"><option value="koopwoningen">Koopwoningen</option><option value="huurwoningen">Huurwoningen</option><option value="koop en huur">Koop &amp; Huur</option></select>
-        </div>
-      </div>
-      <div class="grid2" style="margin-bottom:14px">
-        <div class="field"><label>Totaal aantal woningen <span class="opt">(optioneel)</span></label><input type="number" id="aantalTotaal" placeholder="bijv. 42"></div>
-        <div class="field"><label>Prijssegment <span class="opt">(optioneel)</span></label>
-          <select id="prijsseg"><option value="">Kies&hellip;</option><option>Starter (v.a. &euro;250k)</option><option>Middensegment (&euro;325k&ndash;&euro;600k)</option><option>Hoger segment (&euro;600k&ndash;&euro;1M)</option><option>Luxe / top (&gt; &euro;1M)</option><option>Middenhuur (&euro;900&ndash;&euro;1.500/mnd)</option><option>Vrije sector huur (&gt; &euro;1.500/mnd)</option></select>
-        </div>
-      </div>
-      <div class="field" style="margin-bottom:14px"><label>Projectomschrijving <span class="req">*</span></label><textarea id="omschrijving" rows="3" placeholder="Wat maakt dit project bijzonder? Architectuur, sfeer, concept, bijzonderheden&hellip;"></textarea></div>
-      <div class="grid2">
-        <div class="field"><label>Architectuur / bouwstijl <span class="opt">(optioneel)</span></label><input type="text" id="architectuur" placeholder="bijv. industrieel erfgoed, jaren-30 stijl"></div>
-        <div class="field"><label>Duurzaamheid / energielabel <span class="opt">(optioneel)</span></label><input type="text" id="duurzaamheid" placeholder="bijv. Energie A++, warmtepomp, zonnepanelen"></div>
-      </div>
+    <div class="prog-line" id="pl0"></div>
+    <div class="prog-step">
+      <div class="prog-dot" id="pd1" onclick="goStep(1)">2</div>
+      <div class="prog-label">Branding</div>
     </div>
-
-    <div class="sec-group">
-      <div class="sec-label">Woningtypen</div>
-      <div id="wtList"></div>
-      <button class="btn btn-add" onclick="addWt()">+ Woningtype toevoegen</button>
-    </div>
-
-    <div class="sec-group">
-      <div class="sec-label">Planning</div>
-      <div class="plan-row"><div class="plan-nr">1</div><div class="field"><label>Fase</label><input type="text" id="fase1" value="Ori&euml;ntatie &amp; Informatie"></div><div class="field"><label>Datum</label><input type="text" id="datum1" placeholder="bijv. Q3 2025"></div></div>
-      <div class="plan-row"><div class="plan-nr">2</div><div class="field"><label>Fase</label><input type="text" id="fase2" value="Start verkoop"></div><div class="field"><label>Datum</label><input type="text" id="datum2" placeholder="bijv. Q4 2025"></div></div>
-      <div class="plan-row"><div class="plan-nr">3</div><div class="field"><label>Fase</label><input type="text" id="fase3" value="Start bouw"></div><div class="field"><label>Datum</label><input type="text" id="datum3" placeholder="bijv. Q1 2026"></div></div>
-      <div class="plan-row"><div class="plan-nr">4</div><div class="field"><label>Fase</label><input type="text" id="fase4" value="Oplevering"></div><div class="field"><label>Datum</label><input type="text" id="datum4" placeholder="bijv. Q4 2026"></div></div>
-      <div class="plan-row"><div class="plan-nr">5</div><div class="field"><label>Fase <span class="opt">(optioneel)</span></label><input type="text" id="fase5" placeholder="bijv. Sleuteloverdracht"></div><div class="field"><label>Datum</label><input type="text" id="datum5" placeholder="bijv. Q1 2027"></div></div>
-    </div>
-
-    <div class="tab-nav-row">
-      <span></span>
-      <button class="btn btn-p" onclick="goTab(1)">Volgende stap &nbsp;&rarr;</button>
+    <div class="prog-line" id="pl1"></div>
+    <div class="prog-step">
+      <div class="prog-dot" id="pd2" onclick="goStep(2)">3</div>
+      <div class="prog-label">Agent Outputs</div>
     </div>
   </div>
 
-  <!-- Tab 1 -->
-  <div class="tab-pane" id="tab1">
-    <div class="sec-group">
-      <div class="sec-label">Visuele stijl</div>
-      <div class="grid2" style="margin-bottom:14px">
-        <div class="field"><label>Primaire kleur</label><div class="color-row"><input type="color" id="cpPrim" value="#1C3A4A" oninput="syncColor('cpPrim','hPrim')"><input type="text" id="hPrim" value="#1C3A4A" oninput="syncHex('hPrim','cpPrim')" maxlength="7"></div></div>
-        <div class="field"><label>Accentkleur</label><div class="color-row"><input type="color" id="cpAcc" value="#C9A84C" oninput="syncColor('cpAcc','hAcc')"><input type="text" id="hAcc" value="#C9A84C" oninput="syncHex('hAcc','cpAcc')" maxlength="7"></div></div>
-      </div>
-      <div class="grid2" style="margin-bottom:14px">
-        <div class="field"><label>Achtergrondkleur</label><div class="color-row"><input type="color" id="cpBg" value="#F7F3EC" oninput="syncColor('cpBg','hBg')"><input type="text" id="hBg" value="#F7F3EC" oninput="syncHex('hBg','cpBg')" maxlength="7"></div></div>
-        <div class="field"><label>Font-stijl</label>
-          <select id="fontStijl"><option value="modern">Modern &mdash; Inter</option><option value="klassiek">Klassiek &mdash; Cormorant</option><option value="bold">Bold &mdash; Archivo Black</option><option value="minimal">Minimaal &mdash; DM Sans</option></select>
-        </div>
-      </div>
-      <div class="grid2">
-        <div class="field"><label>Sfeerwoorden / merkrichting <span class="opt">(optioneel)</span></label><input type="text" id="sfeer" placeholder="bijv. industrieel, warm, historisch, vakmanschap"></div>
-        <div class="field"><label>Tagline <span class="opt">(optioneel)</span></label><input type="text" id="tagline" placeholder="bijv. Wonen waar het water werkt."></div>
-      </div>
-    </div>
+  <!-- STAP 1: Project & Locatie -->
+  <div class="step-card active" id="sc0">
+    <div class="step-title">Project &amp; Locatie</div>
+    <div class="step-sub">Vul in wat je weet. Wat nog niet bekend is mag je leeg laten &mdash; de agent vult ontbrekende locatieinfo zelf op.</div>
 
-    <div class="sec-group">
-      <div class="sec-label">Storytelling &amp; Positionering</div>
-      <div class="field" style="margin-bottom:14px"><label>Kernboodschap <span class="req">*</span></label><textarea id="kernboodschap" rows="3" placeholder="Wat is de essentie van dit project? Waarom is dit bijzonder voor de doelgroep?"></textarea></div>
-      <div class="field" style="margin-bottom:14px"><label>Doelgroep <span class="req">*</span></label><textarea id="doelgroep" rows="2" placeholder="bijv. Jonge professionals die bewust kiezen voor karaktervolle, binnenstedelijke woningen."></textarea></div>
-      <div class="field" style="margin-bottom:14px"><label>Belangrijkste USPs <span class="opt">(1 per regel)</span></label><textarea id="usps" rows="4" placeholder="bijv.&#10;Monumentale industri&euml;le uitstraling&#10;Aan het water, centrum op loopafstand&#10;Hoge plafonds en grote ramen"></textarea></div>
-      <div class="field"><label>Omgeving / locatievoordelen <span class="opt">(optioneel)</span></label><textarea id="omgeving" rows="2" placeholder="Wat is bijzonder aan de omgeving? Voorzieningen, bereikbaarheid, natuur, cultuur&hellip;"></textarea></div>
-    </div>
-
-    <div class="sec-group">
-      <div class="sec-label">Verkoop &amp; Contact</div>
-      <div class="grid2" style="margin-bottom:14px">
-        <div class="field"><label>Naam ontwikkelaar <span class="opt">(optioneel)</span></label><input type="text" id="ontwnaam" placeholder="bijv. IJsseloever Ontwikkeling B.V."></div>
-        <div class="field"><label>Website ontwikkelaar <span class="opt">(optioneel)</span></label><input type="text" id="ontwsite" placeholder="bijv. www.ijsseloever.nl"></div>
-      </div>
-      <div class="field" style="margin-bottom:14px"><label>Over de ontwikkelaar <span class="opt">(optioneel)</span></label><textarea id="ontwbio" rows="2" placeholder="Kort profiel, track record, visie&hellip;"></textarea></div>
-      <div class="grid2" style="margin-bottom:14px">
-        <div class="field"><label>Contactpersoon <span class="opt">(optioneel)</span></label><input type="text" id="cpnaam" placeholder="bijv. Joris van den Berg"></div>
-        <div class="field"><label>Functietitel <span class="opt">(optioneel)</span></label><input type="text" id="cptitel" placeholder="bijv. Verkoopmakelaar"></div>
-      </div>
-      <div class="grid2" style="margin-bottom:14px">
-        <div class="field"><label>E-mailadres <span class="opt">(optioneel)</span></label><input type="email" id="cpmail" placeholder="info@project.nl"></div>
-        <div class="field"><label>Telefoonnummer <span class="opt">(optioneel)</span></label><input type="tel" id="cptel" placeholder="06-12345678"></div>
-      </div>
-      <div class="grid2" style="margin-bottom:14px">
-        <div class="field"><label>Primaire CTA</label><input type="text" id="cta1" value="Meld je aan"></div>
-        <div class="field"><label>Secundaire CTA</label><input type="text" id="cta2" value="Download brochure"></div>
+    <div class="section-divider">Projectgegevens</div>
+    <div class="field-row c2">
+      <div class="field">
+        <div class="fld-lbl">Projectnaam *</div>
+        <input class="fld-inp" id="naam" placeholder="bijv. De Houtloods">
       </div>
       <div class="field">
-        <label>Beschikbare downloads</label>
-        <div class="pill-group" style="margin-top:6px">
-          <label class="pill"><input type="checkbox" id="dlBrochure" checked><span>Verkoopbrochure</span></label>
-          <label class="pill"><input type="checkbox" id="dlPlattegrond"><span>Plattegronden</span></label>
-          <label class="pill"><input type="checkbox" id="dlPrijslijst"><span>Prijslijst</span></label>
-          <label class="pill"><input type="checkbox" id="dlKopersinfo"><span>Kopershandleiding</span></label>
+        <div class="fld-lbl">Locatie / Stad *</div>
+        <input class="fld-inp" id="loc" placeholder="bijv. Zutphen">
+      </div>
+    </div>
+    <div class="field-row c2">
+      <div class="field">
+        <div class="fld-lbl">Wijk / Buurt <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="wijk" placeholder="bijv. Noorderhaven">
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Type transactie</div>
+        <select class="fld-sel" id="transactie">
+          <option value="koopwoningen">Koopwoningen</option>
+          <option value="huurwoningen">Huurwoningen</option>
+          <option value="koop en huur">Koop &amp; Huur</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row c2">
+      <div class="field">
+        <div class="fld-lbl">Totaal aantal woningen <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="aantalTotaal" type="number" placeholder="bijv. 42">
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Prijssegment <span class="opt-tag">optioneel</span></div>
+        <select class="fld-sel" id="prijsseg">
+          <option value="">Kies&hellip;</option>
+          <option>Starter (v.a. &euro;250k)</option>
+          <option>Middensegment (&euro;325k&ndash;&euro;600k)</option>
+          <option>Hoger segment (&euro;600k&ndash;&euro;1M)</option>
+          <option>Luxe / top (&gt; &euro;1M)</option>
+          <option>Middenhuur (&euro;900&ndash;&euro;1.500/mnd)</option>
+          <option>Vrije sector huur (&gt; &euro;1.500/mnd)</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <div class="fld-lbl">Projectomschrijving *</div>
+      <textarea class="fld-ta" id="omschrijving" rows="3" placeholder="Wat maakt dit project bijzonder? Architectuur, sfeer, concept&hellip;"></textarea>
+    </div>
+    <div class="field-row c2">
+      <div class="field">
+        <div class="fld-lbl">Architectuur / bouwstijl <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="architectuur" placeholder="bijv. industrieel erfgoed, jaren-30 stijl">
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Duurzaamheid / energielabel <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="duurzaamheid" placeholder="bijv. A++, warmtepomp, zonnepanelen">
+      </div>
+    </div>
+
+    <div class="section-divider">Woningtypen</div>
+    <div id="wtList"></div>
+    <button class="key-btn" style="width:100%;padding:10px;margin-top:4px;border-radius:var(--rsm);text-align:center" onclick="addWt()">+ Woningtype toevoegen</button>
+
+    <div class="section-divider">Planning</div>
+    <div class="plan-row"><div class="plan-nr">1</div><div class="field"><div class="fld-lbl">Fase</div><input class="fld-inp" id="fase1" value="Ori&euml;ntatie &amp; Informatie"></div><div class="field"><div class="fld-lbl">Datum</div><input class="fld-inp" id="datum1" placeholder="bijv. Q3 2025"></div></div>
+    <div class="plan-row"><div class="plan-nr">2</div><div class="field"><div class="fld-lbl">Fase</div><input class="fld-inp" id="fase2" value="Start verkoop"></div><div class="field"><div class="fld-lbl">Datum</div><input class="fld-inp" id="datum2" placeholder="bijv. Q4 2025"></div></div>
+    <div class="plan-row"><div class="plan-nr">3</div><div class="field"><div class="fld-lbl">Fase</div><input class="fld-inp" id="fase3" value="Start bouw"></div><div class="field"><div class="fld-lbl">Datum</div><input class="fld-inp" id="datum3" placeholder="bijv. Q1 2026"></div></div>
+    <div class="plan-row"><div class="plan-nr">4</div><div class="field"><div class="fld-lbl">Fase</div><input class="fld-inp" id="fase4" value="Oplevering"></div><div class="field"><div class="fld-lbl">Datum</div><input class="fld-inp" id="datum4" placeholder="bijv. Q4 2026"></div></div>
+    <div class="plan-row"><div class="plan-nr">5</div><div class="field"><div class="fld-lbl">Fase <span class="opt-tag">optioneel</span></div><input class="fld-inp" id="fase5" placeholder="bijv. Sleuteloverdracht"></div><div class="field"><div class="fld-lbl">Datum</div><input class="fld-inp" id="datum5" placeholder="bijv. Q1 2027"></div></div>
+
+    <div class="step-nav">
+      <span></span>
+      <button class="btn-next" onclick="goStep(1)">Volgende stap &nbsp;&rarr;</button>
+    </div>
+  </div>
+
+  <!-- STAP 2: Branding & Stijl -->
+  <div class="step-card" id="sc1">
+    <div class="step-title">Branding &amp; Stijl</div>
+    <div class="step-sub">Geef de kleur- en typografierichting mee. De gegenereerde website past hier volledig op aan.</div>
+
+    <div class="section-divider">Kleuren</div>
+    <div class="field-row c3">
+      <div class="field">
+        <div class="fld-lbl">Primaire kleur</div>
+        <div class="color-row">
+          <input type="color" id="cpPrim" value="#1C3A4A" oninput="syncColor('cpPrim','hPrim')">
+          <input class="fld-inp color-hex" type="text" id="hPrim" value="#1C3A4A" oninput="syncHex('hPrim','cpPrim')" maxlength="7">
+        </div>
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Accentkleur</div>
+        <div class="color-row">
+          <input type="color" id="cpAcc" value="#C9A84C" oninput="syncColor('cpAcc','hAcc')">
+          <input class="fld-inp color-hex" type="text" id="hAcc" value="#C9A84C" oninput="syncHex('hAcc','cpAcc')" maxlength="7">
+        </div>
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Achtergrond</div>
+        <div class="color-row">
+          <input type="color" id="cpBg" value="#F7F3EC" oninput="syncColor('cpBg','hBg')">
+          <input class="fld-inp color-hex" type="text" id="hBg" value="#F7F3EC" oninput="syncHex('hBg','cpBg')" maxlength="7">
         </div>
       </div>
     </div>
 
-    <div class="tab-nav-row">
-      <button class="btn btn-s" onclick="goTab(0)">&larr; Vorige</button>
-      <button class="btn btn-p" onclick="goTab(2)">Volgende stap &nbsp;&rarr;</button>
+    <div class="section-divider">Typografie</div>
+    <div class="field">
+      <div class="fld-lbl">Lettertypestijl</div>
+      <select class="fld-sel" id="fontStijl">
+        <option value="inter">Modern &mdash; Inter</option>
+        <option value="dmsans">Minimaal &mdash; DM Sans</option>
+        <option value="plusjakarta">Geometrisch &mdash; Plus Jakarta Sans</option>
+        <option value="spacegrotesk">Tech &mdash; Space Grotesk</option>
+        <option value="outfit">Clean &mdash; Outfit</option>
+        <option value="montserrat">Klassiek sans &mdash; Montserrat</option>
+        <option value="raleway">Elegant sans &mdash; Raleway</option>
+        <option value="cormorant">Klassiek serif &mdash; Cormorant Garamond</option>
+        <option value="playfair">Redactioneel &mdash; Playfair Display</option>
+        <option value="lora">Warm serif &mdash; Lora</option>
+        <option value="archivo">Bold &mdash; Archivo Black</option>
+        <option value="oswald">Condensed &mdash; Oswald</option>
+        <option value="syne">Experimenteel &mdash; Syne</option>
+      </select>
+    </div>
+    <div class="field-row c2">
+      <div class="field">
+        <div class="fld-lbl">Sfeerwoorden <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="sfeer" placeholder="bijv. industrieel, warm, historisch">
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Tagline <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="tagline" placeholder="bijv. Wonen waar het water werkt.">
+      </div>
+    </div>
+
+    <div class="section-divider">Storytelling &amp; Positionering</div>
+    <div class="field">
+      <div class="fld-lbl">Kernboodschap *</div>
+      <textarea class="fld-ta" id="kernboodschap" rows="3" placeholder="Wat is de essentie? Waarom is dit project bijzonder voor de doelgroep?"></textarea>
+    </div>
+    <div class="field">
+      <div class="fld-lbl">Doelgroep *</div>
+      <textarea class="fld-ta" id="doelgroep" rows="2" placeholder="bijv. Jonge professionals die bewust kiezen voor karaktervolle, binnenstedelijke woningen."></textarea>
+    </div>
+    <div class="field">
+      <div class="fld-lbl">Belangrijkste USPs <span class="opt-tag">1 per regel</span></div>
+      <textarea class="fld-ta" id="usps" rows="4" placeholder="bijv.&#10;Monumentale industri&euml;le uitstraling&#10;Aan het water, centrum op loopafstand&#10;Hoge plafonds en grote ramen"></textarea>
+    </div>
+    <div class="field">
+      <div class="fld-lbl">Omgeving / locatievoordelen <span class="opt-tag">optioneel</span></div>
+      <textarea class="fld-ta" id="omgeving" rows="2" placeholder="Voorzieningen, bereikbaarheid, natuur, cultuur&hellip;"></textarea>
+    </div>
+
+    <div class="section-divider">Verkoop &amp; Contact</div>
+    <div class="field-row c2">
+      <div class="field">
+        <div class="fld-lbl">Naam ontwikkelaar <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="ontwnaam" placeholder="bijv. IJsseloever Ontwikkeling B.V.">
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Website ontwikkelaar <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="ontwsite" placeholder="bijv. www.ijsseloever.nl">
+      </div>
+    </div>
+    <div class="field">
+      <div class="fld-lbl">Over de ontwikkelaar <span class="opt-tag">optioneel</span></div>
+      <textarea class="fld-ta" id="ontwbio" rows="2" placeholder="Kort profiel, track record, visie&hellip;"></textarea>
+    </div>
+    <div class="field-row c2">
+      <div class="field">
+        <div class="fld-lbl">Contactpersoon <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="cpnaam" placeholder="bijv. Joris van den Berg">
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Functietitel <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" id="cptitel" placeholder="bijv. Verkoopmakelaar">
+      </div>
+    </div>
+    <div class="field-row c2">
+      <div class="field">
+        <div class="fld-lbl">E-mailadres <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" type="email" id="cpmail" placeholder="info@project.nl">
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Telefoonnummer <span class="opt-tag">optioneel</span></div>
+        <input class="fld-inp" type="tel" id="cptel" placeholder="06-12345678">
+      </div>
+    </div>
+    <div class="field-row c2">
+      <div class="field">
+        <div class="fld-lbl">Primaire CTA</div>
+        <input class="fld-inp" id="cta1" value="Meld je aan">
+      </div>
+      <div class="field">
+        <div class="fld-lbl">Secundaire CTA</div>
+        <input class="fld-inp" id="cta2" value="Download brochure">
+      </div>
+    </div>
+    <div class="field">
+      <div class="fld-lbl">Beschikbare downloads</div>
+      <div class="chip-group" style="margin-top:8px">
+        <span class="chip sel" data-val="Verkoopbrochure" onclick="toggleChip(this)">Verkoopbrochure</span>
+        <span class="chip" data-val="Plattegronden" onclick="toggleChip(this)">Plattegronden</span>
+        <span class="chip" data-val="Prijslijst" onclick="toggleChip(this)">Prijslijst</span>
+        <span class="chip" data-val="Kopershandleiding" onclick="toggleChip(this)">Kopershandleiding</span>
+      </div>
+    </div>
+
+    <div class="step-nav">
+      <button class="btn-back" onclick="goStep(0)">&larr; Vorige</button>
+      <button class="btn-next" onclick="goStep(2)">Volgende stap &nbsp;&rarr;</button>
     </div>
   </div>
 
-  <!-- Tab 2 -->
-  <div class="tab-pane" id="tab2">
-    <p style="color:var(--grey);font-size:.85rem;margin-bottom:20px;line-height:1.75">Plak de uitkomsten van de eerdere Spring agents hieronder of upload de bestanden. De Website Generator gebruikt deze als leidraad voor copy en stijl. <span style="color:#444">Alles is optioneel.</span></p>
+  <!-- STAP 3: Agent Outputs -->
+  <div class="step-card" id="sc2">
+    <div class="step-title">Agent Outputs</div>
+    <div class="step-sub">Plak de uitkomsten van de eerdere Spring agents of upload de bestanden. De Website Generator gebruikt deze als leidraad. Alles is optioneel.</div>
 
     <div class="agent-panel">
       <div class="agent-hd">
         <span class="agent-name">1 &middot; Positionering Agent</span>
-        <a href="https://samklijn.github.io/positionering-agent/" target="_blank" class="btn btn-s btn-xs">&nearr; Open agent</a>
+        <a href="https://samklijn.github.io/positionering-agent/" target="_blank" class="key-btn" style="text-decoration:none;padding:5px 12px">&nearr; Open agent</a>
       </div>
       <div class="agent-body">
-        <div class="field"><label>Output / aantekeningen</label>
-          <textarea id="agPos" rows="4" placeholder="Plak hier de output (doelgroepen, emoties, onderscheidend vermogen, verkoopargumenten)&hellip;"></textarea>
-        </div>
+        <textarea class="fld-ta" id="agPos" rows="4" placeholder="Plak hier de output (doelgroepen, emoties, onderscheidend vermogen, verkoopargumenten)&hellip;"></textarea>
         <div class="upload-row">
           <input type="file" id="fPos" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fPos','agPos','lblPos')">
           <label for="fPos" class="upload-lbl" id="lblPos">&#128206; Bestand uploaden</label>
@@ -354,12 +494,10 @@ footer b{color:var(--green);font-weight:900}
     <div class="agent-panel">
       <div class="agent-hd">
         <span class="agent-name">2 &middot; Branding Agent</span>
-        <a href="https://samklijn.github.io/branding-agent/" target="_blank" class="btn btn-s btn-xs">&nearr; Open agent</a>
+        <a href="https://samklijn.github.io/branding-agent/" target="_blank" class="key-btn" style="text-decoration:none;padding:5px 12px">&nearr; Open agent</a>
       </div>
       <div class="agent-body">
-        <div class="field"><label>Output / aantekeningen</label>
-          <textarea id="agBrand" rows="4" placeholder="Plak hier de output (Brand DNA, kernwaarden, tone of voice, USPs)&hellip;"></textarea>
-        </div>
+        <textarea class="fld-ta" id="agBrand" rows="4" placeholder="Plak hier de output (Brand DNA, kernwaarden, tone of voice, USPs)&hellip;"></textarea>
         <div class="upload-row">
           <input type="file" id="fBrand" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fBrand','agBrand','lblBrand')">
           <label for="fBrand" class="upload-lbl" id="lblBrand">&#128206; Bestand uploaden</label>
@@ -370,12 +508,10 @@ footer b{color:var(--green);font-weight:900}
     <div class="agent-panel">
       <div class="agent-hd">
         <span class="agent-name">3 &middot; Naming Agent</span>
-        <a href="https://samklijn.github.io/naming-agent/" target="_blank" class="btn btn-s btn-xs">&nearr; Open agent</a>
+        <a href="https://samklijn.github.io/naming-agent/" target="_blank" class="key-btn" style="text-decoration:none;padding:5px 12px">&nearr; Open agent</a>
       </div>
       <div class="agent-body">
-        <div class="field"><label>Output / aantekeningen</label>
-          <textarea id="agNaming" rows="3" placeholder="Plak hier de output (gekozen projectnaam, pay-off, onderbouwing)&hellip;"></textarea>
-        </div>
+        <textarea class="fld-ta" id="agNaming" rows="3" placeholder="Plak hier de output (gekozen projectnaam, pay-off, onderbouwing)&hellip;"></textarea>
         <div class="upload-row">
           <input type="file" id="fNaming" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fNaming','agNaming','lblNaming')">
           <label for="fNaming" class="upload-lbl" id="lblNaming">&#128206; Bestand uploaden</label>
@@ -386,12 +522,10 @@ footer b{color:var(--green);font-weight:900}
     <div class="agent-panel">
       <div class="agent-hd">
         <span class="agent-name">4 &middot; Storytelling Agent</span>
-        <a href="https://samklijn.github.io/storytelling-agent/" target="_blank" class="btn btn-s btn-xs">&nearr; Open agent</a>
+        <a href="https://samklijn.github.io/storytelling-agent/" target="_blank" class="key-btn" style="text-decoration:none;padding:5px 12px">&nearr; Open agent</a>
       </div>
       <div class="agent-body">
-        <div class="field"><label>Output / aantekeningen</label>
-          <textarea id="agStory" rows="4" placeholder="Plak hier de output (projectverhaal, locatiebeleving, merkgevoel)&hellip;"></textarea>
-        </div>
+        <textarea class="fld-ta" id="agStory" rows="4" placeholder="Plak hier de output (projectverhaal, locatiebeleving, merkgevoel)&hellip;"></textarea>
         <div class="upload-row">
           <input type="file" id="fStory" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fStory','agStory','lblStory')">
           <label for="fStory" class="upload-lbl" id="lblStory">&#128206; Bestand uploaden</label>
@@ -405,9 +539,7 @@ footer b{color:var(--green);font-weight:900}
         <span class="upload-hint">Komt binnenkort online</span>
       </div>
       <div class="agent-body">
-        <div class="field"><label>Output / aantekeningen</label>
-          <textarea id="agVisual" rows="4" placeholder="Plak hier de output (kleuren, typografie, fotografie, moodboard-beschrijving, uitstraling)&hellip;"></textarea>
-        </div>
+        <textarea class="fld-ta" id="agVisual" rows="3" placeholder="Plak hier de output (kleuren, typografie, fotografie, moodboard, uitstraling)&hellip;"></textarea>
         <div class="upload-row">
           <input type="file" id="fVisual" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fVisual','agVisual','lblVisual')">
           <label for="fVisual" class="upload-lbl" id="lblVisual">&#128206; Bestand uploaden</label>
@@ -418,9 +550,7 @@ footer b{color:var(--green);font-weight:900}
     <div class="agent-panel">
       <div class="agent-hd"><span class="agent-name">Overige bestanden / aanvullende info</span></div>
       <div class="agent-body">
-        <div class="field"><label>Aanvullende opmerkingen</label>
-          <textarea id="agExtra" rows="3" placeholder="Bijv. eerder gemaakte teksten, bestaande brochure-inhoud, speciale eisen&hellip;"></textarea>
-        </div>
+        <textarea class="fld-ta" id="agExtra" rows="3" placeholder="Bijv. eerder gemaakte teksten, brochure-inhoud, speciale eisen&hellip;"></textarea>
         <div class="upload-row">
           <input type="file" id="fExtra" accept=".txt,.md,.html,.csv,.json,.rtf" onchange="handleFile('fExtra','agExtra','lblExtra')" multiple>
           <label for="fExtra" class="upload-lbl" id="lblExtra">&#128206; Bestanden uploaden</label>
@@ -429,71 +559,94 @@ footer b{color:var(--green);font-weight:900}
       </div>
     </div>
 
-    <div class="tab-nav-row">
-      <button class="btn btn-s" onclick="goTab(1)">&larr; Vorige</button>
-      <div style="display:flex;gap:10px">
-        <button class="btn btn-s" onclick="newProject()">Reset</button>
-        <button class="btn btn-p" id="genBtn" onclick="generate()">Website genereren &nbsp;&rarr;</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Status -->
-  <div class="status-wrap" id="statusWrap" style="display:none">
-    <div class="step-list">
-      <div class="step" id="s1"><div class="sdot">1</div><div class="slabel">Locatieonderzoek</div><div class="sdetail" id="s1d">Wacht&hellip;</div></div>
-      <div class="step" id="s2"><div class="sdot">2</div><div class="slabel">Webcopy genereren (12 secties)</div><div class="sdetail" id="s2d">Wacht&hellip;</div></div>
-      <div class="step" id="s3"><div class="sdot">3</div><div class="slabel">FAQ &amp; SEO</div><div class="sdetail" id="s3d">Wacht&hellip;</div></div>
-      <div class="step" id="s4" style="display:none"><div class="sdot">&circlearrowleft;</div><div class="slabel">Feedback verwerken</div><div class="sdetail" id="s4d">Wacht&hellip;</div></div>
-    </div>
-    <div id="errBox" style="display:none"></div>
-  </div>
-
-  <!-- Preview -->
-  <div class="preview-wrap" id="previewWrap" style="display:none">
-    <div class="preview-bar">
-      <h3>Website preview</h3>
+    <div class="step-nav">
+      <button class="btn-back" onclick="goStep(1)">&larr; Vorige</button>
       <div style="display:flex;gap:8px">
-        <button class="btn btn-s btn-xs" onclick="openTab()">Nieuw tabblad</button>
-        <button class="btn btn-p btn-xs" onclick="dlHtml()">Download HTML</button>
-      </div>
-    </div>
-    <div class="iframe-container"><iframe id="previewFrame" title="Preview"></iframe></div>
-    <div class="seo-card">
-      <details><summary>SEO-gegevens</summary><div class="seo-inner" id="seoInner"></div></details>
-    </div>
-    <div class="feedback-card">
-      <h3>Feedback geven</h3>
-      <p>Beschrijf wat je anders wilt. Noem de sectie als dat van toepassing is (bijv. "hero", "wonen", "FAQ", "tagline").</p>
-      <textarea id="feedbackInput" placeholder="bijv. 'Hero-tekst is te formeel, maak hem warmer' of 'Meer nadruk op duurzaamheid in de Wonen-sectie'&hellip;"></textarea>
-      <div class="fb-actions">
-        <button class="btn btn-p btn-xs" onclick="applyFeedback()">Verwerk feedback</button>
-        <button class="btn btn-s btn-xs" onclick="document.getElementById('feedbackInput').value=''">Wis</button>
-        <span class="fb-hint">De one-pager wordt bijgewerkt op basis van je feedback.</span>
+        <button class="btn-back" onclick="newProject()">Reset</button>
+        <button class="btn-next" id="genBtn" onclick="generate()">Website genereren &nbsp;&rarr;</button>
       </div>
     </div>
   </div>
+</div>
 
-  <footer><b>S</b> &nbsp; Spring Real Estate &nbsp;&middot;&nbsp; Projectmarketing &amp; Makelaardij</footer>
+<!-- Status -->
+<div class="status-wrap" id="statusWrap" style="display:none">
+  <div class="step-list">
+    <div class="step" id="s1"><div class="sdot">1</div><div class="slabel">Locatieonderzoek</div><div class="sdetail" id="s1d">Wacht&hellip;</div></div>
+    <div class="step" id="s2"><div class="sdot">2</div><div class="slabel">Webcopy genereren</div><div class="sdetail" id="s2d">Wacht&hellip;</div></div>
+    <div class="step" id="s3"><div class="sdot">3</div><div class="slabel">FAQ &amp; SEO</div><div class="sdetail" id="s3d">Wacht&hellip;</div></div>
+    <div class="step" id="s4" style="display:none"><div class="sdot">&#8635;</div><div class="slabel">Feedback verwerken</div><div class="sdetail" id="s4d">Wacht&hellip;</div></div>
+  </div>
+  <div id="errBox" style="display:none"></div>
+</div>
+
+<!-- Preview -->
+<div class="preview-wrap" id="previewWrap" style="display:none">
+  <div class="preview-bar">
+    <h3>Website preview</h3>
+    <div class="prev-actions">
+      <button class="prev-btn prev-btn-s" onclick="openTab()">Nieuw tabblad</button>
+      <button class="prev-btn prev-btn-p" onclick="dlHtml()">Download HTML</button>
+    </div>
+  </div>
+  <div class="iframe-container"><iframe id="previewFrame" title="Preview"></iframe></div>
+  <div class="seo-card">
+    <details><summary>SEO-gegevens</summary><div class="seo-inner" id="seoInner"></div></details>
+  </div>
+  <div class="feedback-card">
+    <h3>Feedback geven</h3>
+    <p>Beschrijf wat je anders wilt. Noem de sectie als dat van toepassing is (bijv. "hero", "wonen", "FAQ", "tagline").</p>
+    <textarea class="fld-ta" id="feedbackInput" rows="3" placeholder="bijv. 'Hero-tekst is te formeel, maak hem warmer' of 'Meer nadruk op duurzaamheid'&hellip;"></textarea>
+    <div class="fb-row">
+      <button class="btn-next" style="padding:9px 20px;font-size:11px" onclick="applyFeedback()">Verwerk feedback</button>
+      <button class="btn-back" style="padding:9px 16px;font-size:11px" onclick="document.getElementById('feedbackInput').value=''">Wis</button>
+      <span class="fb-hint">Alleen de genoemde secties worden bijgewerkt.</span>
+    </div>
+  </div>
+  <div style="height:40px"></div>
 </div>
 
 <script>
 var GU='https://api.groq.com/openai/v1/chat/completions';
 var wtCount=0,generatedHtml='',lastFormData=null,lastContent=null,lastFaq=[];
 
+/* key */
 function saveKey(){var k=document.getElementById('keyInput').value.trim();if(!k){alert('Vul een API-sleutel in.');return;}localStorage.setItem('spring_groq_key',k);document.getElementById('setupModal').style.display='none';}
 function showSetup(){document.getElementById('setupModal').style.display='flex';}
 (function(){if(!localStorage.getItem('spring_groq_key'))showSetup();else document.getElementById('setupModal').style.display='none';})();
 
-function startIntake(){document.getElementById('heroScreen').style.display='none';document.getElementById('formScreen').style.display='block';document.getElementById('btnNieuw').style.display='inline-flex';window.scrollTo(0,0);}
-function newProject(){if(!confirm('Reset het formulier? Niet-opgeslagen werk gaat verloren.'))return;location.reload();}
+/* screens */
+function startIntake(){
+  document.getElementById('heroWrap').style.display='none';
+  document.getElementById('wizardWrap').style.display='block';
+  document.getElementById('btnNieuw').style.display='block';
+  window.scrollTo(0,0);
+}
+function newProject(){if(!confirm('Reset het formulier?'))return;location.reload();}
 
-var curTab=0;
-function goTab(n){document.getElementById('tab'+curTab).classList.remove('active');document.getElementById('tBtn'+curTab).classList.remove('active');curTab=n;document.getElementById('tab'+n).classList.add('active');document.getElementById('tBtn'+n).classList.add('active');window.scrollTo(0,0);}
+/* wizard steps */
+var curStep=0;
+function goStep(n){
+  document.getElementById('sc'+curStep).classList.remove('active');
+  document.getElementById('pd'+curStep).classList.remove('active');
+  if(n>curStep)document.getElementById('pd'+curStep).classList.add('done');
+  if(n>0)document.getElementById('pl'+(n-1)).classList.add('done');
+  if(n<curStep){document.getElementById('pd'+n).classList.remove('done');if(n<2)document.getElementById('pl'+n).classList.remove('done');}
+  curStep=n;
+  document.getElementById('sc'+n).classList.add('active');
+  document.getElementById('pd'+n).classList.remove('done');
+  document.getElementById('pd'+n).classList.add('active');
+  window.scrollTo(0,0);
+}
 
+/* chips */
+function toggleChip(el){el.classList.toggle('sel');}
+
+/* colors */
 function syncColor(cid,tid){document.getElementById(tid).value=document.getElementById(cid).value;}
 function syncHex(tid,cid){var v=document.getElementById(tid).value.trim();if(/^#[0-9a-fA-F]{6}$/.test(v))document.getElementById(cid).value=v;}
 
+/* file upload */
 function handleFile(inputId,taId,lblId){
   var files=Array.from(document.getElementById(inputId).files);if(!files.length)return;
   var ta=document.getElementById(taId),lbl=document.getElementById(lblId);
@@ -501,29 +654,31 @@ function handleFile(inputId,taId,lblId){
   files.forEach(function(f){
     var isText=f.type.startsWith('text/')||exts.some(function(e){return f.name.toLowerCase().endsWith(e);});
     if(isText){var r=new FileReader();r.onload=function(e){ta.value=(ta.value.trim()?ta.value.trim()+'\n\n':'')+'--- '+f.name+' ---\n'+e.target.result;lbl.textContent='✓ '+f.name;lbl.classList.add('ok');};r.readAsText(f,'UTF-8');}
-    else{ta.value=(ta.value.trim()?ta.value.trim()+'\n':'')+'[Bestand: '+f.name+' — plak tekst handmatig]';lbl.textContent='⚠ '+f.name;lbl.classList.add('ok');}
+    else{ta.value=(ta.value.trim()?ta.value.trim()+'\n':'')+'['+f.name+' — plak tekst handmatig]';lbl.textContent='⚠ '+f.name;lbl.classList.add('ok');}
   });
   document.getElementById(inputId).value='';
 }
 
+/* woningtypen */
 function addWt(){
   wtCount++;var n=wtCount;
   var d=document.createElement('div');d.className='wt-block';d.id='wt'+n;
   d.innerHTML='<div class="wt-hd">Woningtype '+n+'</div>'+
-    '<button class="wt-rm" onclick="removeWt('+n+')">Verwijder</button>'+
-    '<div class="grid2" style="margin-bottom:12px"><div class="field"><label>Naam type</label><input type="text" id="wtnaam'+n+'" placeholder="bijv. Type A – Loft"></div>'+
-    '<div class="field"><label>Woningtype</label><select id="wttype'+n+'"><option>Appartement</option><option>Loft</option><option>Penthouse</option><option>Maisonnette</option><option>Woning</option><option>Tussenwoning</option><option>Hoekwoning</option><option>Vrijstaand</option></select></div></div>'+
-    '<div class="grid3" style="margin-bottom:12px"><div class="field"><label>Opp. van (m²)</label><input type="number" id="wtopp1'+n+'" placeholder="70"></div>'+
-    '<div class="field"><label>Opp. tot (m²)</label><input type="number" id="wtopp2'+n+'" placeholder="120"></div>'+
-    '<div class="field"><label>Kamers</label><input type="number" id="wtkamers'+n+'" placeholder="3"></div></div>'+
-    '<div class="grid2" style="margin-bottom:12px"><div class="field"><label>Prijs vanaf (€)</label><input type="number" id="wtprijs'+n+'" placeholder="395000"></div>'+
-    '<div class="field"><label>Aantal woningen</label><input type="number" id="wtaantal'+n+'" placeholder="12"></div></div>'+
-    '<div class="field"><label>Bijzonderheden <span class="opt">(optioneel)</span></label><textarea id="wtbijz'+n+'" rows="2" placeholder="bijv. privé terras, parkeerplaats, uitzicht op water"></textarea></div>';
+    '<button class="wt-rm" onclick="removeWt('+n+')">verwijder</button>'+
+    '<div class="field-row c2" style="margin-bottom:10px"><div class="field"><div class="fld-lbl">Naam</div><input class="fld-inp" id="wtnaam'+n+'" placeholder="bijv. Type A – Loft"></div>'+
+    '<div class="field"><div class="fld-lbl">Type</div><select class="fld-sel" id="wttype'+n+'"><option>Appartement</option><option>Loft</option><option>Penthouse</option><option>Maisonnette</option><option>Woning</option><option>Tussenwoning</option><option>Hoekwoning</option><option>Vrijstaand</option></select></div></div>'+
+    '<div class="field-row c3" style="margin-bottom:10px"><div class="field"><div class="fld-lbl">Opp. van (m²)</div><input class="fld-inp" id="wtopp1'+n+'" type="number" placeholder="70"></div>'+
+    '<div class="field"><div class="fld-lbl">Opp. tot (m²)</div><input class="fld-inp" id="wtopp2'+n+'" type="number" placeholder="120"></div>'+
+    '<div class="field"><div class="fld-lbl">Kamers</div><input class="fld-inp" id="wtkamers'+n+'" type="number" placeholder="3"></div></div>'+
+    '<div class="field-row c2" style="margin-bottom:10px"><div class="field"><div class="fld-lbl">Prijs vanaf (€)</div><input class="fld-inp" id="wtprijs'+n+'" type="number" placeholder="395000"></div>'+
+    '<div class="field"><div class="fld-lbl">Aantal</div><input class="fld-inp" id="wtaantal'+n+'" type="number" placeholder="12"></div></div>'+
+    '<div class="field"><div class="fld-lbl">Bijzonderheden <span class="opt-tag">optioneel</span></div><textarea class="fld-ta" id="wtbijz'+n+'" rows="2" placeholder="bijv. privé terras, parkeerplaats, uitzicht op water"></textarea></div>';
   document.getElementById('wtList').appendChild(d);
 }
 function removeWt(n){var e=document.getElementById('wt'+n);if(e)e.remove();}
 addWt();
 
+/* form data */
 function gv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
 function gfd(){
   var f={
@@ -531,7 +686,7 @@ function gfd(){
     loc:gv('loc'),wijk:gv('wijk'),transactie:gv('transactie'),aantalTotaal:gv('aantalTotaal'),
     prijsseg:gv('prijsseg'),omschrijving:gv('omschrijving'),architectuur:gv('architectuur'),
     duurzaamheid:gv('duurzaamheid'),cpPrim:gv('hPrim')||'#1C3A4A',cpAcc:gv('hAcc')||'#C9A84C',
-    cpBg:gv('hBg')||'#F7F3EC',fontStijl:gv('fontStijl')||'modern',sfeer:gv('sfeer'),tagline:gv('tagline'),
+    cpBg:gv('hBg')||'#F7F3EC',fontStijl:gv('fontStijl')||'inter',sfeer:gv('sfeer'),tagline:gv('tagline'),
     kernboodschap:gv('kernboodschap'),doelgroep:gv('doelgroep'),usps:gv('usps'),omgeving:gv('omgeving'),
     ontwnaam:gv('ontwnaam'),ontwsite:gv('ontwsite'),ontwbio:gv('ontwbio'),
     cpnaam:gv('cpnaam'),cptitel:gv('cptitel'),cpmail:gv('cpmail'),cptel:gv('cptel'),
@@ -539,32 +694,46 @@ function gfd(){
     downloads:[],planning:[],woningtypen:[],
     agentOutputs:{positionering:gv('agPos'),branding:gv('agBrand'),naming:gv('agNaming'),storytelling:gv('agStory'),visual:gv('agVisual'),extra:gv('agExtra')}
   };
-  [['dlBrochure','Verkoopbrochure'],['dlPlattegrond','Plattegronden'],['dlPrijslijst','Prijslijst'],['dlKopersinfo','Kopershandleiding']].forEach(function(d){var e=document.getElementById(d[0]);if(e&&e.checked)f.downloads.push(d[1]);});
+  document.querySelectorAll('#sc1 .chip.sel').forEach(function(c){f.downloads.push(c.getAttribute('data-val'));});
   for(var i=1;i<=5;i++){var fa=gv('fase'+i),da=gv('datum'+i);if(fa&&da)f.planning.push({fase:fa,datum:da});}
   document.querySelectorAll('[id^="wtnaam"]').forEach(function(e){var n=e.id.replace('wtnaam','');if(!e.value.trim())return;f.woningtypen.push({naam:e.value.trim(),type:gv('wttype'+n),opp1:gv('wtopp1'+n),opp2:gv('wtopp2'+n),kamers:gv('wtkamers'+n),prijs:gv('wtprijs'+n),aantal:gv('wtaantal'+n),bijz:gv('wtbijz'+n)});});
   return f;
 }
 
+/* font map — Google Fonts URL + heading + body fonts */
 var FM={
-  'modern':{url:'Inter:wght@300;400;600;700;800',hf:"'Inter',sans-serif",bf:"'Inter',sans-serif"},
-  'klassiek':{url:'Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400',hf:"'Cormorant Garamond',serif",bf:"'Inter',sans-serif"},
-  'bold':{url:'Archivo+Black:wght@400&family=Inter:wght@300;400;600',hf:"'Archivo Black',sans-serif",bf:"'Inter',sans-serif"},
-  'minimal':{url:'DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400',hf:"'DM Sans',sans-serif",bf:"'DM Sans',sans-serif"}
+  'inter':{url:'Inter:wght@300;400;600;700;800',hf:"'Inter',sans-serif",bf:"'Inter',sans-serif"},
+  'dmsans':{url:'DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400',hf:"'DM Sans',sans-serif",bf:"'DM Sans',sans-serif"},
+  'plusjakarta':{url:'Plus+Jakarta+Sans:wght@300;400;600;700;800',hf:"'Plus Jakarta Sans',sans-serif",bf:"'Plus Jakarta Sans',sans-serif"},
+  'spacegrotesk':{url:'Space+Grotesk:wght@300;400;500;600;700',hf:"'Space Grotesk',sans-serif",bf:"'Space Grotesk',sans-serif"},
+  'outfit':{url:'Outfit:wght@300;400;600;700;800',hf:"'Outfit',sans-serif",bf:"'Outfit',sans-serif"},
+  'montserrat':{url:'Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400',hf:"'Montserrat',sans-serif",bf:"'Montserrat',sans-serif"},
+  'raleway':{url:'Raleway:wght@300;400;600;700;800;900',hf:"'Raleway',sans-serif",bf:"'Raleway',sans-serif"},
+  'cormorant':{url:'Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;600',hf:"'Cormorant Garamond',serif",bf:"'Inter',sans-serif"},
+  'playfair':{url:'Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Inter:wght@400;600',hf:"'Playfair Display',serif",bf:"'Inter',sans-serif"},
+  'lora':{url:'Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;600',hf:"'Lora',serif",bf:"'Inter',sans-serif"},
+  'archivo':{url:'Archivo+Black:wght@400&family=Inter:wght@300;400;600',hf:"'Archivo Black',sans-serif",bf:"'Inter',sans-serif"},
+  'oswald':{url:'Oswald:wght@300;400;500;600;700&family=Inter:wght@400;600',hf:"'Oswald',sans-serif",bf:"'Inter',sans-serif"},
+  'syne':{url:'Syne:wght@400;600;700;800&family=Inter:wght@400;600',hf:"'Syne',sans-serif",bf:"'Inter',sans-serif"}
 };
 
+/* color helpers */
 function contrast(h){h=(h||'').replace('#','');if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];if(h.length!==6)return '#ffffff';var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return(0.299*r+0.587*g+0.114*b)/255>0.55?'#111111':'#ffffff';}
 function lighten(h,a){h=(h||'#000').replace('#','');if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];var r=Math.min(255,Math.max(0,parseInt(h.substr(0,2),16)+a)),g=Math.min(255,Math.max(0,parseInt(h.substr(2,2),16)+a)),b=Math.min(255,Math.max(0,parseInt(h.substr(4,2),16)+a));return '#'+(r<16?'0':'')+r.toString(16)+(g<16?'0':'')+g.toString(16)+(b<16?'0':'')+b.toString(16);}
 function alpha(h,a){h=(h||'#000').replace('#','');if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];return 'rgba('+parseInt(h.substr(0,2),16)+','+parseInt(h.substr(2,2),16)+','+parseInt(h.substr(4,2),16)+','+a+')';}
 
+/* status helpers */
 function setStep(n,state,d){var e=document.getElementById('s'+n);if(!e)return;e.className='step'+(state?' '+state:'');if(d!==undefined)document.getElementById('s'+n+'d').textContent=d;}
-function showErr(m){var b=document.getElementById('errBox');b.style.display='block';b.innerHTML='<div class="err-box">'+m+'</div>';}
+function showErr(m){var b=document.getElementById('errBox');b.style.display='block';b.innerHTML='<div class="err-msg">'+m+'</div>';}
 
-function agentCtx(ao){var p=[];if(ao.positionering)p.push('=== POSITIONERING AGENT ===\n'+ao.positionering);if(ao.branding)p.push('=== BRANDING AGENT ===\n'+ao.branding);if(ao.naming)p.push('=== NAMING AGENT ===\n'+ao.naming);if(ao.storytelling)p.push('=== STORYTELLING AGENT ===\n'+ao.storytelling);if(ao.visual)p.push('=== VISUAL IDENTITY AGENT ===\n'+ao.visual);if(ao.extra)p.push('=== AANVULLENDE INFO ===\n'+ao.extra);return p.length?'\n\nAGENT OUTPUTS (gebruik als leidraad):\n'+p.join('\n\n'):'';}
+/* agent context */
+function agentCtx(ao){var p=[];if(ao.positionering)p.push('=== POSITIONERING AGENT ===\n'+ao.positionering);if(ao.branding)p.push('=== BRANDING AGENT ===\n'+ao.branding);if(ao.naming)p.push('=== NAMING AGENT ===\n'+ao.naming);if(ao.storytelling)p.push('=== STORYTELLING AGENT ===\n'+ao.storytelling);if(ao.visual)p.push('=== VISUAL IDENTITY AGENT ===\n'+ao.visual);if(ao.extra)p.push('=== AANVULLENDE INFO ===\n'+ao.extra);return p.length?'\n\nAGENT OUTPUTS (gebruik als leidraad voor toon en inhoud):\n'+p.join('\n\n'):'';}
 
+/* generate */
 async function generate(){
   var key=localStorage.getItem('spring_groq_key');if(!key){showSetup();return;}
   var f=gfd();
-  if(!f.naam||!f.loc||!f.omschrijving||!f.kernboodschap||!f.doelgroep){alert('Vul minimaal in: projectnaam, locatie, projectomschrijving (tab 1), kernboodschap en doelgroep (tab 2).');return;}
+  if(!f.naam||!f.loc||!f.omschrijving||!f.kernboodschap||!f.doelgroep){alert('Vul minimaal in: projectnaam, locatie, projectomschrijving (stap 1), kernboodschap en doelgroep (stap 2).');return;}
   document.getElementById('statusWrap').style.display='block';
   document.getElementById('previewWrap').style.display='none';
   document.getElementById('s4').style.display='none';
@@ -600,30 +769,31 @@ async function applyFeedback(){
   }catch(e){setStep(4,'err','Fout');showErr('Feedback fout: '+(e.message||String(e)));}
 }
 
+/* Groq calls */
 async function step1(key,f){
-  var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'compound-beta-mini',messages:[{role:'user',content:'Wat is het woonkarakter van '+f.loc+(f.wijk?' ('+f.wijk+')':'')+' in Nederland? Sfeer, bewoners, architectuur, leefstijl, voorzieningen, bereikbaarheid. Max 120 woorden, feitelijk.'}],max_tokens:250,temperature:0.2})});
-  if(!r.ok){var t=await r.text();throw new Error('Stap 1: '+r.status+' – '+t.substr(0,200));}
+  var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'compound-beta-mini',messages:[{role:'user',content:'Wat is het woonkarakter van '+f.loc+(f.wijk?' ('+f.wijk+')':'')+' in Nederland? Sfeer, bewoners, architectuur, leefstijl, voorzieningen, bereikbaarheid. Max 120 woorden.'}],max_tokens:250,temperature:0.2})});
+  if(!r.ok){var t=await r.text();throw new Error('Stap 1: '+r.status+' '+t.substr(0,200));}
   return(await r.json()).choices[0].message.content||'';
 }
 async function step2(key,f,locCtx){
   var wt=f.woningtypen.map(function(w,i){return (i+1)+'. '+w.naam+' ('+w.type+'): '+(w.opp1||'?')+(w.opp2?'–'+w.opp2:'')+'m²'+(w.kamers?', '+w.kamers+' kamers':'')+(w.prijs?', v.a. €'+Number(w.prijs).toLocaleString('nl-NL'):'')+' '+(w.bijz||'');}).join('\n')||'Niet opgegeven';
   var p='Je bent een senior UX-copywriter voor Nederlandse nieuwbouwprojecten. Schrijf directe, publiceerbare webcopy in het Nederlands.\n\nPROJECT: '+f.naam+'\nLocatie: '+f.loc+(f.wijk?' ('+f.wijk+')':'')+'\nType: '+f.transactie+(f.aantalTotaal?', '+f.aantalTotaal+' woningen':'')+(f.prijsseg?', '+f.prijsseg:'')+'\nOmschrijving: '+f.omschrijving+'\nArchitectuur: '+(f.architectuur||'nvt')+'\nDuurzaamheid: '+(f.duurzaamheid||'nvt')+'\nTagline: '+(f.tagline||'nvt')+'\nSfeer: '+(f.sfeer||'nvt')+'\nKernboodschap: '+f.kernboodschap+'\nDoelgroep: '+f.doelgroep+'\nUSPs:\n'+(f.usps||'nvt')+'\nOmgeving: '+(f.omgeving||'nvt')+'\nWoningtypen:\n'+wt+'\nLocatiecontext:\n'+locCtx+agentCtx(f.agentOutputs)+'\n\nGeef UITSLUITEND geldig JSON terug:\n{"hero_titel":"H1 max 6 woorden","hero_subtitel":"max 10 woorden","hero_intro":"1-2 zinnen","hero_beeld":"beschrijving ideaal sfeerbeeld","waarom_intro":"1-2 zinnen","waarom_usps":[{"icoon":"emoji","titel":"kort","tekst":"2 zinnen"}],"waarom_slot":"afsluitende zin","wonen_intro":"2-3 zinnen","wonen_punten":["punt1","punt2","punt3","punt4"],"locatie_intro":"2 zinnen","locatie_punten":[{"label":"categorie","tekst":"beschrijving"}],"leven_intro":"H2","leven_tekst":"inspirerend 3-4 zinnen GEEN verkooptaal","aanbod_intro":"1 zin","planning_intro":"1 zin","impressies_tekst":"1-2 zinnen","ontwikkelaar_intro":"1 zin","contact_intro":"2 zinnen","footer_quote":"afsluitende zin"}\nMinimaal 4 waarom_usps en 4 locatie_punten.';
   var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:p}],response_format:{type:'json_object'},max_tokens:2400,temperature:0.72})});
-  if(!r.ok){var t=await r.text();throw new Error('Stap 2: '+r.status+' – '+t.substr(0,200));}
+  if(!r.ok){var t=await r.text();throw new Error('Stap 2: '+r.status+' '+t.substr(0,200));}
   var txt=(await r.json()).choices[0].message.content||'{}';
   try{return JSON.parse(txt);}catch(e){throw new Error('JSON stap 2: '+txt.substr(0,200));}
 }
 async function step3(key,f,c){
-  var p='SEO-specialist voor nieuwbouwprojecten.\nPROJECT: '+f.naam+' – '+f.loc+(f.wijk?', '+f.wijk:'')+'\nDoelgroep: '+f.doelgroep+'\nKernboodschap: '+f.kernboodschap+'\nHero: '+(c.hero_titel||'')+'\n\nGeef UITSLUITEND geldig JSON:\n{"faq":[{"vraag":"...","antwoord":"minimaal 2 zinnen"}],"seo":{"title":"max 60 tekens","meta_description":"150-160 tekens","h1":"","h2_structuur":[""],"focus_keyword":"","secundaire_zoekwoorden":[""],"url_slug":"'+f.slug+'","og_titel":"","og_beschrijving":""}}\nFAQ minimaal 10 vragen: prijs, planning, registreren, bezichtigen, financiering, parkeren, duurzaamheid, omgeving, contracten, oplevering.';
+  var p='SEO-specialist voor nieuwbouwprojecten.\nPROJECT: '+f.naam+' – '+f.loc+(f.wijk?', '+f.wijk:'')+'\nDoelgroep: '+f.doelgroep+'\nKernboodschap: '+f.kernboodschap+'\nHero: '+(c.hero_titel||'')+'\n\nGeef UITSLUITEND geldig JSON:\n{"faq":[{"vraag":"...","antwoord":"minimaal 2 zinnen"}],"seo":{"title":"max 60 tekens","meta_description":"150-160 tekens","h1":"","h2_structuur":[""],"focus_keyword":"","secundaire_zoekwoorden":[""],"url_slug":"'+f.slug+'","og_titel":"","og_beschrijving":""}}\nFAQ minimaal 10 vragen over: prijs, planning, registreren, bezichtigen, financiering, parkeren, duurzaamheid, omgeving, contracten, oplevering.';
   var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:p}],response_format:{type:'json_object'},max_tokens:2200,temperature:0.6})});
-  if(!r.ok){var t=await r.text();throw new Error('Stap 3: '+r.status+' – '+t.substr(0,200));}
+  if(!r.ok){var t=await r.text();throw new Error('Stap 3: '+r.status+' '+t.substr(0,200));}
   var txt=(await r.json()).choices[0].message.content||'{}';
   try{return JSON.parse(txt);}catch(e){throw new Error('JSON stap 3: '+txt.substr(0,200));}
 }
 async function step4(key,f,c,fb){
-  var p='Je hebt webcopy gemaakt voor "'+f.naam+'" in '+f.loc+'. Feedback van de gebruiker: '+fb+'\n\nHuidige content:\n'+JSON.stringify(c,null,2)+'\n\nPas ALLEEN de secties aan die in de feedback worden genoemd. Laat de rest exact hetzelfde. Geef de complete JSON terug met exact dezelfde sleutels.';
+  var p='Je hebt webcopy gemaakt voor "'+f.naam+'" in '+f.loc+'. Feedback: '+fb+'\n\nHuidige content:\n'+JSON.stringify(c,null,2)+'\n\nPas ALLEEN de genoemde secties aan. Laat de rest exact hetzelfde. Geef de complete JSON terug met exact dezelfde sleutels.';
   var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:p}],response_format:{type:'json_object'},max_tokens:2400,temperature:0.65})});
-  if(!r.ok){var t=await r.text();throw new Error('Stap 4: '+r.status+' – '+t.substr(0,200));}
+  if(!r.ok){var t=await r.text();throw new Error('Stap 4: '+r.status+' '+t.substr(0,200));}
   var txt=(await r.json()).choices[0].message.content||'{}';
   try{return JSON.parse(txt);}catch(e){throw new Error('JSON feedback: '+txt.substr(0,200));}
 }
@@ -631,7 +801,7 @@ async function step4(key,f,c,fb){
 function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 function buildOnepager(f,c,faq){
-  var fm=FM[f.fontStijl]||FM.modern;
+  var fm=FM[f.fontStijl]||FM.inter;
   var prim=f.cpPrim||'#1C3A4A',acc=f.cpAcc||'#C9A84C',bg=f.cpBg||'#F7F3EC';
   var pT=contrast(prim),aT=contrast(acc),bT=contrast(bg);
   var uspCards=(c.waarom_usps||[]).map(function(u){return '<div style="background:'+alpha(prim,.06)+';border:1px solid '+alpha(prim,.15)+';border-radius:10px;padding:24px;"><div style="font-size:2rem;margin-bottom:10px;">'+(u.icoon||'•')+'</div><h3 style="font-family:'+fm.hf+';font-size:1rem;font-weight:700;color:'+bT+';margin-bottom:7px;">'+esc(u.titel||'')+'</h3><p style="color:'+alpha(bT,.7)+';font-size:.9rem;line-height:1.65;">'+esc(u.tekst||'')+'</p></div>';}).join('');
@@ -640,14 +810,14 @@ function buildOnepager(f,c,faq){
   var wtCards=f.woningtypen.map(function(w){var pr=w.prijs?'v.a. €'+Number(w.prijs).toLocaleString('nl-NL'):'Op aanvraag';var opp=w.opp1?(w.opp1+(w.opp2?'–'+w.opp2:'')+'m²'):'';return '<div style="background:'+bg+';border:1px solid '+alpha(bT,.12)+';border-radius:10px;overflow:hidden;display:flex;flex-direction:column;"><div style="background:'+prim+';padding:20px 22px;"><div style="color:'+alpha(pT,.5)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">'+esc(w.type)+'</div><h3 style="color:'+pT+';font-family:'+fm.hf+';font-size:1.15rem;font-weight:700;margin-bottom:6px;">'+esc(w.naam)+'</h3><div style="color:'+acc+';font-size:1rem;font-weight:700;">'+pr+'</div></div><div style="padding:16px 22px;flex:1;display:flex;flex-direction:column;gap:7px;">'+(opp?'<div style="font-size:.86rem;color:'+bT+'">□ '+opp+'</div>':'')+(w.kamers?'<div style="font-size:.86rem;color:'+bT+'">◆ '+w.kamers+' kamers</div>':'')+(w.aantal?'<div style="font-size:.8rem;color:'+alpha(bT,.5)+'">'+w.aantal+' woningen</div>':'')+(w.bijz?'<p style="color:'+alpha(bT,.6)+';font-size:.8rem;margin-top:3px;">'+esc(w.bijz)+'</p>':'')+'<a href="#contact" style="margin-top:auto;padding-top:10px;color:'+acc+';font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;">Meer info →</a></div></div>';}).join('');
   var planItems=f.planning.map(function(p,i){var last=i===f.planning.length-1;return '<div style="display:flex;gap:14px;align-items:flex-start;'+(last?'':'margin-bottom:20px')+'"><div style="display:flex;flex-direction:column;align-items:center;"><div style="width:32px;height:32px;border-radius:50%;background:'+acc+';display:flex;align-items:center;justify-content:center;font-size:.73rem;font-weight:700;color:'+aT+';flex-shrink:0;">'+(i+1)+'</div>'+(last?'':'<div style="width:2px;flex:1;min-height:18px;background:'+alpha(acc,.28)+';margin-top:3px;"></div>')+'</div><div style="padding-top:6px;"><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';font-weight:700;margin-bottom:2px;">'+esc(p.datum)+'</div><div style="font-family:'+fm.hf+';font-size:.96rem;font-weight:600;color:'+pT+'">'+esc(p.fase)+'</div></div></div>';}).join('');
   var faqItems=(faq||[]).map(function(q){return '<details style="border-bottom:1px solid '+alpha(bT,.1)+'"><summary style="padding:15px 0;cursor:pointer;font-family:'+fm.hf+';font-size:.96rem;font-weight:600;color:'+bT+';list-style:none;display:flex;align-items:center;justify-content:space-between;"><span>'+esc(q.vraag||q.question||'')+'</span><span style="color:'+acc+';font-size:1.2rem;line-height:1;margin-left:14px;flex-shrink:0;">+</span></summary><div style="padding-bottom:14px;color:'+alpha(bT,.7)+';font-size:.92rem;line-height:1.72;">'+esc(q.antwoord||q.answer||'')+'</div></details>';}).join('');
-  var dlLinks=f.downloads.map(function(d){return '<a href="#" style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border:1px solid '+acc+';border-radius:5px;color:'+bT+';font-size:.83rem;font-weight:700;text-decoration:none;">↓ '+esc(d)+'</a>';}).join('');
+  var dlLinks=f.downloads.map(function(d){return '<a href="#" style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border:1px solid '+acc+';border-radius:999px;color:'+bT+';font-size:.83rem;font-weight:700;text-decoration:none;">↓ '+esc(d)+'</a>';}).join('');
   var wtOpts=f.woningtypen.map(function(w){return '<option>'+esc(w.naam)+'</option>';}).join('');
 
-  return '<!DOCTYPE html>\n<html lang="nl">\n<head>\n<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n<title>'+esc(f.naam)+' – '+esc(f.loc)+'</title>\n<link href="https://fonts.googleapis.com/css2?family='+fm.url+'&display=swap" rel="stylesheet">\n<style>*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:'+bg+';color:'+bT+';font-family:'+fm.bf+';line-height:1.65}h1,h2,h3,h4{font-family:'+fm.hf+';line-height:1.15}.c{max-width:1100px;margin:0 auto;padding:0 24px}details summary::-webkit-details-marker{display:none}@media(max-width:768px){.d2{grid-template-columns:1fr!important}}</style>\n</head>\n<body>\n\n<nav style="background:'+prim+';position:sticky;top:0;z-index:100;border-bottom:2px solid '+acc+';">\n<div class="c" style="display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;">\n<div style="font-family:'+fm.hf+';font-weight:800;font-size:.98rem;color:'+pT+';text-transform:uppercase;letter-spacing:.04em;">'+esc(f.naam)+'</div>\n<div style="display:flex;align-items:center;gap:18px;">\n<a href="#wonen" style="color:'+alpha(pT,.65)+';font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Woning</a>\n<a href="#locatie" style="color:'+alpha(pT,.65)+';font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Locatie</a>\n<a href="#aanbod" style="color:'+alpha(pT,.65)+';font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Aanbod</a>\n<a href="#contact" style="background:'+acc+';color:'+aT+';padding:8px 18px;border-radius:5px;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;text-decoration:none;">'+esc(f.cta1)+'</a>\n</div></div></nav>\n\n<section style="background:'+prim+';min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;">\n<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,'+alpha(acc,.08)+' 0%,transparent 65%);pointer-events:none;"></div>\n<div class="c" style="position:relative;z-index:1;padding-top:72px;padding-bottom:72px;"><div style="max-width:640px;">\n'+(f.tagline?'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:16px;">'+esc(f.tagline)+'</p>\n':'')+
-  '<h1 style="font-family:'+fm.hf+';font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:'+pT+';margin-bottom:12px;text-transform:uppercase;letter-spacing:.02em;">'+esc(c.hero_titel||f.naam)+'</h1>\n<p style="font-family:'+fm.hf+';font-size:1.18rem;color:'+alpha(pT,.75)+';margin-bottom:12px;font-style:italic;">'+esc(c.hero_subtitel||'')+'</p>\n<p style="font-size:.96rem;color:'+alpha(pT,.65)+';max-width:490px;margin-bottom:30px;line-height:1.8;">'+esc(c.hero_intro||'')+'</p>\n<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;">\n<a href="#contact" style="display:inline-block;background:'+acc+';color:'+aT+';padding:13px 28px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;text-decoration:none;">'+esc(f.cta1)+'</a>\n<a href="#aanbod" style="display:inline-block;border:1px solid '+alpha(pT,.28)+';color:'+pT+';padding:13px 28px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;text-decoration:none;">↓ Woningaanbod</a>\n</div>\n<div style="display:flex;flex-wrap:wrap;gap:24px;">'+(f.aantalTotaal?'<div><div style="font-size:2rem;font-weight:800;color:'+acc+';line-height:1;">'+esc(f.aantalTotaal)+'</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.45)+';margin-top:2px;">Woningen</div></div>':'')+
+  return '<!DOCTYPE html>\n<html lang="nl">\n<head>\n<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n<title>'+esc(f.naam)+' – '+esc(f.loc)+'</title>\n<link href="https://fonts.googleapis.com/css2?family='+fm.url+'&display=swap" rel="stylesheet">\n<style>*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:'+bg+';color:'+bT+';font-family:'+fm.bf+';line-height:1.65;-webkit-font-smoothing:antialiased}h1,h2,h3,h4{font-family:'+fm.hf+';line-height:1.15}.c{max-width:1100px;margin:0 auto;padding:0 24px}details summary::-webkit-details-marker{display:none}@media(max-width:768px){.d2{grid-template-columns:1fr!important}}</style>\n</head>\n<body>\n\n<nav style="background:'+prim+';position:sticky;top:0;z-index:100;border-bottom:2px solid '+acc+';">\n<div class="c" style="display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;">\n<div style="font-family:'+fm.hf+';font-weight:800;font-size:.98rem;color:'+pT+';text-transform:uppercase;letter-spacing:.04em;">'+esc(f.naam)+'</div>\n<div style="display:flex;align-items:center;gap:18px;">\n<a href="#wonen" style="color:'+alpha(pT,.65)+';font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Woning</a>\n<a href="#locatie" style="color:'+alpha(pT,.65)+';font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Locatie</a>\n<a href="#aanbod" style="color:'+alpha(pT,.65)+';font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Aanbod</a>\n<a href="#contact" style="background:'+acc+';color:'+aT+';padding:8px 18px;border-radius:999px;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;text-decoration:none;">'+esc(f.cta1)+'</a>\n</div></div></nav>\n\n<section style="background:'+prim+';min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;">\n<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,'+alpha(acc,.08)+' 0%,transparent 65%);pointer-events:none;"></div>\n<div class="c" style="position:relative;z-index:1;padding-top:72px;padding-bottom:72px;"><div style="max-width:640px;">\n'+(f.tagline?'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:16px;">'+esc(f.tagline)+'</p>\n':'')+
+  '<h1 style="font-family:'+fm.hf+';font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:'+pT+';margin-bottom:12px;text-transform:uppercase;letter-spacing:.02em;">'+esc(c.hero_titel||f.naam)+'</h1>\n<p style="font-family:'+fm.hf+';font-size:1.18rem;color:'+alpha(pT,.75)+';margin-bottom:12px;font-style:italic;">'+esc(c.hero_subtitel||'')+'</p>\n<p style="font-size:.96rem;color:'+alpha(pT,.65)+';max-width:490px;margin-bottom:30px;line-height:1.8;">'+esc(c.hero_intro||'')+'</p>\n<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;">\n<a href="#contact" style="display:inline-block;background:'+acc+';color:'+aT+';padding:13px 28px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;text-decoration:none;">'+esc(f.cta1)+'</a>\n<a href="#aanbod" style="display:inline-block;border:1px solid '+alpha(pT,.28)+';color:'+pT+';padding:13px 28px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;text-decoration:none;">↓ Woningaanbod</a>\n</div>\n<div style="display:flex;flex-wrap:wrap;gap:24px;">'+(f.aantalTotaal?'<div><div style="font-size:2rem;font-weight:800;color:'+acc+';line-height:1;">'+esc(f.aantalTotaal)+'</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.45)+';margin-top:2px;">Woningen</div></div>':'')+
   (f.woningtypen.length?'<div><div style="font-size:2rem;font-weight:800;color:'+acc+';line-height:1;">'+f.woningtypen.length+'</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.45)+';margin-top:2px;">Typen</div></div>':'')+
   (f.wijk?'<div><div style="font-size:.96rem;font-weight:700;color:'+acc+';line-height:1.4;">'+esc(f.wijk)+'</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.45)+';margin-top:2px;">'+esc(f.loc)+'</div></div>':'')+
-  '</div></div></div></section>\n\n<section id="waarom" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Waarom dit project</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:'+bT+';margin-bottom:28px;">'+esc(c.waarom_intro||'')+'</h2><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:24px;">'+uspCards+'</div>'+(c.waarom_slot?'<p style="font-size:.95rem;color:'+alpha(bT,.6)+';font-style:italic;">'+esc(c.waarom_slot)+'</p>':'')+'</div></section>\n\n<section id="wonen" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Het wonen</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:16px;">Wonen met karakter</h2><p style="font-size:.96rem;color:'+alpha(pT,.75)+';line-height:1.8;margin-bottom:22px;">'+esc(c.wonen_intro||'')+'</p><ul style="list-style:none;">'+wonenPts+'</ul></div><div style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(pT,.22)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🏗️</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Sfeerimpressie</div></div></div></div></div></section>\n\n<section id="locatie" style="background:'+bg+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">De locatie</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+bT+';margin-bottom:12px;">'+esc(f.wijk||f.loc)+'</h2><p style="font-size:.96rem;color:'+alpha(bT,.68)+';line-height:1.8;margin-bottom:20px;">'+esc(c.locatie_intro||'')+'</p>'+locPts+'</div><div style="background:'+alpha(bT,.04)+';border:1px solid '+alpha(bT,.1)+';border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(bT,.22)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🗺️</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Kaart</div></div></div></div></div></section>\n\n<section style="background:'+prim+';padding:80px 0;">\n<div class="c"><div style="max-width:680px;margin:0 auto;text-align:center;"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:14px;">Het leven hier</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:'+pT+';margin-bottom:18px;">'+esc(c.leven_intro||'Zo voelt het wonen hier')+'</h2><p style="font-size:.98rem;color:'+alpha(pT,.75)+';line-height:1.85;margin-bottom:26px;">'+esc(c.leven_tekst||'')+'</p><a href="#aanbod" style="display:inline-block;border:1px solid '+alpha(acc,.55)+';color:'+acc+';padding:11px 24px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;text-decoration:none;">Bekijk het woningaanbod</a></div></div></section>\n\n<section id="aanbod" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Woningaanbod</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+bT+';margin-bottom:8px;">Kies jouw type</h2><p style="color:'+alpha(bT,.6)+';margin-bottom:32px;">'+esc(c.aanbod_intro||'')+'</p><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;">'+(wtCards||'<p style="color:'+alpha(bT,.4)+';font-style:italic;">Woningtypen worden toegevoegd.</p>')+'</div>'+(dlLinks?'<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:32px;">'+dlLinks+'</div>':'')+'</div></section>\n\n<section id="planning" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Tijdlijn</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:12px;">Planning &amp; Fasering</h2><p style="font-size:.96rem;color:'+alpha(pT,.7)+';line-height:1.8;margin-bottom:28px;">'+esc(c.planning_intro||'')+'</p>'+planItems+'</div><div style="background:'+alpha(pT,.05)+';border:1px solid '+alpha(pT,.1)+';border-radius:12px;padding:28px;"><h3 style="font-family:'+fm.hf+';font-size:.96rem;font-weight:700;color:'+acc+';margin-bottom:10px;">Wil je op de hoogte blijven?</h3><p style="font-size:.86rem;color:'+alpha(pT,.62)+';margin-bottom:16px;line-height:1.7;">Meld je aan voor updates over planning en aanbod.</p><a href="#contact" style="display:inline-block;background:'+acc+';color:'+aT+';padding:11px 20px;border-radius:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;text-decoration:none;">'+esc(f.cta1)+'</a></div></div></div></section>\n\n<section id="impressies" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Impressies</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+bT+';margin-bottom:10px;">Sfeer &amp; Ontwerp</h2><p style="color:'+alpha(bT,.6)+';margin-bottom:28px;">'+esc(c.impressies_tekst||'')+'</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"><div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.18)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.28)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Render exterieur</span></div><div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.14)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.28)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Render interieur</span></div><div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.18)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.28)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Sfeerimpressie</span></div><div style="background:'+alpha(prim,.06)+';border:1px solid '+alpha(prim,.12)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;grid-column:span 2;"><span style="color:'+alpha(bT,.28)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Plattegrond</span></div><div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.14)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.28)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Omgeving</span></div></div></div></section>\n\n<section id="faq" style="background:'+prim+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Veelgestelde vragen</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:28px;">Alles wat je wilt weten</h2><div style="max-width:720px;">'+faqItems+'</div></div></section>\n\n<section id="ontwikkelaar" style="background:'+bg+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Over ons</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.5rem,2.8vw,2rem);font-weight:800;color:'+bT+';margin-bottom:12px;">'+esc(f.ontwnaam||'De ontwikkelaar')+'</h2><p style="font-size:.96rem;color:'+alpha(bT,.65)+';line-height:1.8;margin-bottom:10px;">'+esc(c.ontwikkelaar_intro||'')+'</p>'+(f.ontwbio?'<p style="font-size:.9rem;color:'+alpha(bT,.58)+';line-height:1.8;">'+esc(f.ontwbio)+'</p>':'')+(f.ontwsite?'<a href="https://'+f.ontwsite+'" target="_blank" style="display:inline-block;margin-top:16px;color:'+acc+';font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-decoration:none;">'+esc(f.ontwsite)+' ↗</a>':'')+'</div><div style="background:'+alpha(bT,.04)+';border:1px solid '+alpha(bT,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(bT,.2)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🏘️</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Logo ontwikkelaar</div></div></div></div></div></section>\n\n<section id="contact" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Contact</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:12px;">'+esc(f.cta1)+'</h2><p style="font-size:.96rem;color:'+alpha(pT,.72)+';line-height:1.8;margin-bottom:22px;">'+esc(c.contact_intro||'')+'</p><form style="display:grid;gap:10px;" onsubmit="return false;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><input type="text" placeholder="Voornaam" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:5px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;"><input type="text" placeholder="Achternaam" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:5px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;"></div><input type="email" placeholder="E-mailadres" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:5px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;"><input type="tel" placeholder="Telefoonnummer (optioneel)" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:5px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;">'+(wtOpts?'<select style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:5px;padding:10px 13px;color:'+alpha(pT,.7)+';font-size:.86rem;font-family:inherit;width:100%;"><option value="">Interesse in type…</option>'+wtOpts+'</select>':'')+'<label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;"><input type="checkbox" style="accent-color:'+acc+';margin-top:3px;flex-shrink:0;"><span style="font-size:.76rem;color:'+alpha(pT,.5)+';line-height:1.6;">Ik ga akkoord met het <a href="#" style="color:'+acc+';">privacybeleid</a>.</span></label><button type="submit" style="background:'+acc+';color:'+aT+';border:none;padding:13px 24px;border-radius:5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;font-family:inherit;cursor:pointer;width:100%;">'+esc(f.cta1)+'</button></form></div><div style="display:flex;flex-direction:column;gap:18px;"><div style="background:'+alpha(pT,.05)+';border:1px solid '+alpha(pT,.1)+';border-radius:10px;padding:24px;"><h3 style="font-family:'+fm.hf+';font-size:.86rem;font-weight:700;color:'+acc+';margin-bottom:12px;text-transform:uppercase;letter-spacing:.07em;">Contactpersoon</h3>'+(f.cpnaam?'<div style="font-size:1rem;font-weight:700;color:'+pT+';margin-bottom:2px;">'+esc(f.cpnaam)+'</div>':'')+(f.cptitel?'<div style="font-size:.8rem;color:'+alpha(pT,.5)+';margin-bottom:12px;">'+esc(f.cptitel)+'</div>':'')+(f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="display:flex;align-items:center;gap:7px;color:'+pT+';font-size:.86rem;margin-bottom:7px;text-decoration:none;">📞 '+esc(f.cptel)+'</a>':'')+(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="display:flex;align-items:center;gap:7px;color:'+acc+';font-size:.86rem;text-decoration:none;">✉️ '+esc(f.cpmail)+'</a>':'')+'</div>'+(f.downloads.length?'<div style="background:'+alpha(pT,.04)+';border:1px solid '+alpha(pT,.08)+';border-radius:10px;padding:20px;"><h3 style="font-family:'+fm.hf+';font-size:.84rem;font-weight:700;color:'+acc+';margin-bottom:10px;text-transform:uppercase;letter-spacing:.07em;">Downloads</h3><div style="display:flex;flex-direction:column;gap:7px;">'+f.downloads.map(function(d){return '<a href="#" style="display:flex;align-items:center;gap:7px;padding:8px 12px;background:'+alpha(acc,.1)+';border:1px solid '+alpha(acc,.28)+';border-radius:5px;color:'+pT+';font-size:.8rem;font-weight:600;text-decoration:none;">↓ '+esc(d)+'</a>';}).join('')+'</div></div>':'')+'</div></div></div></section>\n\n<footer style="background:'+lighten(prim,-22)+';padding:44px 0 22px;border-top:2px solid '+alpha(acc,.28)+'">\n<div class="c"><div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px;margin-bottom:32px;"><div><h3 style="font-family:'+fm.hf+';font-size:1rem;font-weight:800;color:'+acc+';text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">'+esc(f.naam)+'</h3><p style="font-size:.8rem;color:'+alpha(pT,.45)+';line-height:1.75;max-width:300px;">'+esc(c.footer_quote||f.loc)+'</p></div><div><h4 style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.4)+';margin-bottom:9px;">Navigatie</h4><div style="display:flex;flex-direction:column;gap:7px;"><a href="#waarom" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Waarom dit project</a><a href="#wonen" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Het wonen</a><a href="#aanbod" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Woningaanbod</a><a href="#faq" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">FAQ</a><a href="#contact" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Contact</a></div></div><div><h4 style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.4)+';margin-bottom:9px;">Contact</h4><div style="display:flex;flex-direction:column;gap:7px;">'+(f.ontwnaam?'<span style="font-size:.8rem;color:'+alpha(pT,.6)+';">'+esc(f.ontwnaam)+'</span>':'')+(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="font-size:.8rem;color:'+acc+';text-decoration:none;">'+esc(f.cpmail)+'</a>':'')+(f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">'+esc(f.cptel)+'</a>':'')+'</div></div></div><div style="border-top:1px solid '+alpha(pT,.1)+';padding-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><span style="font-size:.7rem;color:'+alpha(pT,.28)+'">&copy; '+esc(f.naam)+' – '+esc(f.loc)+'.</span><div style="display:flex;gap:14px;"><a href="#" style="font-size:.7rem;color:'+alpha(pT,.35)+';text-decoration:none;">Privacybeleid</a><a href="#" style="font-size:.7rem;color:'+alpha(pT,.35)+';text-decoration:none;">Disclaimer</a></div><span style="font-size:.7rem;color:'+alpha(pT,.2)+';">Gemaakt door <a href="https://springrealestate.com" style="color:'+alpha(acc,.6)+';text-decoration:none;">Spring Real Estate</a></span></div></div></footer>\n\n</body>\n</html>';
+  '</div></div></div></section>\n\n<section id="waarom" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Waarom dit project</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:'+bT+';margin-bottom:28px;">'+esc(c.waarom_intro||'')+'</h2><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:24px;">'+uspCards+'</div>'+(c.waarom_slot?'<p style="font-size:.95rem;color:'+alpha(bT,.6)+';font-style:italic;">'+esc(c.waarom_slot)+'</p>':'')+'</div></section>\n\n<section id="wonen" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Het wonen</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:16px;">Wonen met karakter</h2><p style="font-size:.96rem;color:'+alpha(pT,.75)+';line-height:1.8;margin-bottom:22px;">'+esc(c.wonen_intro||'')+'</p><ul style="list-style:none;">'+wonenPts+'</ul></div><div style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(pT,.22)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🏗</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Sfeerimpressie</div></div></div></div></div></section>\n\n<section id="locatie" style="background:'+bg+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">De locatie</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+bT+';margin-bottom:12px;">'+esc(f.wijk||f.loc)+'</h2><p style="font-size:.96rem;color:'+alpha(bT,.68)+';line-height:1.8;margin-bottom:20px;">'+esc(c.locatie_intro||'')+'</p>'+locPts+'</div><div style="background:'+alpha(bT,.04)+';border:1px solid '+alpha(bT,.1)+';border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(bT,.22)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🗺</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Kaart</div></div></div></div></div></section>\n\n<section style="background:'+prim+';padding:80px 0;">\n<div class="c"><div style="max-width:680px;margin:0 auto;text-align:center;"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:14px;">Het leven hier</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:'+pT+';margin-bottom:18px;">'+esc(c.leven_intro||'Zo voelt het wonen hier')+'</h2><p style="font-size:.98rem;color:'+alpha(pT,.75)+';line-height:1.85;margin-bottom:26px;">'+esc(c.leven_tekst||'')+'</p><a href="#aanbod" style="display:inline-block;border:1px solid '+alpha(acc,.55)+';color:'+acc+';padding:11px 24px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;text-decoration:none;">Bekijk het woningaanbod</a></div></div></section>\n\n<section id="aanbod" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Woningaanbod</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+bT+';margin-bottom:8px;">Kies jouw type</h2><p style="color:'+alpha(bT,.6)+';margin-bottom:32px;">'+esc(c.aanbod_intro||'')+'</p><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;">'+(wtCards||'<p style="color:'+alpha(bT,.4)+';font-style:italic;">Woningtypen worden toegevoegd.</p>')+'</div>'+(dlLinks?'<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:32px;">'+dlLinks+'</div>':'')+'</div></section>\n\n<section id="planning" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Tijdlijn</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:12px;">Planning &amp; Fasering</h2><p style="font-size:.96rem;color:'+alpha(pT,.7)+';line-height:1.8;margin-bottom:28px;">'+esc(c.planning_intro||'')+'</p>'+planItems+'</div><div style="background:'+alpha(pT,.05)+';border:1px solid '+alpha(pT,.1)+';border-radius:12px;padding:28px;"><h3 style="font-family:'+fm.hf+';font-size:.96rem;font-weight:700;color:'+acc+';margin-bottom:10px;">Op de hoogte blijven?</h3><p style="font-size:.86rem;color:'+alpha(pT,.62)+';margin-bottom:16px;line-height:1.7;">Meld je aan voor updates over planning en aanbod.</p><a href="#contact" style="display:inline-block;background:'+acc+';color:'+aT+';padding:11px 20px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;text-decoration:none;">'+esc(f.cta1)+'</a></div></div></div></section>\n\n<section id="impressies" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Impressies</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+bT+';margin-bottom:10px;">Sfeer &amp; Ontwerp</h2><p style="color:'+alpha(bT,.6)+';margin-bottom:28px;">'+esc(c.impressies_tekst||'')+'</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"><div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.18)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Exterieur</span></div><div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.14)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Interieur</span></div><div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.18)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Sfeer</span></div><div style="background:'+alpha(prim,.06)+';border:1px solid '+alpha(prim,.12)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;grid-column:span 2;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Plattegrond</span></div><div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.14)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Omgeving</span></div></div></div></section>\n\n<section id="faq" style="background:'+prim+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Veelgestelde vragen</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:28px;">Alles wat je wilt weten</h2><div style="max-width:720px;">'+faqItems+'</div></div></section>\n\n<section id="ontwikkelaar" style="background:'+bg+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Over ons</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.5rem,2.8vw,2rem);font-weight:800;color:'+bT+';margin-bottom:12px;">'+esc(f.ontwnaam||'De ontwikkelaar')+'</h2><p style="font-size:.96rem;color:'+alpha(bT,.65)+';line-height:1.8;margin-bottom:10px;">'+esc(c.ontwikkelaar_intro||'')+'</p>'+(f.ontwbio?'<p style="font-size:.9rem;color:'+alpha(bT,.58)+';line-height:1.8;">'+esc(f.ontwbio)+'</p>':'')+(f.ontwsite?'<a href="https://'+f.ontwsite+'" target="_blank" style="display:inline-block;margin-top:16px;color:'+acc+';font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-decoration:none;">'+esc(f.ontwsite)+' ↗</a>':'')+'</div><div style="background:'+alpha(bT,.04)+';border:1px solid '+alpha(bT,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(bT,.2)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🏘</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Logo ontwikkelaar</div></div></div></div></div></section>\n\n<section id="contact" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Contact</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:12px;">'+esc(f.cta1)+'</h2><p style="font-size:.96rem;color:'+alpha(pT,.72)+';line-height:1.8;margin-bottom:22px;">'+esc(c.contact_intro||'')+'</p><form style="display:grid;gap:10px;" onsubmit="return false;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><input type="text" placeholder="Voornaam" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;outline:none;"><input type="text" placeholder="Achternaam" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;outline:none;"></div><input type="email" placeholder="E-mailadres" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;outline:none;"><input type="tel" placeholder="Telefoonnummer (optioneel)" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;outline:none;">'+(wtOpts?'<select style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+alpha(pT,.7)+';font-size:.86rem;font-family:inherit;width:100%;outline:none;appearance:none;"><option value="">Interesse in type…</option>'+wtOpts+'</select>':'')+'<label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;"><input type="checkbox" style="accent-color:'+acc+';margin-top:3px;flex-shrink:0;"><span style="font-size:.76rem;color:'+alpha(pT,.5)+';line-height:1.6;">Ik ga akkoord met het <a href="#" style="color:'+acc+';">privacybeleid</a>.</span></label><button type="submit" style="background:'+acc+';color:'+aT+';border:none;padding:13px 24px;border-radius:999px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;font-size:.86rem;font-family:inherit;cursor:pointer;width:100%;">'+esc(f.cta1)+'</button></form></div><div style="display:flex;flex-direction:column;gap:16px;"><div style="background:'+alpha(pT,.05)+';border:1px solid '+alpha(pT,.1)+';border-radius:12px;padding:24px;"><h3 style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';margin-bottom:12px;">Contactpersoon</h3>'+(f.cpnaam?'<div style="font-size:1rem;font-weight:700;color:'+pT+';margin-bottom:2px;">'+esc(f.cpnaam)+'</div>':'')+(f.cptitel?'<div style="font-size:.8rem;color:'+alpha(pT,.5)+';margin-bottom:12px;">'+esc(f.cptitel)+'</div>':'')+(f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="display:flex;align-items:center;gap:7px;color:'+pT+';font-size:.86rem;margin-bottom:7px;text-decoration:none;">📞 '+esc(f.cptel)+'</a>':'')+(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="display:flex;align-items:center;gap:7px;color:'+acc+';font-size:.86rem;text-decoration:none;">✉ '+esc(f.cpmail)+'</a>':'')+'</div>'+(f.downloads.length?'<div style="background:'+alpha(pT,.04)+';border:1px solid '+alpha(pT,.08)+';border-radius:12px;padding:20px;"><h3 style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';margin-bottom:10px;">Downloads</h3><div style="display:flex;flex-direction:column;gap:7px;">'+f.downloads.map(function(d){return '<a href="#" style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:'+alpha(acc,.1)+';border:1px solid '+alpha(acc,.28)+';border-radius:999px;color:'+pT+';font-size:.8rem;font-weight:600;text-decoration:none;">↓ '+esc(d)+'</a>';}).join('')+'</div></div>':'')+'</div></div></div></section>\n\n<footer style="background:'+lighten(prim,-22)+';padding:44px 0 22px;border-top:2px solid '+alpha(acc,.28)+'">\n<div class="c"><div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px;margin-bottom:32px;"><div><h3 style="font-family:'+fm.hf+';font-size:1rem;font-weight:800;color:'+acc+';text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">'+esc(f.naam)+'</h3><p style="font-size:.8rem;color:'+alpha(pT,.45)+';line-height:1.75;max-width:300px;">'+esc(c.footer_quote||f.loc)+'</p></div><div><h4 style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.4)+';margin-bottom:9px;">Navigatie</h4><div style="display:flex;flex-direction:column;gap:7px;"><a href="#waarom" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Waarom dit project</a><a href="#wonen" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Het wonen</a><a href="#aanbod" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Woningaanbod</a><a href="#faq" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">FAQ</a><a href="#contact" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Contact</a></div></div><div><h4 style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.4)+';margin-bottom:9px;">Contact</h4><div style="display:flex;flex-direction:column;gap:7px;">'+(f.ontwnaam?'<span style="font-size:.8rem;color:'+alpha(pT,.6)+';">'+esc(f.ontwnaam)+'</span>':'')+(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="font-size:.8rem;color:'+acc+';text-decoration:none;">'+esc(f.cpmail)+'</a>':'')+(f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">'+esc(f.cptel)+'</a>':'')+'</div></div></div><div style="border-top:1px solid '+alpha(pT,.1)+';padding-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><span style="font-size:.7rem;color:'+alpha(pT,.28)+'">&copy; '+esc(f.naam)+' – '+esc(f.loc)+'.</span><div style="display:flex;gap:14px;"><a href="#" style="font-size:.7rem;color:'+alpha(pT,.35)+';text-decoration:none;">Privacybeleid</a><a href="#" style="font-size:.7rem;color:'+alpha(pT,.35)+';text-decoration:none;">Disclaimer</a></div><span style="font-size:.7rem;color:'+alpha(pT,.2)+';">Gemaakt door <a href="https://springrealestate.com" style="color:'+alpha(acc,.6)+';text-decoration:none;">Spring Real Estate</a></span></div></div></footer>\n\n</body>\n</html>';
 }
 
 function showPreview(html,seo){
@@ -656,7 +826,7 @@ function showPreview(html,seo){
   if(seo&&Object.keys(seo).length)renderSeo(seo);
 }
 function renderSeo(s){
-  var rows=[['Paginatitel',esc(s.title||'')],['Meta description',esc(s.meta_description||'')],['H1',esc(s.h1||'')],['Focus keyword','<span class="tag">'+esc(s.focus_keyword||'')+'</span>'],['Secundaire keywords',(s.secundaire_zoekwoorden||[]).map(function(k){return '<span class="tag">'+esc(k)+'</span>';}).join('')],['URL-slug',esc(s.url_slug||'')],['OG-titel',esc(s.og_titel||'')],['OG-beschrijving',esc(s.og_beschrijving||'')]];
+  var rows=[['Paginatitel',esc(s.title||'')],['Meta description',esc(s.meta_description||'')],['H1',esc(s.h1||'')],['Focus keyword','<span class="tag-pill">'+esc(s.focus_keyword||'')+'</span>'],['Secundaire keywords',(s.secundaire_zoekwoorden||[]).map(function(k){return '<span class="tag-pill">'+esc(k)+'</span>';}).join('')],['URL-slug',esc(s.url_slug||'')],['OG-titel',esc(s.og_titel||'')],['OG-beschrijving',esc(s.og_beschrijving||'')]];
   document.getElementById('seoInner').innerHTML=rows.map(function(r){return '<div class="seo-row"><div class="seo-lbl">'+r[0]+'</div><div>'+r[1]+'</div></div>';}).join('');
 }
 function dlHtml(){if(!generatedHtml)return;var fn=(document.getElementById('naam').value.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')||'onepager')+'.html';var b=new Blob([generatedHtml],{type:'text/html;charset=utf-8'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=fn;a.click();setTimeout(function(){URL.revokeObjectURL(u);},2000);}
