@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Finder · Spring Real Estate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0c0c;--sur:#161615;--s2:#1f1f1e;
+  --ink:#fff;--muted:#AFAEB2;--koud:#8a8a8c;
+  --bd:#2f2f2d;--line:#3C3C3B;
+  --g:#7CA73F;--gl:#89B647;--rood:#d9713e;
+  --fn:"Raleway",system-ui,-apple-system,sans-serif;
+  --r:12px;--rsm:8px;
+}
+body{font-family:var(--fn);background:var(--bg);color:var(--ink);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+
+/* ── MODAL ──────────────────────────────────────────────────── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:var(--sur);border:1px solid var(--bd);border-radius:16px;padding:36px;max-width:460px;width:100%}
+.modal-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.modal-mark{width:34px;height:34px;background:var(--g);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#fff}
+.modal-brand{font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--g)}
+.modal h2{font-size:21px;font-weight:800;margin-bottom:8px}
+.modal p{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:22px}
+.modal-link{color:var(--gl);text-decoration:none;font-weight:700}
+.modal-link:hover{text-decoration:underline}
+.modal-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block}
+.modal-input{width:100%;padding:13px 15px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--ink);font-family:var(--fn);font-size:14px;outline:none;transition:border-color .15s;margin-bottom:14px}
+.modal-input:focus{border-color:var(--g)}
+.modal-input::placeholder{color:var(--koud)}
+.modal-btn{width:100%;padding:14px;background:var(--g);color:#fff;border:none;border-radius:var(--rsm);font-family:var(--fn);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s}
+.modal-btn:hover{background:var(--gl)}
+.modal-note{font-size:11.5px;color:var(--koud);margin-top:12px;text-align:center;line-height:1.5}
+
+/* ── TOP BAR ─────────────────────────────────────────────────── */
+.top{position:sticky;top:0;z-index:20;background:rgba(12,12,12,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0 24px;height:54px;display:flex;align-items:center;gap:14px}
+.s-mark{width:28px;height:28px;background:var(--g);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+.v-sep{width:1px;height:22px;background:var(--line)}
+.brand-name{font-weight:800;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--g);line-height:1.1}
+.brand-sub{font-size:9px;font-weight:600;letter-spacing:.07em;color:var(--muted);margin-top:1px}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.key-btn{background:none;border:1px solid var(--bd);color:var(--koud);font-family:var(--fn);font-size:10.5px;padding:5px 12px;border-radius:999px;cursor:pointer;transition:border-color .15s,color .15s;letter-spacing:.03em}
+.key-btn:hover{border-color:var(--g);color:var(--gl)}
+
+/* ── HERO ────────────────────────────────────────────────────── */
+.hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:52px 20px 36px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gl);margin-bottom:18px}
+h1{font-size:clamp(28px,5vw,50px);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-bottom:14px}
+h1 em{font-style:normal;color:var(--gl)}
+.hero-sub{font-size:15px;color:var(--muted);max-width:46ch;line-height:1.7}
+
+/* ── FORM ────────────────────────────────────────────────────── */
+.form-wrap{width:100%;max-width:700px;margin:0 auto;padding:0 20px 72px}
+.form-card{background:var(--sur);border:1px solid var(--bd);border-radius:16px;overflow:hidden;margin-top:28px}
+.form-section{padding:24px 28px;border-bottom:1px solid var(--bd)}
+.form-section:last-of-type{border-bottom:none}
+.sec-lbl{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gl);margin-bottom:18px}
+.form-row{display:grid;gap:14px;margin-bottom:14px}
+.form-row:last-child{margin-bottom:0}
+.form-row.g2{grid-template-columns:1fr 1fr}
+.f-lbl{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block}
+.f-lbl .opt{font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--koud);margin-left:4px}
+.f-req{color:var(--gl)}
+.f-in{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--ink);font-family:var(--fn);font-size:14px;outline:none;transition:border-color .15s}
+.f-in:focus{border-color:var(--g)}
+.f-in::placeholder{color:var(--koud)}
+.f-in.err{border-color:var(--rood)}
+.f-sel{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--ink);font-family:var(--fn);font-size:14px;outline:none;cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%238a8a8c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;transition:border-color .15s}
+.f-sel:focus{border-color:var(--g)}
+.f-sel option{background:#1f1f1e}
+.f-ta{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--ink);font-family:var(--fn);font-size:14px;outline:none;resize:vertical;min-height:84px;line-height:1.55;transition:border-color .15s}
+.f-ta:focus{border-color:var(--g)}
+.f-ta::placeholder{color:var(--koud)}
+
+/* toggle buttons (single select) */
+.tog-group{display:flex;flex-wrap:wrap;gap:7px}
+.tog-btn{padding:8px 16px;background:var(--bg);border:1px solid var(--bd);border-radius:999px;font-family:var(--fn);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .12s;user-select:none}
+.tog-btn:hover{border-color:var(--g);color:var(--gl)}
+.tog-btn.on{background:rgba(124,167,63,.12);border-color:var(--g);color:var(--gl)}
+
+/* checkbox pills (multi select) */
+.cb-group{display:flex;flex-wrap:wrap;gap:7px}
+.cb-pill{padding:7px 14px;background:var(--bg);border:1px solid var(--bd);border-radius:999px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .12s;user-select:none}
+.cb-pill:hover{border-color:var(--g);color:var(--gl)}
+.cb-pill.on{background:rgba(124,167,63,.12);border-color:var(--g);color:var(--gl)}
+
+/* form footer */
+.form-foot{padding:22px 28px;background:var(--s2);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.form-hint{font-size:12px;color:var(--koud);line-height:1.55}
+.submit-btn{padding:14px 32px;background:var(--g);color:#fff;border:none;border-radius:999px;font-family:var(--fn);font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:background .15s,transform .1s;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.submit-btn:hover{background:var(--gl)}
+.submit-btn:active{transform:scale(.97)}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+/* ── STATUS ─────────────────────────────────────────────────── */
+.status-wrap{width:100%;max-width:700px;margin:28px auto 0;padding:0 20px;display:none}
+.status-wrap.show{display:block}
+.status-card{background:var(--sur);border:1px solid var(--bd);border-radius:12px;padding:26px 28px}
+.st-lbl{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gl);margin-bottom:14px}
+.st-steps{display:flex;flex-direction:column;gap:12px}
+.st-step{display:flex;align-items:center;gap:12px;font-size:14px}
+.sdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sdot.wait{background:var(--line)}
+.sdot.run{background:var(--gl);animation:pulse 1.2s ease-in-out infinite}
+.sdot.done{background:var(--gl)}
+.sdot.err{background:var(--rood)}
+.stxt{color:var(--muted)}
+.stxt.run{color:var(--ink)}
+.stxt.done{color:var(--koud)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.15}}
+
+/* ── RESULTS ────────────────────────────────────────────────── */
+.results{padding:0 20px 72px;max-width:860px;margin:0 auto;width:100%;display:none}
+.res-header{text-align:center;padding:48px 0 36px}
+.res-project{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.res-h{font-size:clamp(24px,4.5vw,38px);font-weight:800;margin-bottom:10px}
+.res-sub{font-size:14px;color:var(--muted);line-height:1.65;max-width:50ch;margin:0 auto}
+
+/* richting cards */
+.rc{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:10px;transition:border-color .15s}
+.rc:hover{border-color:var(--line)}
+.rc-head{display:flex;align-items:flex-start;gap:16px;padding:20px 22px;cursor:pointer;user-select:none}
+.rc-swatches{display:flex;gap:4px;flex-shrink:0;margin-top:4px}
+.swatch{width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,.07)}
+.rc-info{flex:1;min-width:0}
+.rc-num{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gl);margin-bottom:4px}
+.rc-naam{font-size:19px;font-weight:800;line-height:1.1;margin-bottom:4px}
+.rc-tagline{font-size:13px;color:var(--muted);font-style:italic}
+.rc-sfeer{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.sfeer-tag{font-size:10.5px;font-weight:600;padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--bd);color:var(--muted)}
+.chev{color:var(--koud);transition:transform .2s;flex-shrink:0;margin-top:6px}
+.chev.open{transform:rotate(180deg)}
+.rc-divider{height:1px;background:var(--bd);margin:0 22px}
+.rc-body{padding:0 22px 22px;display:none}
+.rc-body.open{display:block}
+
+/* detail sections inside card */
+.detail-grid{display:grid;gap:18px;margin-top:18px}
+.detail-grid.g2{grid-template-columns:1fr 1fr}
+.d-lbl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gl);margin-bottom:7px}
+.d-val{font-size:13.5px;color:var(--muted);line-height:1.6}
+.pal-row{display:flex;gap:8px;margin-top:4px}
+.pal-item{flex:1;text-align:center}
+.pal-swatch{height:44px;border-radius:8px;border:1px solid rgba(255,255,255,.07);margin-bottom:6px}
+.pal-hex{font-size:10px;font-family:monospace;font-weight:700;letter-spacing:.04em;color:var(--muted)}
+.pal-naam{font-size:9px;color:var(--koud);margin-top:2px}
+.kanaal-list{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.kanaal-item{display:flex;gap:9px;align-items:flex-start}
+.k-dot{width:4px;height:4px;border-radius:50%;background:var(--g);flex-shrink:0;margin-top:8px}
+.k-txt{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* opener */
+.opener-card{background:linear-gradient(135deg,rgba(124,167,63,.08),rgba(137,182,71,.03));border:1px solid rgba(124,167,63,.2);border-radius:var(--r);padding:24px;margin-top:10px}
+.opener-lbl{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gl);margin-bottom:10px}
+.opener-text{font-size:15px;color:var(--muted);line-height:1.78;font-style:italic}
+
+/* action buttons */
+.actions{display:flex;gap:10px;justify-content:center;margin-top:36px;flex-wrap:wrap}
+.act-btn{padding:12px 26px;border-radius:999px;font-family:var(--fn);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .12s;display:flex;align-items:center;gap:8px}
+.act-primary{background:var(--g);color:#fff;border:1px solid var(--g)}
+.act-primary:hover{background:var(--gl);border-color:var(--gl)}
+.act-ghost{background:none;border:1px solid var(--bd);color:var(--muted)}
+.act-ghost:hover{border-color:var(--g);color:var(--gl)}
+.act-btn:disabled{opacity:.45;cursor:not-allowed}
+
+footer{text-align:center;font-size:10.5px;color:var(--koud);padding:20px;border-top:1px solid var(--line);letter-spacing:.06em;text-transform:uppercase;margin-top:auto}
+#pdf-out{position:absolute;left:-9999px;top:0;width:794px;background:#0c0c0c;font-family:Raleway,system-ui,sans-serif;color:#fff;line-height:1.5}
+
+@media(max-width:560px){
+  .form-row.g2{grid-template-columns:1fr}
+  .detail-grid.g2{grid-template-columns:1fr}
+  .form-foot{flex-direction:column;align-items:stretch}
+  .submit-btn{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ── SETUP MODAL ──────────────────────────────────────────── -->
+<div class="modal-bg" id="setupModal" style="display:none">
+  <div class="modal">
+    <div class="modal-logo">
+      <div class="modal-mark">S</div>
+      <div class="modal-brand">Spring Real Estate</div>
+    </div>
+    <h2>Groq API-sleutel instellen</h2>
+    <p>De Brand Finder gebruikt Groq AI (inclusief websearch) om merkrichtingen te genereren. Maak een gratis sleutel aan via <a class="modal-link" href="https://console.groq.com" target="_blank">console.groq.com</a> &rarr; API Keys &rarr; Create API key.</p>
+    <label class="modal-lbl" for="apiKeyIn">Groq API-sleutel</label>
+    <input class="modal-input" id="apiKeyIn" type="password" placeholder="gsk_..." autocomplete="off" spellcheck="false"/>
+    <button class="modal-btn" onclick="saveKey()">Opslaan &amp; doorgaan</button>
+    <div class="modal-note">Sleutel wordt alleen lokaal opgeslagen in jouw browser.</div>
+  </div>
+</div>
+
+<!-- ── TOP BAR ──────────────────────────────────────────────── -->
+<div class="top">
+  <div class="s-mark">S</div>
+  <div class="v-sep"></div>
+  <div>
+    <div class="brand-name">Spring Real Estate</div>
+    <div class="brand-sub">Brand Finder &middot; Nieuwbouw</div>
+  </div>
+  <div class="top-right">
+    <button class="key-btn" onclick="resetKey()">&#9881; Sleutel</button>
+  </div>
+</div>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="eyebrow">Nieuwbouw &middot; 3 merkrichtingen &middot; 30 seconden</div>
+  <h1>Vul het project in,<br><em>wij vinden de richting</em></h1>
+  <p class="hero-sub">Vul de projectgegevens in en ontvang 3 complete merkrichtingen — naam, kleurpalet, doelgroep en kanaalstrategie.</p>
+</div>
+
+<!-- ── FORM ─────────────────────────────────────────────────── -->
+<div class="form-wrap" id="formWrap">
+  <div class="form-card">
+
+    <!-- 01 Project -->
+    <div class="form-section">
+      <div class="sec-lbl">01 &mdash; Project</div>
+      <div class="form-row g2">
+        <div>
+          <label class="f-lbl" for="fNaam">Projectnaam <span class="opt">optioneel</span></label>
+          <input class="f-in" id="fNaam" type="text" placeholder="werknaam of titel" autocomplete="off">
+        </div>
+        <div>
+          <label class="f-lbl" for="fLocatie">Locatie <span class="f-req">*</span></label>
+          <input class="f-in" id="fLocatie" type="text" placeholder="bijv. Amsterdam, Almere, Utrecht" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label class="f-lbl" for="fWijk">Wijk / omgeving <span class="opt">optioneel maar waardevol</span></label>
+          <input class="f-in" id="fWijk" type="text" placeholder="bijv. Stadswerven, Westergasfabriek, Merwede, Noorderhaven" autocomplete="off">
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 Woningen -->
+    <div class="form-section">
+      <div class="sec-lbl">02 &mdash; Woningen</div>
+      <div class="form-row g2">
+        <div>
+          <label class="f-lbl">Type woningen</label>
+          <div class="tog-group" data-tog="type">
+            <div class="tog-btn on" data-v="Appartementen">Appartementen</div>
+            <div class="tog-btn" data-v="Grondgebonden">Grondgebonden</div>
+            <div class="tog-btn" data-v="Lofts/Studio's">Lofts</div>
+            <div class="tog-btn" data-v="Mix">Mix</div>
+          </div>
+        </div>
+        <div>
+          <label class="f-lbl">Koop of huur</label>
+          <div class="tog-group" data-tog="transactie">
+            <div class="tog-btn on" data-v="Koop">Koop</div>
+            <div class="tog-btn" data-v="Huur">Huur</div>
+            <div class="tog-btn" data-v="Mix koop/huur">Mix</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row g2">
+        <div>
+          <label class="f-lbl" for="fAantal">Aantal woningen <span class="opt">optioneel</span></label>
+          <input class="f-in" id="fAantal" type="number" placeholder="bijv. 48" min="1" autocomplete="off">
+        </div>
+        <div>
+          <label class="f-lbl" for="fPrijs">Prijsklasse</label>
+          <select class="f-sel" id="fPrijs">
+            <option value="">Kies prijsklasse</option>
+            <option value="Betaalbaar (onder €250.000 koop)">Betaalbaar koop (onder €250k)</option>
+            <option value="Midden koop (€250k–€400k)">Midden koop (€250k–€400k)</option>
+            <option value="Middenhoog koop (€400k–€600k)">Middenhoog koop (€400k–€600k)</option>
+            <option value="Hoog koop (€600k–€900k)">Hoog koop (€600k–€900k)</option>
+            <option value="Luxe koop (boven €900k)">Luxe koop (boven €900k)</option>
+            <option value="Sociale huur (tot €900/mnd)">Sociale huur (tot €900/mnd)</option>
+            <option value="Middenhuur (€900–€1.250/mnd)">Middenhuur (€900–€1.250/mnd)</option>
+            <option value="Vrije sector huur (boven €1.250/mnd)">Vrije sector huur (€1.250+/mnd)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 Omgeving -->
+    <div class="form-section">
+      <div class="sec-lbl">03 &mdash; Omgeving &amp; fase</div>
+      <div class="form-row">
+        <div>
+          <label class="f-lbl">Karakter van de locatie <span class="opt">meerdere mogelijk</span></label>
+          <div class="cb-group" id="cbOmg">
+            <div class="cb-pill" data-v="Historisch centrum">Historisch centrum</div>
+            <div class="cb-pill" data-v="Waterfront/Haven">Waterfront/Haven</div>
+            <div class="cb-pill" data-v="Stadspark/Groen">Stadspark/Groen</div>
+            <div class="cb-pill" data-v="Industrieel erfgoed">Industrieel erfgoed</div>
+            <div class="cb-pill" data-v="Groen/Landelijk">Groen/Landelijk</div>
+            <div class="cb-pill" data-v="Modern nieuwbouwgebied">Modern nieuwbouwgebied</div>
+            <div class="cb-pill" data-v="Stedelijk/Urban">Stedelijk/Urban</div>
+            <div class="cb-pill" data-v="Zakelijk/Kantorengebied">Zakelijk gebied</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label class="f-lbl">Projectfase</label>
+          <div class="tog-group" data-tog="fase">
+            <div class="tog-btn" data-v="Planfase">Planfase</div>
+            <div class="tog-btn on" data-v="Vergunning aangevraagd">Vergunning</div>
+            <div class="tog-btn" data-v="In aanbouw">In aanbouw</div>
+            <div class="tog-btn" data-v="Bijna opgeleverd">Bijna opgeleverd</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 Sfeer -->
+    <div class="form-section">
+      <div class="sec-lbl">04 &mdash; Sfeer &amp; doelgroep</div>
+      <div class="form-row">
+        <div>
+          <label class="f-lbl" for="fSfeer">Bijzonderheden, sfeer of ambitie <span class="opt">optioneel maar waardevol</span></label>
+          <textarea class="f-ta" id="fSfeer" placeholder="bijv. voormalig haventerrein, getransformeerde loodsen, duurzaamheidsfocus, daktuin, parkeervrij, co-working ruimte, kindvriendelijk..."></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label class="f-lbl">Doelgroep voorkeur <span class="opt">meerdere mogelijk</span></label>
+          <div class="cb-group" id="cbDoel">
+            <div class="cb-pill" data-v="Starters">Starters</div>
+            <div class="cb-pill" data-v="Young professionals">Young professionals</div>
+            <div class="cb-pill" data-v="Gezinnen">Gezinnen</div>
+            <div class="cb-pill" data-v="Empty nesters">Empty nesters</div>
+            <div class="cb-pill" data-v="Senioren">Senioren</div>
+            <div class="cb-pill" data-v="Expats">Expats</div>
+            <div class="cb-pill on" data-v="Breed publiek">Breed publiek</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="form-foot">
+      <div class="form-hint">AI zoekt de locatie op via internet &amp; genereert<br>3 complete merkrichtingen met kleurpalet.</div>
+      <button class="submit-btn" id="submitBtn" onclick="doAnalysis()">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H6M12 2v6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Genereer merkrichtingen
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATUS ────────────────────────────────────────────────── -->
+<div class="status-wrap" id="statusWrap">
+  <div class="status-card">
+    <div class="st-lbl">Analyse loopt</div>
+    <div class="st-steps">
+      <div class="st-step"><div class="sdot wait" id="dot1"></div><span class="stxt" id="stxt1">Locatie &amp; marktcontext opzoeken via internet...</span></div>
+      <div class="st-step"><div class="sdot wait" id="dot2"></div><span class="stxt" id="stxt2">3 merkrichtingen genereren...</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── RESULTS ───────────────────────────────────────────────── -->
+<div class="results" id="resultsSection"></div>
+
+<!-- PDF (hidden) -->
+<div id="pdf-out"></div>
+
+<footer>Spring Real Estate &nbsp;&middot;&nbsp; Projectmarketing &amp; Makelaardij</footer>
+
+<script>
+var KS='spring_groq_key';
+var GU='https://api.groq.com/openai/v1/chat/completions';
+var _data=null;
+
+window.addEventListener('DOMContentLoaded',function(){
+  if(!localStorage.getItem(KS)) showSetup();
+  document.querySelectorAll('.tog-group').forEach(function(g){
+    g.querySelectorAll('.tog-btn').forEach(function(b){
+      b.addEventListener('click',function(){
+        g.querySelectorAll('.tog-btn').forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on');
+      });
+    });
+  });
+  document.querySelectorAll('.cb-pill').forEach(function(p){
+    p.addEventListener('click',function(){p.classList.toggle('on');});
+  });
+});
+
+function showSetup(){document.getElementById('setupModal').style.display='flex';}
+function resetKey(){document.getElementById('apiKeyIn').value='';showSetup();}
+function saveKey(){
+  var k=document.getElementById('apiKeyIn').value.trim();
+  if(!k){alert('Voer een geldige API-sleutel in.');return;}
+  localStorage.setItem(KS,k);
+  document.getElementById('setupModal').style.display='none';
+}
+
+function fd(){
+  var tog=function(n){var el=document.querySelector('.tog-group[data-tog="'+n+'"] .tog-btn.on');return el?el.dataset.v:'';};
+  var cb=function(id){return Array.from(document.querySelectorAll('#'+id+' .cb-pill.on')).map(function(p){return p.dataset.v;});};
+  return {
+    naam:   document.getElementById('fNaam').value.trim(),
+    loc:    document.getElementById('fLocatie').value.trim(),
+    wijk:   document.getElementById('fWijk').value.trim(),
+    type:   tog('type')||'Appartementen',
+    trans:  tog('transactie')||'Koop',
+    aantal: document.getElementById('fAantal').value.trim(),
+    prijs:  document.getElementById('fPrijs').value,
+    omg:    cb('cbOmg'),
+    doel:   cb('cbDoel'),
+    fase:   tog('fase')||'Vergunning aangevraagd',
+    sfeer:  document.getElementById('fSfeer').value.trim()
+  };
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function setStep(n,s){
+  document.getElementById('dot'+n).className='sdot '+s;
+  document.getElementById('stxt'+n).className='stxt '+s;
+}
+
+async function doAnalysis(){
+  var key=localStorage.getItem(KS);
+  if(!key){showSetup();return;}
+  var f=fd();
+  if(!f.loc){
+    var el=document.getElementById('fLocatie');
+    el.classList.add('err');el.focus();
+    setTimeout(function(){el.classList.remove('err');},1800);
+    return;
+  }
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('formWrap').style.display='none';
+  var sw=document.getElementById('statusWrap');
+  sw.classList.add('show');
+  sw.scrollIntoView({behavior:'smooth',block:'center'});
+
+  try{
+    setStep(1,'run');
+    var locCtx=await step1Locatie(key,f);
+    setStep(1,'done');
+
+    setStep(2,'run');
+    var result=await step2Richtingen(key,f,locCtx);
+    setStep(2,'done');
+
+    _data={f:f,r:result};
+    sw.classList.remove('show');
+    renderResults(f,result);
+  }catch(e){
+    setStep(1,'err');setStep(2,'err');
+    sw.querySelector('.status-card').innerHTML='<div class="st-lbl" style="color:var(--rood)">Fout opgetreden</div>'
+      +'<div style="font-size:14px;color:var(--muted);margin-top:8px;">'+esc(e.message)+'</div>'
+      +'<div style="margin-top:18px;"><button class="submit-btn" onclick="location.reload()" style="display:inline-flex;">Opnieuw proberen</button></div>';
+  }
+}
+
+async function step1Locatie(key,f){
+  var loc=f.loc+(f.wijk?', '+f.wijk:'');
+  var res=await fetch(GU,{
+    method:'POST',
+    headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'compound-beta-mini',
+      messages:[{role:'user',content:
+        'Zoek op: wat is het karakter van '+loc+' als woonlocatie in Nederland? '
+        +'Noem: sfeer, typische bewoners, architectuurstijlen die er passen, bijzonderheden. '
+        +'Antwoord in maximaal 120 woorden, feitelijk en concreet.'}],
+      max_tokens:250,
+      temperature:0.2
+    })
+  });
+  if(!res.ok) throw new Error('Groq locatie-zoekopdracht mislukt ('+res.status+')');
+  var d=await res.json();
+  return d.choices[0].message.content||'';
+}
+
+async function step2Richtingen(key,f,locCtx){
+  var details=[
+    f.naam?'Projectnaam: '+f.naam:'',
+    'Locatie: '+f.loc+(f.wijk?' - '+f.wijk:''),
+    'Type: '+f.type,
+    'Transactie: '+f.trans,
+    f.aantal?'Aantal woningen: '+f.aantal:'',
+    f.prijs?'Prijsklasse: '+f.prijs:'',
+    f.omg.length?'Omgeving: '+f.omg.join(', '):'',
+    f.doel.length?'Doelgroep voorkeur: '+f.doel.join(', '):'',
+    'Fase: '+f.fase,
+    f.sfeer?'Bijzonderheden/sfeer: '+f.sfeer:''
+  ].filter(Boolean).join('\n');
+
+  var prompt=
+    'Je bent een creatief director voor Nederlandse nieuwbouw projectmarketing.\n\n'
+    +'LOCATIECONTEXT (websearch-resultaat):\n'+locCtx+'\n\n'
+    +'PROJECTGEGEVENS:\n'+details+'\n\n'
+    +'Genereer drie STERK CONTRASTERENDE merkrichtingen voor dit project. '
+    +'Elke richting heeft een eigen unieke persoonlijkheid — ze mogen niet op elkaar lijken. '
+    +'Kies verrassende maar geloofwaardige projectnamen (geen "De Tuinen" of "Het Kwartier" clichés). '
+    +'Kleurpaletten moeten echt werken als merkidentiteit — geen willekeurige kleuren.\n\n'
+    +'Geef ALLEEN valide JSON (geen tekst ervoor of erna):\n'
+    +'{"richtingen":['
+    +'{"naam":"","tagline":"","omschrijving":"2-3 zinnen over positionering en sfeer",'
+    +'"kleuren":{"primair":"#hex","primair_naam":"kleurNaam","secundair":"#hex","secundair_naam":"kleurNaam","accent":"#hex","accent_naam":"kleurNaam"},'
+    +'"typografie":{"header":"FontNaam – omschrijving stijl","body":"FontNaam"},'
+    +'"sfeerwoorden":["w1","w2","w3","w4","w5"],'
+    +'"doelgroep":"Ideale koper/huurder in 1 concrete zin",'
+    +'"kanalen":["Kanaal + korte uitleg","Kanaal + korte uitleg","Kanaal + korte uitleg"],'
+    +'"toon":"Toon van communicatie in 1 zin"}'
+    +'],'
+    +'"opener":"Gespreksopener van 2-3 zinnen voor Spring om mee contact op te nemen met de developer — benoem de kansen die Spring ziet en hoe zij kunnen helpen"}';
+
+  var res=await fetch(GU,{
+    method:'POST',
+    headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'llama-3.3-70b-versatile',
+      messages:[
+        {role:'system',content:'Je bent een creatief director voor projectmarketing. Antwoord uitsluitend in valide JSON zonder extra tekst.'},
+        {role:'user',content:prompt}
+      ],
+      response_format:{type:'json_object'},
+      max_tokens:2800,
+      temperature:0.72
+    })
+  });
+  if(!res.ok){
+    var ed=await res.json().catch(function(){return{};});
+    throw new Error(ed.error&&ed.error.message?ed.error.message:'Groq merkrichting-generatie mislukt ('+res.status+')');
+  }
+  var d=await res.json();
+  return JSON.parse(d.choices[0].message.content);
+}
+
+function renderResults(f,data){
+  var richtingen=data.richtingen||[];
+  var proj=f.naam||(f.loc+(f.wijk?' · '+f.wijk:''));
+
+  var cardsHtml=richtingen.map(function(r,i){
+    var num=(i+1<10?'0':'')+(i+1);
+    var kl=r.kleuren||{};
+    var sfeer=(r.sfeerwoorden||[]).map(function(w){return '<div class="sfeer-tag">'+esc(w)+'</div>';}).join('');
+    var kanalen=(r.kanalen||[]).map(function(k){
+      return '<div class="kanaal-item"><div class="k-dot"></div><div class="k-txt">'+esc(k)+'</div></div>';
+    }).join('');
+    var palItems=
+      (kl.primair?'<div class="pal-item"><div class="pal-swatch" style="background:'+esc(kl.primair)+'"></div><div class="pal-hex">'+esc(kl.primair)+'</div><div class="pal-naam">'+esc(kl.primair_naam||'')+'</div></div>':'')+
+      (kl.secundair?'<div class="pal-item"><div class="pal-swatch" style="background:'+esc(kl.secundair)+'"></div><div class="pal-hex">'+esc(kl.secundair)+'</div><div class="pal-naam">'+esc(kl.secundair_naam||'')+'</div></div>':'')+
+      (kl.accent?'<div class="pal-item"><div class="pal-swatch" style="background:'+esc(kl.accent)+'"></div><div class="pal-hex">'+esc(kl.accent)+'</div><div class="pal-naam">'+esc(kl.accent_naam||'')+'</div></div>':'');
+
+    return '<div class="rc">'
+      +'<div class="rc-head" onclick="togCard(this)">'
+        +'<div class="rc-swatches">'
+          +(kl.primair?'<div class="swatch" style="background:'+esc(kl.primair)+'"></div>':'')
+          +(kl.secundair?'<div class="swatch" style="background:'+esc(kl.secundair)+'"></div>':'')
+          +(kl.accent?'<div class="swatch" style="background:'+esc(kl.accent)+'"></div>':'')
+        +'</div>'
+        +'<div class="rc-info">'
+          +'<div class="rc-num">Richting '+num+'</div>'
+          +'<div class="rc-naam">'+esc(r.naam)+'</div>'
+          +'<div class="rc-tagline">'+esc(r.tagline)+'</div>'
+          +(sfeer?'<div class="rc-sfeer">'+sfeer+'</div>':'')
+        +'</div>'
+        +'<svg class="chev" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      +'</div>'
+      +'<div class="rc-divider"></div>'
+      +'<div class="rc-body">'
+        +(r.omschrijving?'<div class="detail-grid" style="margin-top:18px;"><div><div class="d-lbl">Merkrichting</div><div class="d-val">'+esc(r.omschrijving)+'</div></div></div>':'')
+        +'<div class="detail-grid g2" style="margin-top:16px;">'
+          +(r.doelgroep?'<div><div class="d-lbl">Doelgroep</div><div class="d-val">'+esc(r.doelgroep)+'</div></div>':'')
+          +(r.toon?'<div><div class="d-lbl">Toon</div><div class="d-val">'+esc(r.toon)+'</div></div>':'')
+        +'</div>'
+        +'<div class="detail-grid g2" style="margin-top:16px;">'
+          +'<div><div class="d-lbl">Kleurpalet</div><div class="pal-row">'+palItems+'</div></div>'
+          +(r.typografie?'<div><div class="d-lbl">Typografie</div><div class="d-val"><strong style="color:#fff">Titels:</strong> '+esc(r.typografie.header||'')+'<br><strong style="color:#fff">Body:</strong> '+esc(r.typografie.body||'')+'</div></div>':'')
+        +'</div>'
+        +(kanalen?'<div style="margin-top:16px;"><div class="d-lbl">Aanbevolen kanalen</div><div class="kanaal-list">'+kanalen+'</div></div>':'')
+      +'</div>'
+      +'</div>';
+  }).join('');
+
+  var opener=data.opener
+    ?'<div class="opener-card"><div class="opener-lbl">Gespreksopener voor de developer</div><div class="opener-text">'+esc(data.opener)+'</div></div>'
+    :'';
+
+  document.getElementById('resultsSection').innerHTML=
+    '<div class="res-header">'
+      +'<div class="res-project">'+esc(proj)+'</div>'
+      +'<h2 class="res-h">3 merkrichtingen</h2>'
+      +'<p class="res-sub">Klik op een richting om kleuren, typografie en kanaaladvies te zien.</p>'
+    +'</div>'
+    +cardsHtml+opener
+    +'<div class="actions">'
+      +'<button class="act-btn act-primary" id="dlBtn" onclick="dlPdf()">&#8595; Download PDF</button>'
+      +'<button class="act-btn act-ghost" onclick="newProject()">+ Nieuw project</button>'
+    +'</div>';
+
+  document.getElementById('resultsSection').style.display='block';
+  document.getElementById('resultsSection').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function togCard(head){
+  var body=head.parentElement.querySelector('.rc-body');
+  var ch=head.querySelector('.chev');
+  var open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  ch.classList.toggle('open',!open);
+}
+
+function newProject(){
+  _data=null;
+  document.getElementById('formWrap').style.display='';
+  document.getElementById('statusWrap').classList.remove('show');
+  document.getElementById('resultsSection').style.display='none';
+  document.getElementById('submitBtn').disabled=false;
+  document.getElementById('fLocatie').value='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── PDF ──────────────────────────────────────────────────── */
+function dlPdf(){
+  if(!_data) return;
+  var btn=document.getElementById('dlBtn');
+  btn.disabled=true; btn.textContent='PDF wordt gemaakt…';
+  var f=_data.f; var data=_data.r;
+  var proj=f.naam||(f.loc+(f.wijk?' · '+f.wijk:''));
+  var now=new Date();
+  var ms='januari februari maart april mei juni juli augustus september oktober november december'.split(' ');
+  var ds=now.getDate()+' '+ms[now.getMonth()]+' '+now.getFullYear();
+  var richtingen=data.richtingen||[];
+
+  var rcHtml=richtingen.map(function(r,i){
+    var num=(i+1<10?'0':'')+(i+1);
+    var kl=r.kleuren||{};
+    var sfeer=(r.sfeerwoorden||[]).map(function(w){
+      return '<span style="font-size:9px;font-weight:600;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid #2f2f2d;color:#AFAEB2;margin-right:4px;margin-bottom:3px;display:inline-block;">'+esc(w)+'</span>';
+    }).join('');
+    var palItems=
+      (kl.primair?'<div style="flex:1;text-align:center;"><div style="height:34px;border-radius:6px;background:'+esc(kl.primair)+';margin-bottom:4px;"></div><div style="font-size:8.5px;font-family:monospace;color:#AFAEB2;">'+esc(kl.primair)+'</div><div style="font-size:7.5px;color:#8a8a8c;">'+esc(kl.primair_naam||'')+'</div></div>':'')+
+      (kl.secundair?'<div style="flex:1;text-align:center;"><div style="height:34px;border-radius:6px;background:'+esc(kl.secundair)+';margin-bottom:4px;"></div><div style="font-size:8.5px;font-family:monospace;color:#AFAEB2;">'+esc(kl.secundair)+'</div><div style="font-size:7.5px;color:#8a8a8c;">'+esc(kl.secundair_naam||'')+'</div></div>':'')+
+      (kl.accent?'<div style="flex:1;text-align:center;"><div style="height:34px;border-radius:6px;background:'+esc(kl.accent)+';margin-bottom:4px;"></div><div style="font-size:8.5px;font-family:monospace;color:#AFAEB2;">'+esc(kl.accent)+'</div><div style="font-size:7.5px;color:#8a8a8c;">'+esc(kl.accent_naam||'')+'</div></div>':'');
+    var kanalen=(r.kanalen||[]).map(function(k){
+      return '<div style="display:flex;gap:8px;margin-bottom:5px;"><div style="width:4px;height:4px;border-radius:50%;background:#7CA73F;flex-shrink:0;margin-top:6px;"></div><span style="font-size:11px;color:#AFAEB2;">'+esc(k)+'</span></div>';
+    }).join('');
+    return '<div style="background:#161615;border:1px solid #2f2f2d;border-radius:10px;margin-bottom:12px;overflow:hidden;">'
+      +'<div style="padding:16px 18px;">'
+        +'<div style="display:flex;align-items:center;gap:7px;margin-bottom:10px;">'
+          +(kl.primair?'<div style="width:20px;height:20px;border-radius:5px;background:'+esc(kl.primair)+'"></div>':'')+
+          (kl.secundair?'<div style="width:20px;height:20px;border-radius:5px;background:'+esc(kl.secundair)+'"></div>':'')+
+          (kl.accent?'<div style="width:20px;height:20px;border-radius:5px;background:'+esc(kl.accent)+'"></div>':'')
+          +'<span style="font-size:8.5px;font-weight:800;letter-spacing:.1em;color:#89B647;margin-left:4px;">RICHTING '+num+'</span>'
+        +'</div>'
+        +'<div style="font-size:19px;font-weight:800;color:#fff;margin-bottom:3px;">'+esc(r.naam)+'</div>'
+        +'<div style="font-size:11.5px;color:#AFAEB2;font-style:italic;margin-bottom:8px;">'+esc(r.tagline)+'</div>'
+        +'<div style="margin-bottom:10px;">'+sfeer+'</div>'
+        +(r.omschrijving?'<div style="font-size:11.5px;color:#AFAEB2;line-height:1.55;margin-bottom:12px;">'+esc(r.omschrijving)+'</div>':'')
+        +'<div style="display:flex;gap:8px;margin-bottom:12px;">'+palItems+'</div>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">'
+          +(r.doelgroep?'<div><div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#89B647;margin-bottom:4px;">Doelgroep</div><div style="font-size:11px;color:#AFAEB2;">'+esc(r.doelgroep)+'</div></div>':'')
+          +(r.typografie?'<div><div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#89B647;margin-bottom:4px;">Typografie</div><div style="font-size:11px;color:#AFAEB2;line-height:1.5;">Titels: '+esc(r.typografie.header||'')+'<br>Body: '+esc(r.typografie.body||'')+'</div></div>':'')
+        +'</div>'
+        +(kanalen?'<div style="margin-top:12px;"><div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#89B647;margin-bottom:6px;">Kanalen</div>'+kanalen+'</div>':'')
+      +'</div>'
+      +'</div>';
+  }).join('');
+
+  var opHtml=data.opener
+    ?'<div style="margin-top:14px;background:linear-gradient(135deg,rgba(124,167,63,.08),rgba(137,182,71,.03));border:1px solid rgba(124,167,63,.2);border-radius:10px;padding:18px 20px;">'
+      +'<div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#89B647;margin-bottom:7px;">Gespreksopener</div>'
+      +'<div style="font-size:13px;color:#AFAEB2;line-height:1.7;font-style:italic;">'+esc(data.opener)+'</div>'
+      +'</div>'
+    :'';
+
+  document.getElementById('pdf-out').innerHTML=
+    '<div style="padding:36px;background:#0c0c0c;font-family:Raleway,system-ui,sans-serif;">'
+      +'<div style="display:flex;align-items:center;gap:12px;padding-bottom:20px;border-bottom:1px solid #3C3C3B;margin-bottom:26px;">'
+        +'<div style="width:32px;height:32px;background:#7CA73F;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:#fff;flex-shrink:0;">S</div>'
+        +'<div><div style="font-weight:800;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7CA73F;">Spring Real Estate</div>'
+        +'<div style="font-size:8.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#AFAEB2;margin-top:2px;">Brand Finder &middot; Nieuwbouw Merkrichtingen</div></div>'
+        +'<div style="margin-left:auto;font-size:10px;color:#8a8a8c;">'+ds+'</div>'
+      +'</div>'
+      +'<div style="margin-bottom:22px;">'
+        +'<div style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#AFAEB2;margin-bottom:5px;">'+esc(proj)+'</div>'
+        +'<div style="font-size:26px;font-weight:800;color:#fff;">3 Merkrichtingen</div>'
+      +'</div>'
+      +rcHtml+opHtml
+      +'<div style="margin-top:26px;padding-top:14px;border-top:1px solid #3C3C3B;text-align:center;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#8a8a8c;">Spring Real Estate &nbsp;&middot;&nbsp; Projectmarketing &amp; Makelaardij</div>'
+    +'</div>';
+
+  var slug=(f.naam||f.loc).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  html2pdf().set({
+    margin:0,filename:'Brand-Finder-'+slug+'.pdf',
+    image:{type:'jpeg',quality:.95},
+    html2canvas:{scale:2,useCORS:true,backgroundColor:'#0c0c0c'},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+  }).from(document.getElementById('pdf-out')).save().then(function(){
+    btn.disabled=false;
+    btn.innerHTML='&#8595; Download PDF';
+  });
+}
+</script>
+</body>
+</html>
