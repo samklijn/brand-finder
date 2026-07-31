@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
@@ -364,22 +364,36 @@ footer b{color:var(--g)}
 
     <div class="section-divider">Typografie</div>
     <div class="field">
-      <div class="fld-lbl">Lettertypestijl</div>
-      <select class="fld-sel" id="fontStijl">
-        <option value="inter">Modern &mdash; Inter</option>
-        <option value="dmsans">Minimaal &mdash; DM Sans</option>
-        <option value="plusjakarta">Geometrisch &mdash; Plus Jakarta Sans</option>
-        <option value="spacegrotesk">Tech &mdash; Space Grotesk</option>
-        <option value="outfit">Clean &mdash; Outfit</option>
-        <option value="montserrat">Klassiek sans &mdash; Montserrat</option>
-        <option value="raleway">Elegant sans &mdash; Raleway</option>
-        <option value="cormorant">Klassiek serif &mdash; Cormorant Garamond</option>
-        <option value="playfair">Redactioneel &mdash; Playfair Display</option>
-        <option value="lora">Warm serif &mdash; Lora</option>
-        <option value="archivo">Bold &mdash; Archivo Black</option>
-        <option value="oswald">Condensed &mdash; Oswald</option>
-        <option value="syne">Experimenteel &mdash; Syne</option>
-      </select>
+      <div class="fld-lbl">Koptekst lettertype <span class="opt-tag">exacte Google Fonts naam</span></div>
+      <input class="fld-inp" id="fontKop" placeholder="bijv. Playfair Display" value="Inter" autocomplete="off" oninput="syncFontChips()">
+      <div class="chip-group" style="margin-top:9px">
+        <span class="chip sel" onclick="setFont('Inter')">Inter</span>
+        <span class="chip" onclick="setFont('DM Sans')">DM Sans</span>
+        <span class="chip" onclick="setFont('Poppins')">Poppins</span>
+        <span class="chip" onclick="setFont('Montserrat')">Montserrat</span>
+        <span class="chip" onclick="setFont('Raleway')">Raleway</span>
+        <span class="chip" onclick="setFont('Plus Jakarta Sans')">Plus Jakarta Sans</span>
+        <span class="chip" onclick="setFont('Space Grotesk')">Space Grotesk</span>
+        <span class="chip" onclick="setFont('Outfit')">Outfit</span>
+        <span class="chip" onclick="setFont('Nunito')">Nunito</span>
+        <span class="chip" onclick="setFont('Work Sans')">Work Sans</span>
+        <span class="chip" onclick="setFont('Barlow')">Barlow</span>
+        <span class="chip" onclick="setFont('Josefin Sans')">Josefin Sans</span>
+        <span class="chip" onclick="setFont('Urbanist')">Urbanist</span>
+        <span class="chip" onclick="setFont('Syne')">Syne</span>
+        <span class="chip" onclick="setFont('Playfair Display')">Playfair Display</span>
+        <span class="chip" onclick="setFont('Cormorant Garamond')">Cormorant Garamond</span>
+        <span class="chip" onclick="setFont('Lora')">Lora</span>
+        <span class="chip" onclick="setFont('Libre Baskerville')">Libre Baskerville</span>
+        <span class="chip" onclick="setFont('Oswald')">Oswald</span>
+        <span class="chip" onclick="setFont('Archivo Black')">Archivo Black</span>
+        <span class="chip" onclick="setFont('Bebas Neue')">Bebas Neue</span>
+        <span class="chip" onclick="setFont('Roboto Condensed')">Roboto Condensed</span>
+      </div>
+    </div>
+    <div class="field">
+      <div class="fld-lbl">Broodtekst lettertype <span class="opt-tag">leeg = zelfde als koptekst</span></div>
+      <input class="fld-inp" id="fontBrood" placeholder="bijv. Inter  (leeg = zelfde als koptekst)" autocomplete="off">
     </div>
     <div class="field-row c2">
       <div class="field">
@@ -686,7 +700,7 @@ function gfd(){
     loc:gv('loc'),wijk:gv('wijk'),transactie:gv('transactie'),aantalTotaal:gv('aantalTotaal'),
     prijsseg:gv('prijsseg'),omschrijving:gv('omschrijving'),architectuur:gv('architectuur'),
     duurzaamheid:gv('duurzaamheid'),cpPrim:gv('hPrim')||'#1C3A4A',cpAcc:gv('hAcc')||'#C9A84C',
-    cpBg:gv('hBg')||'#F7F3EC',fontStijl:gv('fontStijl')||'inter',sfeer:gv('sfeer'),tagline:gv('tagline'),
+    cpBg:gv('hBg')||'#F7F3EC',fontKop:gv('fontKop')||'Inter',fontBrood:gv('fontBrood')||'',sfeer:gv('sfeer'),tagline:gv('tagline'),
     kernboodschap:gv('kernboodschap'),doelgroep:gv('doelgroep'),usps:gv('usps'),omgeving:gv('omgeving'),
     ontwnaam:gv('ontwnaam'),ontwsite:gv('ontwsite'),ontwbio:gv('ontwbio'),
     cpnaam:gv('cpnaam'),cptitel:gv('cptitel'),cpmail:gv('cpmail'),cptel:gv('cptel'),
@@ -700,22 +714,36 @@ function gfd(){
   return f;
 }
 
-/* font map — Google Fonts URL + heading + body fonts */
-var FM={
-  'inter':{url:'Inter:wght@300;400;600;700;800',hf:"'Inter',sans-serif",bf:"'Inter',sans-serif"},
-  'dmsans':{url:'DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400',hf:"'DM Sans',sans-serif",bf:"'DM Sans',sans-serif"},
-  'plusjakarta':{url:'Plus+Jakarta+Sans:wght@300;400;600;700;800',hf:"'Plus Jakarta Sans',sans-serif",bf:"'Plus Jakarta Sans',sans-serif"},
-  'spacegrotesk':{url:'Space+Grotesk:wght@300;400;500;600;700',hf:"'Space Grotesk',sans-serif",bf:"'Space Grotesk',sans-serif"},
-  'outfit':{url:'Outfit:wght@300;400;600;700;800',hf:"'Outfit',sans-serif",bf:"'Outfit',sans-serif"},
-  'montserrat':{url:'Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400',hf:"'Montserrat',sans-serif",bf:"'Montserrat',sans-serif"},
-  'raleway':{url:'Raleway:wght@300;400;600;700;800;900',hf:"'Raleway',sans-serif",bf:"'Raleway',sans-serif"},
-  'cormorant':{url:'Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;600',hf:"'Cormorant Garamond',serif",bf:"'Inter',sans-serif"},
-  'playfair':{url:'Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Inter:wght@400;600',hf:"'Playfair Display',serif",bf:"'Inter',sans-serif"},
-  'lora':{url:'Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;600',hf:"'Lora',serif",bf:"'Inter',sans-serif"},
-  'archivo':{url:'Archivo+Black:wght@400&family=Inter:wght@300;400;600',hf:"'Archivo Black',sans-serif",bf:"'Inter',sans-serif"},
-  'oswald':{url:'Oswald:wght@300;400;500;600;700&family=Inter:wght@400;600',hf:"'Oswald',sans-serif",bf:"'Inter',sans-serif"},
-  'syne':{url:'Syne:wght@400;600;700;800&family=Inter:wght@400;600',hf:"'Syne',sans-serif",bf:"'Inter',sans-serif"}
-};
+/* font chips */
+function setFont(name){
+  document.getElementById('fontKop').value=name;
+  syncFontChips();
+}
+function syncFontChips(){
+  var v=(document.getElementById('fontKop').value||'').trim();
+  document.querySelectorAll('.chip[onclick^="setFont"]').forEach(function(c){
+    c.classList.toggle('sel', c.textContent.trim()===v);
+  });
+}
+
+/* dynamic font loader — any Google Fonts name */
+var SERIF_FONTS=['Playfair Display','Cormorant','Lora','Merriweather','PT Serif','IM Fell','Libre Baskerville','Georgia','Garamond','Crimson'];
+function getFontData(kopName,broodName){
+  var kop=(kopName||'Inter').trim()||'Inter';
+  var br=(broodName||'').trim()||kop;
+  var kopU=kop.replace(/ /g,'+');
+  var brU=br.replace(/ /g,'+');
+  var url='https://fonts.googleapis.com/css2?family='+kopU+':ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400';
+  if(br!==kop) url+='&family='+brU+':ital,wght@0,300;0,400;0,500;0,600;0,700;1,400';
+  url+='&display=swap';
+  var kopSerif=SERIF_FONTS.some(function(s){return kop.toLowerCase().indexOf(s.toLowerCase())>-1;});
+  var brSerif=SERIF_FONTS.some(function(s){return br.toLowerCase().indexOf(s.toLowerCase())>-1;});
+  return {
+    url:url,
+    hf:"'"+kop+"',"+(kopSerif?'Georgia,serif':'system-ui,sans-serif'),
+    bf:"'"+br+"',"+(brSerif?'Georgia,serif':'system-ui,sans-serif')
+  };
+}
 
 /* color helpers */
 function contrast(h){h=(h||'').replace('#','');if(h.length===3)h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];if(h.length!==6)return '#ffffff';var r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);return(0.299*r+0.587*g+0.114*b)/255>0.55?'#111111':'#ffffff';}
@@ -801,24 +829,285 @@ async function step4(key,f,c,fb){
 function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 function buildOnepager(f,c,faq){
-  var fm=FM[f.fontStijl]||FM.inter;
+  var fd=getFontData(f.fontKop,f.fontBrood);
+  var hf=fd.hf,bf=fd.bf,fontsUrl=fd.url;
   var prim=f.cpPrim||'#1C3A4A',acc=f.cpAcc||'#C9A84C',bg=f.cpBg||'#F7F3EC';
   var pT=contrast(prim),aT=contrast(acc),bT=contrast(bg);
-  var uspCards=(c.waarom_usps||[]).map(function(u){return '<div style="background:'+alpha(prim,.06)+';border:1px solid '+alpha(prim,.15)+';border-radius:10px;padding:24px;"><div style="font-size:2rem;margin-bottom:10px;">'+(u.icoon||'•')+'</div><h3 style="font-family:'+fm.hf+';font-size:1rem;font-weight:700;color:'+bT+';margin-bottom:7px;">'+esc(u.titel||'')+'</h3><p style="color:'+alpha(bT,.7)+';font-size:.9rem;line-height:1.65;">'+esc(u.tekst||'')+'</p></div>';}).join('');
-  var wonenPts=(c.wonen_punten||[]).map(function(p){return '<li style="display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;"><span style="color:'+acc+';flex-shrink:0;line-height:1.5;">✓</span><span style="color:'+alpha(bT,.85)+';font-size:.93rem;">'+esc(p)+'</span></li>';}).join('');
-  var locPts=(c.locatie_punten||[]).map(function(p){return '<div style="padding:12px 0;border-bottom:1px solid '+alpha(bT,.1)+'"><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';font-weight:700;margin-bottom:2px;">'+esc(p.label||'')+'</div><div style="font-size:.93rem;color:'+bT+'">'+esc(p.tekst||'')+'</div></div>';}).join('');
-  var wtCards=f.woningtypen.map(function(w){var pr=w.prijs?'v.a. €'+Number(w.prijs).toLocaleString('nl-NL'):'Op aanvraag';var opp=w.opp1?(w.opp1+(w.opp2?'–'+w.opp2:'')+'m²'):'';return '<div style="background:'+bg+';border:1px solid '+alpha(bT,.12)+';border-radius:10px;overflow:hidden;display:flex;flex-direction:column;"><div style="background:'+prim+';padding:20px 22px;"><div style="color:'+alpha(pT,.5)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">'+esc(w.type)+'</div><h3 style="color:'+pT+';font-family:'+fm.hf+';font-size:1.15rem;font-weight:700;margin-bottom:6px;">'+esc(w.naam)+'</h3><div style="color:'+acc+';font-size:1rem;font-weight:700;">'+pr+'</div></div><div style="padding:16px 22px;flex:1;display:flex;flex-direction:column;gap:7px;">'+(opp?'<div style="font-size:.86rem;color:'+bT+'">□ '+opp+'</div>':'')+(w.kamers?'<div style="font-size:.86rem;color:'+bT+'">◆ '+w.kamers+' kamers</div>':'')+(w.aantal?'<div style="font-size:.8rem;color:'+alpha(bT,.5)+'">'+w.aantal+' woningen</div>':'')+(w.bijz?'<p style="color:'+alpha(bT,.6)+';font-size:.8rem;margin-top:3px;">'+esc(w.bijz)+'</p>':'')+'<a href="#contact" style="margin-top:auto;padding-top:10px;color:'+acc+';font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;">Meer info →</a></div></div>';}).join('');
-  var planItems=f.planning.map(function(p,i){var last=i===f.planning.length-1;return '<div style="display:flex;gap:14px;align-items:flex-start;'+(last?'':'margin-bottom:20px')+'"><div style="display:flex;flex-direction:column;align-items:center;"><div style="width:32px;height:32px;border-radius:50%;background:'+acc+';display:flex;align-items:center;justify-content:center;font-size:.73rem;font-weight:700;color:'+aT+';flex-shrink:0;">'+(i+1)+'</div>'+(last?'':'<div style="width:2px;flex:1;min-height:18px;background:'+alpha(acc,.28)+';margin-top:3px;"></div>')+'</div><div style="padding-top:6px;"><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';font-weight:700;margin-bottom:2px;">'+esc(p.datum)+'</div><div style="font-family:'+fm.hf+';font-size:.96rem;font-weight:600;color:'+pT+'">'+esc(p.fase)+'</div></div></div>';}).join('');
-  var faqItems=(faq||[]).map(function(q){return '<details style="border-bottom:1px solid '+alpha(bT,.1)+'"><summary style="padding:15px 0;cursor:pointer;font-family:'+fm.hf+';font-size:.96rem;font-weight:600;color:'+bT+';list-style:none;display:flex;align-items:center;justify-content:space-between;"><span>'+esc(q.vraag||q.question||'')+'</span><span style="color:'+acc+';font-size:1.2rem;line-height:1;margin-left:14px;flex-shrink:0;">+</span></summary><div style="padding-bottom:14px;color:'+alpha(bT,.7)+';font-size:.92rem;line-height:1.72;">'+esc(q.antwoord||q.answer||'')+'</div></details>';}).join('');
-  var dlLinks=f.downloads.map(function(d){return '<a href="#" style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border:1px solid '+acc+';border-radius:999px;color:'+bT+';font-size:.83rem;font-weight:700;text-decoration:none;">↓ '+esc(d)+'</a>';}).join('');
+
+  var uspCards=(c.waarom_usps||[]).map(function(u){
+    return '<div class="usp-card"><div class="usp-icon">'+(u.icoon||'✶')+'</div><h3 class="usp-title">'+esc(u.titel||'')+'</h3><p class="usp-body">'+esc(u.tekst||'')+'</p></div>';
+  }).join('');
+  var wonenPts=(c.wonen_punten||[]).map(function(p){
+    return '<li class="chk-item"><span class="chk-mark">✓</span><span>'+esc(p)+'</span></li>';
+  }).join('');
+  var locPts=(c.locatie_punten||[]).map(function(p){
+    return '<div class="loc-row"><div class="loc-lbl">'+esc(p.label||'')+'</div><div class="loc-val">'+esc(p.tekst||'')+'</div></div>';
+  }).join('');
+  var wtCards=f.woningtypen.map(function(w){
+    var pr=w.prijs?'v.a. €'+Number(w.prijs).toLocaleString('nl-NL'):'Op aanvraag';
+    var opp=w.opp1?(w.opp1+(w.opp2?'–'+w.opp2:'')+'m²'):'';
+    return '<div class="wt-card"><div class="wt-head"><div class="wt-type">'+esc(w.type)+'</div><h3 class="wt-name">'+esc(w.naam)+'</h3><div class="wt-price">'+pr+'</div></div><div class="wt-body">'+(opp?'<div class="wt-spec">□ '+opp+'</div>':'')+(w.kamers?'<div class="wt-spec">◆ '+w.kamers+' kamers</div>':'')+(w.aantal?'<div class="wt-count">'+w.aantal+' woningen</div>':'')+(w.bijz?'<p class="wt-bijz">'+esc(w.bijz)+'</p>':'')+'<a href="#contact" class="wt-cta">Meer info →</a></div></div>';
+  }).join('');
+  var planItems=f.planning.map(function(p,i){
+    var last=i===f.planning.length-1;
+    return '<div class="plan-item'+(last?' plan-last':'')+'"><div class="plan-spine"><div class="plan-dot">'+(i+1)+'</div>'+(last?'':'<div class="plan-line"></div>')+'</div><div class="plan-cnt"><div class="plan-date">'+esc(p.datum)+'</div><div class="plan-fase">'+esc(p.fase)+'</div></div></div>';
+  }).join('');
+  var faqItems=(faq||[]).map(function(q,i){
+    return '<div class="faq-item" id="faq'+i+'"><button class="faq-btn" onclick="tFaq('+i+')" aria-expanded="false"><span>'+esc(q.vraag||q.question||'')+'</span><span class="faq-arr">+</span></button><div class="faq-body" id="fbd'+i+'"><div class="faq-inner">'+esc(q.antwoord||q.answer||'')+'</div></div></div>';
+  }).join('');
+  var dlLinks=f.downloads.map(function(d){return '<a href="#" class="dl-btn">↓ '+esc(d)+'</a>';}).join('');
   var wtOpts=f.woningtypen.map(function(w){return '<option>'+esc(w.naam)+'</option>';}).join('');
 
-  return '<!DOCTYPE html>\n<html lang="nl">\n<head>\n<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n<title>'+esc(f.naam)+' – '+esc(f.loc)+'</title>\n<link href="https://fonts.googleapis.com/css2?family='+fm.url+'&display=swap" rel="stylesheet">\n<style>*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:'+bg+';color:'+bT+';font-family:'+fm.bf+';line-height:1.65;-webkit-font-smoothing:antialiased}h1,h2,h3,h4{font-family:'+fm.hf+';line-height:1.15}.c{max-width:1100px;margin:0 auto;padding:0 24px}details summary::-webkit-details-marker{display:none}@media(max-width:768px){.d2{grid-template-columns:1fr!important}}</style>\n</head>\n<body>\n\n<nav style="background:'+prim+';position:sticky;top:0;z-index:100;border-bottom:2px solid '+acc+';">\n<div class="c" style="display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;">\n<div style="font-family:'+fm.hf+';font-weight:800;font-size:.98rem;color:'+pT+';text-transform:uppercase;letter-spacing:.04em;">'+esc(f.naam)+'</div>\n<div style="display:flex;align-items:center;gap:18px;">\n<a href="#wonen" style="color:'+alpha(pT,.65)+';font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Woning</a>\n<a href="#locatie" style="color:'+alpha(pT,.65)+';font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Locatie</a>\n<a href="#aanbod" style="color:'+alpha(pT,.65)+';font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:600;text-decoration:none;">Aanbod</a>\n<a href="#contact" style="background:'+acc+';color:'+aT+';padding:8px 18px;border-radius:999px;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;text-decoration:none;">'+esc(f.cta1)+'</a>\n</div></div></nav>\n\n<section style="background:'+prim+';min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;">\n<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,'+alpha(acc,.08)+' 0%,transparent 65%);pointer-events:none;"></div>\n<div class="c" style="position:relative;z-index:1;padding-top:72px;padding-bottom:72px;"><div style="max-width:640px;">\n'+(f.tagline?'<p style="color:'+acc+';font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:16px;">'+esc(f.tagline)+'</p>\n':'')+
-  '<h1 style="font-family:'+fm.hf+';font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:'+pT+';margin-bottom:12px;text-transform:uppercase;letter-spacing:.02em;">'+esc(c.hero_titel||f.naam)+'</h1>\n<p style="font-family:'+fm.hf+';font-size:1.18rem;color:'+alpha(pT,.75)+';margin-bottom:12px;font-style:italic;">'+esc(c.hero_subtitel||'')+'</p>\n<p style="font-size:.96rem;color:'+alpha(pT,.65)+';max-width:490px;margin-bottom:30px;line-height:1.8;">'+esc(c.hero_intro||'')+'</p>\n<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;">\n<a href="#contact" style="display:inline-block;background:'+acc+';color:'+aT+';padding:13px 28px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;text-decoration:none;">'+esc(f.cta1)+'</a>\n<a href="#aanbod" style="display:inline-block;border:1px solid '+alpha(pT,.28)+';color:'+pT+';padding:13px 28px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;text-decoration:none;">↓ Woningaanbod</a>\n</div>\n<div style="display:flex;flex-wrap:wrap;gap:24px;">'+(f.aantalTotaal?'<div><div style="font-size:2rem;font-weight:800;color:'+acc+';line-height:1;">'+esc(f.aantalTotaal)+'</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.45)+';margin-top:2px;">Woningen</div></div>':'')+
-  (f.woningtypen.length?'<div><div style="font-size:2rem;font-weight:800;color:'+acc+';line-height:1;">'+f.woningtypen.length+'</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.45)+';margin-top:2px;">Typen</div></div>':'')+
-  (f.wijk?'<div><div style="font-size:.96rem;font-weight:700;color:'+acc+';line-height:1.4;">'+esc(f.wijk)+'</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.45)+';margin-top:2px;">'+esc(f.loc)+'</div></div>':'')+
-  '</div></div></div></section>\n\n<section id="waarom" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Waarom dit project</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:'+bT+';margin-bottom:28px;">'+esc(c.waarom_intro||'')+'</h2><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:24px;">'+uspCards+'</div>'+(c.waarom_slot?'<p style="font-size:.95rem;color:'+alpha(bT,.6)+';font-style:italic;">'+esc(c.waarom_slot)+'</p>':'')+'</div></section>\n\n<section id="wonen" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Het wonen</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:16px;">Wonen met karakter</h2><p style="font-size:.96rem;color:'+alpha(pT,.75)+';line-height:1.8;margin-bottom:22px;">'+esc(c.wonen_intro||'')+'</p><ul style="list-style:none;">'+wonenPts+'</ul></div><div style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(pT,.22)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🏗</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Sfeerimpressie</div></div></div></div></div></section>\n\n<section id="locatie" style="background:'+bg+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">De locatie</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+bT+';margin-bottom:12px;">'+esc(f.wijk||f.loc)+'</h2><p style="font-size:.96rem;color:'+alpha(bT,.68)+';line-height:1.8;margin-bottom:20px;">'+esc(c.locatie_intro||'')+'</p>'+locPts+'</div><div style="background:'+alpha(bT,.04)+';border:1px solid '+alpha(bT,.1)+';border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(bT,.22)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🗺</div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;">Kaart</div></div></div></div></div></section>\n\n<section style="background:'+prim+';padding:80px 0;">\n<div class="c"><div style="max-width:680px;margin:0 auto;text-align:center;"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:14px;">Het leven hier</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:'+pT+';margin-bottom:18px;">'+esc(c.leven_intro||'Zo voelt het wonen hier')+'</h2><p style="font-size:.98rem;color:'+alpha(pT,.75)+';line-height:1.85;margin-bottom:26px;">'+esc(c.leven_tekst||'')+'</p><a href="#aanbod" style="display:inline-block;border:1px solid '+alpha(acc,.55)+';color:'+acc+';padding:11px 24px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;text-decoration:none;">Bekijk het woningaanbod</a></div></div></section>\n\n<section id="aanbod" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Woningaanbod</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+bT+';margin-bottom:8px;">Kies jouw type</h2><p style="color:'+alpha(bT,.6)+';margin-bottom:32px;">'+esc(c.aanbod_intro||'')+'</p><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;">'+(wtCards||'<p style="color:'+alpha(bT,.4)+';font-style:italic;">Woningtypen worden toegevoegd.</p>')+'</div>'+(dlLinks?'<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:32px;">'+dlLinks+'</div>':'')+'</div></section>\n\n<section id="planning" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Tijdlijn</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:12px;">Planning &amp; Fasering</h2><p style="font-size:.96rem;color:'+alpha(pT,.7)+';line-height:1.8;margin-bottom:28px;">'+esc(c.planning_intro||'')+'</p>'+planItems+'</div><div style="background:'+alpha(pT,.05)+';border:1px solid '+alpha(pT,.1)+';border-radius:12px;padding:28px;"><h3 style="font-family:'+fm.hf+';font-size:.96rem;font-weight:700;color:'+acc+';margin-bottom:10px;">Op de hoogte blijven?</h3><p style="font-size:.86rem;color:'+alpha(pT,.62)+';margin-bottom:16px;line-height:1.7;">Meld je aan voor updates over planning en aanbod.</p><a href="#contact" style="display:inline-block;background:'+acc+';color:'+aT+';padding:11px 20px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;text-decoration:none;">'+esc(f.cta1)+'</a></div></div></div></section>\n\n<section id="impressies" style="background:'+bg+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Impressies</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+bT+';margin-bottom:10px;">Sfeer &amp; Ontwerp</h2><p style="color:'+alpha(bT,.6)+';margin-bottom:28px;">'+esc(c.impressies_tekst||'')+'</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"><div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.18)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Exterieur</span></div><div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.14)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Interieur</span></div><div style="background:'+alpha(prim,.12)+';border:1px solid '+alpha(prim,.18)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Sfeer</span></div><div style="background:'+alpha(prim,.06)+';border:1px solid '+alpha(prim,.12)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;grid-column:span 2;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Plattegrond</span></div><div style="background:'+alpha(prim,.08)+';border:1px solid '+alpha(prim,.14)+';border-radius:8px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><span style="color:'+alpha(bT,.3)+';font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Omgeving</span></div></div></div></section>\n\n<section id="faq" style="background:'+prim+';padding:80px 0;">\n<div class="c"><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Veelgestelde vragen</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:28px;">Alles wat je wilt weten</h2><div style="max-width:720px;">'+faqItems+'</div></div></section>\n\n<section id="ontwikkelaar" style="background:'+bg+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Over ons</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.5rem,2.8vw,2rem);font-weight:800;color:'+bT+';margin-bottom:12px;">'+esc(f.ontwnaam||'De ontwikkelaar')+'</h2><p style="font-size:.96rem;color:'+alpha(bT,.65)+';line-height:1.8;margin-bottom:10px;">'+esc(c.ontwikkelaar_intro||'')+'</p>'+(f.ontwbio?'<p style="font-size:.9rem;color:'+alpha(bT,.58)+';line-height:1.8;">'+esc(f.ontwbio)+'</p>':'')+(f.ontwsite?'<a href="https://'+f.ontwsite+'" target="_blank" style="display:inline-block;margin-top:16px;color:'+acc+';font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-decoration:none;">'+esc(f.ontwsite)+' ↗</a>':'')+'</div><div style="background:'+alpha(bT,.04)+';border:1px solid '+alpha(bT,.1)+';border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;"><div style="text-align:center;color:'+alpha(bT,.2)+'"><div style="font-size:2.5rem;margin-bottom:8px;">🏘</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;">Logo ontwikkelaar</div></div></div></div></div></section>\n\n<section id="contact" style="background:'+prim+';padding:80px 0;">\n<div class="c"><div class="d2" style="display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;"><div><p style="color:'+acc+';font-size:.73rem;text-transform:uppercase;letter-spacing:.15em;font-weight:700;margin-bottom:10px;">Contact</p><h2 style="font-family:'+fm.hf+';font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:'+pT+';margin-bottom:12px;">'+esc(f.cta1)+'</h2><p style="font-size:.96rem;color:'+alpha(pT,.72)+';line-height:1.8;margin-bottom:22px;">'+esc(c.contact_intro||'')+'</p><form style="display:grid;gap:10px;" onsubmit="return false;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><input type="text" placeholder="Voornaam" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;outline:none;"><input type="text" placeholder="Achternaam" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;outline:none;"></div><input type="email" placeholder="E-mailadres" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;outline:none;"><input type="tel" placeholder="Telefoonnummer (optioneel)" style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+pT+';font-size:.86rem;font-family:inherit;width:100%;outline:none;">'+(wtOpts?'<select style="background:'+alpha(pT,.06)+';border:1px solid '+alpha(pT,.16)+';border-radius:8px;padding:10px 13px;color:'+alpha(pT,.7)+';font-size:.86rem;font-family:inherit;width:100%;outline:none;appearance:none;"><option value="">Interesse in type…</option>'+wtOpts+'</select>':'')+'<label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;"><input type="checkbox" style="accent-color:'+acc+';margin-top:3px;flex-shrink:0;"><span style="font-size:.76rem;color:'+alpha(pT,.5)+';line-height:1.6;">Ik ga akkoord met het <a href="#" style="color:'+acc+';">privacybeleid</a>.</span></label><button type="submit" style="background:'+acc+';color:'+aT+';border:none;padding:13px 24px;border-radius:999px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;font-size:.86rem;font-family:inherit;cursor:pointer;width:100%;">'+esc(f.cta1)+'</button></form></div><div style="display:flex;flex-direction:column;gap:16px;"><div style="background:'+alpha(pT,.05)+';border:1px solid '+alpha(pT,.1)+';border-radius:12px;padding:24px;"><h3 style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';margin-bottom:12px;">Contactpersoon</h3>'+(f.cpnaam?'<div style="font-size:1rem;font-weight:700;color:'+pT+';margin-bottom:2px;">'+esc(f.cpnaam)+'</div>':'')+(f.cptitel?'<div style="font-size:.8rem;color:'+alpha(pT,.5)+';margin-bottom:12px;">'+esc(f.cptitel)+'</div>':'')+(f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="display:flex;align-items:center;gap:7px;color:'+pT+';font-size:.86rem;margin-bottom:7px;text-decoration:none;">📞 '+esc(f.cptel)+'</a>':'')+(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="display:flex;align-items:center;gap:7px;color:'+acc+';font-size:.86rem;text-decoration:none;">✉ '+esc(f.cpmail)+'</a>':'')+'</div>'+(f.downloads.length?'<div style="background:'+alpha(pT,.04)+';border:1px solid '+alpha(pT,.08)+';border-radius:12px;padding:20px;"><h3 style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:'+acc+';margin-bottom:10px;">Downloads</h3><div style="display:flex;flex-direction:column;gap:7px;">'+f.downloads.map(function(d){return '<a href="#" style="display:flex;align-items:center;gap:7px;padding:8px 14px;background:'+alpha(acc,.1)+';border:1px solid '+alpha(acc,.28)+';border-radius:999px;color:'+pT+';font-size:.8rem;font-weight:600;text-decoration:none;">↓ '+esc(d)+'</a>';}).join('')+'</div></div>':'')+'</div></div></div></section>\n\n<footer style="background:'+lighten(prim,-22)+';padding:44px 0 22px;border-top:2px solid '+alpha(acc,.28)+'">\n<div class="c"><div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px;margin-bottom:32px;"><div><h3 style="font-family:'+fm.hf+';font-size:1rem;font-weight:800;color:'+acc+';text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">'+esc(f.naam)+'</h3><p style="font-size:.8rem;color:'+alpha(pT,.45)+';line-height:1.75;max-width:300px;">'+esc(c.footer_quote||f.loc)+'</p></div><div><h4 style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.4)+';margin-bottom:9px;">Navigatie</h4><div style="display:flex;flex-direction:column;gap:7px;"><a href="#waarom" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Waarom dit project</a><a href="#wonen" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Het wonen</a><a href="#aanbod" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Woningaanbod</a><a href="#faq" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">FAQ</a><a href="#contact" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">Contact</a></div></div><div><h4 style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:'+alpha(pT,.4)+';margin-bottom:9px;">Contact</h4><div style="display:flex;flex-direction:column;gap:7px;">'+(f.ontwnaam?'<span style="font-size:.8rem;color:'+alpha(pT,.6)+';">'+esc(f.ontwnaam)+'</span>':'')+(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" style="font-size:.8rem;color:'+acc+';text-decoration:none;">'+esc(f.cpmail)+'</a>':'')+(f.cptel?'<a href="tel:'+esc(f.cptel)+'" style="font-size:.8rem;color:'+alpha(pT,.6)+';text-decoration:none;">'+esc(f.cptel)+'</a>':'')+'</div></div></div><div style="border-top:1px solid '+alpha(pT,.1)+';padding-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;"><span style="font-size:.7rem;color:'+alpha(pT,.28)+'">&copy; '+esc(f.naam)+' – '+esc(f.loc)+'.</span><div style="display:flex;gap:14px;"><a href="#" style="font-size:.7rem;color:'+alpha(pT,.35)+';text-decoration:none;">Privacybeleid</a><a href="#" style="font-size:.7rem;color:'+alpha(pT,.35)+';text-decoration:none;">Disclaimer</a></div><span style="font-size:.7rem;color:'+alpha(pT,.2)+';">Gemaakt door <a href="https://springrealestate.com" style="color:'+alpha(acc,.6)+';text-decoration:none;">Spring Real Estate</a></span></div></div></footer>\n\n</body>\n</html>';
+  /* CSS – inject color values as custom properties, then use classes for everything */
+  var cssVars=':root{--p:'+prim+';--a:'+acc+';--bg:'+bg+';--pT:'+pT+';--aT:'+aT+';--bT:'+bT
+    +';--pa1:'+alpha(prim,.06)+';--pa2:'+alpha(prim,.1)+';--pa3:'+alpha(prim,.16)
+    +';--aa1:'+alpha(acc,.08)+';--aa2:'+alpha(acc,.25)+';--aa3:'+alpha(acc,.35)+';--aa5:'+alpha(acc,.55)+';--aa6:'+alpha(acc,.06)+';--aab:'+alpha(acc,.6)
+    +';--pTa1:'+alpha(pT,.05)+';--pTa2:'+alpha(pT,.1)+';--pTa3:'+alpha(pT,.15)+';--pTa5:'+alpha(pT,.5)+';--pTa6:'+alpha(pT,.62)+';--pTa7:'+alpha(pT,.7)+';--pTa4:'+alpha(pT,.42)+';--pTd:'+alpha(pT,.28)
+    +';--bTa1:'+alpha(bT,.04)+';--bTa2:'+alpha(bT,.1)+';--bTa3:'+alpha(bT,.12)+';--bTa5:'+alpha(bT,.5)+';--bTa6:'+alpha(bT,.65)+';--bTa7:'+alpha(bT,.7)
+    +';--ftbg:'+lighten(prim,-22)+'}';
+
+  var cssBody='*{box-sizing:border-box;margin:0;padding:0}'
+    +'html{scroll-behavior:smooth}'
+    +'body{background:var(--bg);color:var(--bT);font-family:'+bf+';line-height:1.65;-webkit-font-smoothing:antialiased}'
+    +'h1,h2,h3,h4{font-family:'+hf+';line-height:1.15}'
+    +'.c{max-width:1100px;margin:0 auto;padding:0 24px}'
+    +'.sec{padding:96px 0}.sec-alt{background:var(--p)}'
+    +'.sec-lbl{color:var(--a);font-size:.72rem;text-transform:uppercase;letter-spacing:.18em;font-weight:700;margin-bottom:12px}'
+    +'.sec-h2{font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:800;line-height:1.1;margin-bottom:24px}'
+    +'.sec-h2.li{color:var(--pT)}.sec-h2.dk{color:var(--bT)}'
+    +'.sec-p{font-size:.97rem;line-height:1.8}.sec-p.li{color:var(--pTa7)}.sec-p.dk{color:var(--bTa7)}'
+    /* nav */
+    +'.nav{background:var(--p);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--aa3)}'
+    +'.nav-in{display:flex;align-items:center;justify-content:space-between;padding:16px 0}'
+    +'.nav-br{font-family:'+hf+';font-weight:800;font-size:.95rem;color:var(--pT);text-transform:uppercase;letter-spacing:.06em}'
+    +'.nav-ls{display:flex;align-items:center;gap:20px}'
+    +'.nav-lk{color:var(--pTa6);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;font-weight:600;text-decoration:none;transition:color .2s}'
+    +'.nav-lk:hover{color:var(--pT)}'
+    +'.nav-ct{background:var(--a);color:var(--aT);padding:9px 20px;border-radius:999px;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;text-decoration:none;transition:opacity .2s}'
+    +'.nav-ct:hover{opacity:.88}'
+    /* hero */
+    +'.hero{background:var(--p);min-height:90vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:72px 0}'
+    +'.hero-dots{position:absolute;inset:0;background-image:radial-gradient(var(--aa6) 1px,transparent 1px);background-size:30px 30px;pointer-events:none}'
+    +'.hero-glow{position:absolute;top:-10%;right:-5%;width:60%;aspect-ratio:1;background:radial-gradient(ellipse,var(--aa6) 0%,transparent 60%);pointer-events:none}'
+    +'.hero-cnt{position:relative;z-index:1;max-width:660px}'
+    +'.hero-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--aa5);color:var(--a);padding:6px 14px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;background:var(--aa6)}'
+    +'.hero-h1{font-size:clamp(2.4rem,5.5vw,4.2rem);font-weight:900;color:var(--pT);margin-bottom:14px;text-transform:uppercase;letter-spacing:.015em;line-height:1.06}'
+    +'.hero-sub{font-family:'+hf+';font-size:1.2rem;color:var(--pTa7);margin-bottom:12px;font-style:italic}'
+    +'.hero-p{font-size:.97rem;color:var(--pTa6);max-width:500px;margin-bottom:34px;line-height:1.8}'
+    +'.hero-btns{display:flex;flex-wrap:wrap;gap:11px;margin-bottom:48px}'
+    +'.btn-prim{display:inline-block;background:var(--a);color:var(--aT);padding:14px 30px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;text-decoration:none;transition:transform .18s,box-shadow .18s}'
+    +'.btn-prim:hover{transform:translateY(-2px);box-shadow:0 8px 24px var(--aa3)}'
+    +'.btn-sec{display:inline-block;border:1px solid var(--pTa3);color:var(--pT);padding:14px 30px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem;text-decoration:none;transition:border-color .2s}'
+    +'.btn-sec:hover{border-color:var(--pTa5)}'
+    +'.hero-stats{display:flex;flex-wrap:wrap;gap:28px;padding:20px 28px;background:var(--pTa1);border:1px solid var(--pTa2);border-radius:16px;width:fit-content}'
+    +'.stat-val{font-size:1.9rem;font-weight:800;color:var(--a);line-height:1}'
+    +'.stat-val.sm{font-size:1.1rem}'
+    +'.stat-lbl{font-size:.66rem;text-transform:uppercase;letter-spacing:.12em;color:var(--pTa4);margin-top:3px}'
+    /* usp */
+    +'.usp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-bottom:28px}'
+    +'.usp-card{background:var(--bTa1);border:1px solid var(--bTa2);border-radius:14px;padding:28px;transition:transform .22s,box-shadow .22s,border-color .22s}'
+    +'.usp-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px var(--bTa3);border-color:var(--aa3)}'
+    +'.usp-icon{font-size:2.2rem;margin-bottom:12px;line-height:1}'
+    +'.usp-title{font-family:'+hf+';font-size:1rem;font-weight:700;color:var(--bT);margin-bottom:8px}'
+    +'.usp-body{color:var(--bTa7);font-size:.9rem;line-height:1.68}'
+    /* checklist */
+    +'.chk-list{list-style:none}'
+    +'.chk-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}'
+    +'.chk-mark{color:var(--a);flex-shrink:0;line-height:1.55;font-weight:700}'
+    /* imgbox */
+    +'.img-box{border-radius:14px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}'
+    +'.img-box-lt{background:var(--bTa1);border:1px solid var(--bTa2);color:var(--bTa3)}'
+    +'.img-box-dk{background:var(--pTa1);border:1px solid var(--pTa2);color:var(--pTa2)}'
+    +'.img-box-sq{aspect-ratio:1!important}'
+    +'.img-box-icon{font-size:2.4rem}'
+    +'.img-box-lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em}'
+    /* grid */
+    +'.d2{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}'
+    +'.d2s{align-items:start}'
+    /* loc */
+    +'.loc-row{padding:13px 0;border-bottom:1px solid var(--bTa2)}'
+    +'.loc-lbl{font-size:.69rem;text-transform:uppercase;letter-spacing:.1em;color:var(--a);font-weight:700;margin-bottom:2px}'
+    +'.loc-val{font-size:.94rem;color:var(--bT)}'
+    /* WT cards */
+    +'.wt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}'
+    +'.wt-card{background:var(--bg);border:1px solid var(--bTa2);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s}'
+    +'.wt-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px var(--bTa3)}'
+    +'.wt-head{background:var(--p);padding:22px 24px}'
+    +'.wt-type{color:var(--pTa5);font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}'
+    +'.wt-name{color:var(--pT);font-family:'+hf+';font-size:1.15rem;font-weight:700;margin-bottom:8px}'
+    +'.wt-price{color:var(--a);font-size:1.05rem;font-weight:700}'
+    +'.wt-body{padding:18px 24px;flex:1;display:flex;flex-direction:column;gap:8px}'
+    +'.wt-spec{font-size:.87rem;color:var(--bT)}'
+    +'.wt-count{font-size:.8rem;color:var(--bTa5)}'
+    +'.wt-bijz{color:var(--bTa6);font-size:.8rem;line-height:1.65}'
+    +'.wt-cta{margin-top:auto;padding-top:12px;color:var(--a);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;text-decoration:none}'
+    /* downloads */
+    +'.dl-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border:1px solid var(--a);border-radius:999px;color:var(--bT);font-size:.83rem;font-weight:700;text-decoration:none;transition:background .18s}'
+    +'.dl-btn:hover{background:var(--aa1)}'
+    /* timeline */
+    +'.plan-item{display:flex;gap:16px;align-items:flex-start;margin-bottom:22px}'
+    +'.plan-last{margin-bottom:0}'
+    +'.plan-spine{display:flex;flex-direction:column;align-items:center}'
+    +'.plan-dot{width:34px;height:34px;border-radius:50%;background:var(--a);color:var(--aT);display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:700;flex-shrink:0}'
+    +'.plan-line{width:2px;flex:1;min-height:20px;background:var(--aa2);margin-top:4px}'
+    +'.plan-cnt{padding-top:7px}'
+    +'.plan-date{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--a);font-weight:700;margin-bottom:3px}'
+    +'.plan-fase{font-family:'+hf+';font-size:.97rem;font-weight:600;color:var(--pT)}'
+    /* impressies */
+    +'.imp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}'
+    +'.imp-cell{background:var(--pa1);border:1px solid var(--pa2);border-radius:10px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center}'
+    +'.imp-wide{grid-column:span 2}'
+    +'.imp-lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--bTa3)}'
+    /* faq */
+    +'.faq-item{border-bottom:1px solid var(--pTa2)}'
+    +'.faq-btn{width:100%;background:none;border:none;padding:18px 0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left}'
+    +'.faq-btn>span:first-child{font-family:'+hf+';font-size:.97rem;font-weight:600;color:var(--pT);line-height:1.4}'
+    +'.faq-arr{color:var(--a);font-size:1.4rem;line-height:1;flex-shrink:0;transition:transform .3s}'
+    +'.faq-btn[aria-expanded="true"] .faq-arr{transform:rotate(45deg)}'
+    +'.faq-body{overflow:hidden;max-height:0;transition:max-height .35s ease}'
+    +'.faq-body.open{max-height:600px}'
+    +'.faq-inner{padding-bottom:18px;color:var(--pTa7);font-size:.93rem;line-height:1.75}'
+    /* form */
+    +'.form-grid{display:grid;gap:11px}'
+    +'.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}'
+    +'.form-inp{background:var(--pTa1);border:1px solid var(--pTa3);border-radius:9px;padding:12px 15px;color:var(--pT);font-size:.87rem;font-family:inherit;width:100%;outline:none;transition:border-color .2s}'
+    +'.form-inp:focus{border-color:var(--a)}'
+    +'.form-sel{-webkit-appearance:none;appearance:none}'
+    +'.form-chk{display:flex;align-items:flex-start;gap:9px;cursor:pointer}'
+    +'.form-chktxt{font-size:.76rem;color:var(--pTa5);line-height:1.65}'
+    +'.form-sub{background:var(--a);color:var(--aT);border:none;padding:14px 24px;border-radius:999px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;font-size:.87rem;font-family:inherit;cursor:pointer;width:100%;transition:opacity .18s}'
+    +'.form-sub:hover{opacity:.88}'
+    /* contact */
+    +'.ct-card{background:var(--pTa1);border:1px solid var(--pTa2);border-radius:14px;padding:26px}'
+    +'.ct-hdg{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--a);margin-bottom:14px}'
+    +'.ct-name{font-size:1rem;font-weight:700;color:var(--pT);margin-bottom:3px}'
+    +'.ct-role{font-size:.8rem;color:var(--pTa5);margin-bottom:14px}'
+    +'.ct-link{display:flex;align-items:center;gap:8px;font-size:.87rem;margin-bottom:8px;text-decoration:none;color:var(--pT)}'
+    +'.ct-link.acc{color:var(--a)}'
+    +'.dl-panel{background:var(--pTa1);border:1px solid var(--pTa2);border-radius:14px;padding:22px}'
+    +'.dl-panel-h{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--a);margin-bottom:12px}'
+    +'.dl-list{display:flex;flex-direction:column;gap:8px}'
+    +'.dl-lnk{display:flex;align-items:center;gap:8px;padding:9px 16px;background:var(--aa1);border:1px solid var(--aa2);border-radius:999px;color:var(--pT);font-size:.81rem;font-weight:600;text-decoration:none;transition:background .18s}'
+    +'.dl-lnk:hover{background:var(--aa2)}'
+    /* sig section */
+    +'.sig-box{max-width:680px;margin:0 auto;text-align:center}'
+    +'.sig-p{font-size:.99rem;color:var(--pTa7);line-height:1.88;margin-bottom:28px}'
+    +'.sig-lnk{display:inline-block;border:1px solid var(--aa5);color:var(--a);padding:12px 26px;border-radius:999px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;text-decoration:none;transition:background .2s}'
+    +'.sig-lnk:hover{background:var(--aa1)}'
+    /* updates card */
+    +'.upd-card{background:var(--pTa1);border:1px solid var(--pTa2);border-radius:14px;padding:28px}'
+    +'.upd-h{font-family:'+hf+';font-size:.97rem;font-weight:700;color:var(--a);margin-bottom:10px}'
+    +'.upd-p{font-size:.86rem;color:var(--pTa6);margin-bottom:18px;line-height:1.7}'
+    /* dev */
+    +'.dev-lnk{display:inline-block;margin-top:18px;color:var(--a);font-size:.83rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;text-decoration:none}'
+    +'.dev-lnk:hover{text-decoration:underline}'
+    /* footer */
+    +'.ft{background:var(--ftbg);padding:52px 0 24px;border-top:2px solid var(--aa2)}'
+    +'.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:36px}'
+    +'.ft-brand{font-family:'+hf+';font-size:1rem;font-weight:800;color:var(--a);text-transform:uppercase;letter-spacing:.04em;margin-bottom:9px}'
+    +'.ft-tag{font-size:.8rem;color:var(--pTa4);line-height:1.75;max-width:280px}'
+    +'.ft-nh{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--pTd);margin-bottom:10px}'
+    +'.ft-ls{display:flex;flex-direction:column;gap:8px}'
+    +'.ft-lk{font-size:.8rem;color:var(--pTa6);text-decoration:none;transition:color .2s}'
+    +'.ft-lk:hover{color:var(--pT)}'
+    +'.ft-lk.ac{color:var(--a)}'
+    +'.ft-bar{border-top:1px solid var(--pTa2);padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}'
+    +'.ft-cp{font-size:.68rem;color:var(--pTd)}'
+    +'.ft-leg{display:flex;gap:16px}'
+    +'.ft-sp{font-size:.68rem;color:var(--pTd)}'
+    +'.ft-sp a{color:var(--aab);text-decoration:none}'
+    /* responsive */
+    +'@media(max-width:768px){'
+    +'.d2,.d2s{grid-template-columns:1fr!important;gap:32px!important}'
+    +'.ft-grid{grid-template-columns:1fr!important}'
+    +'.form-row{grid-template-columns:1fr!important}'
+    +'.nav-ls .nav-lk{display:none}'
+    +'.imp-grid{grid-template-columns:1fr 1fr!important}'
+    +'.imp-wide{grid-column:span 2!important}'
+    +'.hero-stats{width:100%}'
+    +'.stat-val{font-size:1.5rem}'
+    +'}';
+
+  var out='<!DOCTYPE html>\n<html lang="nl">\n<head>\n<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">\n<title>'+esc(f.naam)+' – '+esc(f.loc)+'</title>\n<link href="'+fontsUrl+'" rel="stylesheet">\n<style>'+cssVars+cssBody+'</style>\n</head>\n<body>\n';
+
+  /* NAV */
+  out+='<nav class="nav"><div class="c nav-in"><div class="nav-br">'+esc(f.naam)+'</div><div class="nav-ls"><a href="#wonen" class="nav-lk">Woning</a><a href="#locatie" class="nav-lk">Locatie</a><a href="#aanbod" class="nav-lk">Aanbod</a><a href="#contact" class="nav-ct">'+esc(f.cta1)+'</a></div></div></nav>\n';
+
+  /* HERO */
+  out+='<section class="hero"><div class="hero-dots"></div><div class="hero-glow"></div><div class="c hero-cnt">';
+  if(f.tagline)out+='<div class="hero-badge">'+esc(f.tagline)+'</div>';
+  out+='<h1 class="hero-h1">'+esc(c.hero_titel||f.naam)+'</h1>';
+  if(c.hero_subtitel)out+='<p class="hero-sub">'+esc(c.hero_subtitel)+'</p>';
+  if(c.hero_intro)out+='<p class="hero-p">'+esc(c.hero_intro)+'</p>';
+  out+='<div class="hero-btns"><a href="#contact" class="btn-prim">'+esc(f.cta1)+'</a><a href="#aanbod" class="btn-sec">↓ Woningaanbod</a></div>';
+  out+='<div class="hero-stats">';
+  if(f.aantalTotaal)out+='<div><div class="stat-val">'+esc(f.aantalTotaal)+'</div><div class="stat-lbl">Woningen</div></div>';
+  if(f.woningtypen.length)out+='<div><div class="stat-val">'+f.woningtypen.length+'</div><div class="stat-lbl">Typen</div></div>';
+  if(f.wijk)out+='<div><div class="stat-val sm">'+esc(f.wijk)+'</div><div class="stat-lbl">'+esc(f.loc)+'</div></div>';
+  out+='</div></div></section>\n';
+
+  /* WAAROM */
+  out+='<section id="waarom" class="sec"><div class="c"><p class="sec-lbl">Waarom dit project</p><h2 class="sec-h2 dk">'+esc(c.waarom_intro||'')+'</h2><div class="usp-grid">'+uspCards+'</div>'+(c.waarom_slot?'<p style="font-size:.95rem;color:var(--bTa6);font-style:italic;margin-top:8px;">'+esc(c.waarom_slot)+'</p>':'')+'</div></section>\n';
+
+  /* WONEN */
+  out+='<section id="wonen" class="sec sec-alt"><div class="c"><div class="d2"><div><p class="sec-lbl">Het wonen</p><h2 class="sec-h2 li">Wonen met karakter</h2><p class="sec-p li" style="margin-bottom:22px;">'+esc(c.wonen_intro||'')+'</p><ul class="chk-list">'+wonenPts+'</ul></div><div class="img-box img-box-dk"><div class="img-box-icon">🏗</div><div class="img-box-lbl">Sfeerimpressie</div></div></div></div></section>\n';
+
+  /* LOCATIE */
+  out+='<section id="locatie" class="sec"><div class="c"><div class="d2 d2s"><div><p class="sec-lbl">De locatie</p><h2 class="sec-h2 dk">'+esc(f.wijk||f.loc)+'</h2><p class="sec-p dk" style="margin-bottom:22px;">'+esc(c.locatie_intro||'')+'</p>'+locPts+'</div><div class="img-box img-box-sq img-box-lt"><div class="img-box-icon">🗺</div><div class="img-box-lbl">Kaart</div></div></div></div></section>\n';
+
+  /* LEVEN */
+  out+='<section class="sec sec-alt"><div class="c"><div class="sig-box"><p class="sec-lbl">Het leven hier</p><h2 class="sec-h2 li">'+esc(c.leven_intro||'Zo voelt het wonen hier')+'</h2><p class="sig-p">'+esc(c.leven_tekst||'')+'</p><a href="#aanbod" class="sig-lnk">Bekijk het woningaanbod</a></div></div></section>\n';
+
+  /* AANBOD */
+  out+='<section id="aanbod" class="sec"><div class="c"><p class="sec-lbl">Woningaanbod</p><h2 class="sec-h2 dk">Kies jouw type</h2><p class="sec-p dk" style="margin-bottom:34px;">'+esc(c.aanbod_intro||'')+'</p><div class="wt-grid">'+(wtCards||'<p style="color:var(--bTa5);font-style:italic;">Woningtypen worden toegevoegd.</p>')+'</div>'+(dlLinks?'<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:34px;">'+dlLinks+'</div>':'')+'</div></section>\n';
+
+  /* PLANNING */
+  out+='<section id="planning" class="sec sec-alt"><div class="c"><div class="d2 d2s"><div><p class="sec-lbl">Tijdlijn</p><h2 class="sec-h2 li">Planning &amp; Fasering</h2><p class="sec-p li" style="margin-bottom:30px;">'+esc(c.planning_intro||'')+'</p>'+planItems+'</div><div class="upd-card"><div class="upd-h">Op de hoogte blijven?</div><p class="upd-p">Meld je aan voor updates over planning en aanbod.</p><a href="#contact" class="btn-prim">'+esc(f.cta1)+'</a></div></div></div></section>\n';
+
+  /* IMPRESSIES */
+  out+='<section id="impressies" class="sec"><div class="c"><p class="sec-lbl">Impressies</p><h2 class="sec-h2 dk">Sfeer &amp; Ontwerp</h2><p class="sec-p dk" style="margin-bottom:30px;">'+esc(c.impressies_tekst||'')+'</p><div class="imp-grid"><div class="imp-cell"><span class="imp-lbl">Exterieur</span></div><div class="imp-cell"><span class="imp-lbl">Interieur</span></div><div class="imp-cell"><span class="imp-lbl">Sfeer</span></div><div class="imp-cell imp-wide"><span class="imp-lbl">Plattegrond</span></div><div class="imp-cell"><span class="imp-lbl">Omgeving</span></div></div></div></section>\n';
+
+  /* FAQ */
+  out+='<section id="faq" class="sec sec-alt"><div class="c"><p class="sec-lbl">Veelgestelde vragen</p><h2 class="sec-h2 li">Alles wat je wilt weten</h2><div style="max-width:740px;margin-top:32px;">'+faqItems+'</div></div></section>\n';
+
+  /* ONTWIKKELAAR */
+  out+='<section id="ontwikkelaar" class="sec"><div class="c"><div class="d2"><div><p class="sec-lbl">Over ons</p><h2 class="sec-h2 dk">'+esc(f.ontwnaam||'De ontwikkelaar')+'</h2><p class="sec-p dk" style="margin-bottom:10px;">'+esc(c.ontwikkelaar_intro||'')+'</p>'+(f.ontwbio?'<p style="font-size:.9rem;color:var(--bTa6);line-height:1.8;margin-top:6px;">'+esc(f.ontwbio)+'</p>':'')+(f.ontwsite?'<a href="https://'+f.ontwsite+'" target="_blank" class="dev-lnk">'+esc(f.ontwsite)+' ↗</a>':'')+'</div><div class="img-box img-box-lt"><div class="img-box-icon">🏘</div><div class="img-box-lbl">Logo ontwikkelaar</div></div></div></div></section>\n';
+
+  /* CONTACT */
+  out+='<section id="contact" class="sec sec-alt"><div class="c"><div class="d2 d2s"><div><p class="sec-lbl">Contact</p><h2 class="sec-h2 li">'+esc(f.cta1)+'</h2><p class="sec-p li" style="margin-bottom:24px;">'+esc(c.contact_intro||'')+'</p>';
+  out+='<form class="form-grid" onsubmit="return false;">';
+  out+='<div class="form-row"><input type="text" placeholder="Voornaam" class="form-inp"><input type="text" placeholder="Achternaam" class="form-inp"></div>';
+  out+='<input type="email" placeholder="E-mailadres" class="form-inp">';
+  out+='<input type="tel" placeholder="Telefoonnummer (optioneel)" class="form-inp">';
+  if(wtOpts)out+='<select class="form-inp form-sel"><option value="">Interesse in type…</option>'+wtOpts+'</select>';
+  out+='<label class="form-chk"><input type="checkbox" style="accent-color:var(--a);margin-top:3px;flex-shrink:0;"><span class="form-chktxt">Ik ga akkoord met het <a href="#" style="color:var(--a);">privacybeleid</a>.</span></label>';
+  out+='<button type="submit" class="form-sub">'+esc(f.cta1)+'</button>';
+  out+='</form></div>';
+  out+='<div style="display:flex;flex-direction:column;gap:16px;">';
+  out+='<div class="ct-card"><div class="ct-hdg">Contactpersoon</div>';
+  if(f.cpnaam)out+='<div class="ct-name">'+esc(f.cpnaam)+'</div>';
+  if(f.cptitel)out+='<div class="ct-role">'+esc(f.cptitel)+'</div>';
+  if(f.cptel)out+='<a href="tel:'+esc(f.cptel)+'" class="ct-link">📞 '+esc(f.cptel)+'</a>';
+  if(f.cpmail)out+='<a href="mailto:'+esc(f.cpmail)+'" class="ct-link acc">✉ '+esc(f.cpmail)+'</a>';
+  out+='</div>';
+  if(f.downloads.length){
+    out+='<div class="dl-panel"><div class="dl-panel-h">Downloads</div><div class="dl-list">';
+    out+=f.downloads.map(function(d){return '<a href="#" class="dl-lnk">↓ '+esc(d)+'</a>';}).join('');
+    out+='</div></div>';
+  }
+  out+='</div></div></div></section>\n';
+
+  /* FOOTER */
+  out+='<footer class="ft"><div class="c"><div class="ft-grid"><div><div class="ft-brand">'+esc(f.naam)+'</div><p class="ft-tag">'+esc(c.footer_quote||f.loc)+'</p></div>';
+  out+='<div><div class="ft-nh">Navigatie</div><div class="ft-ls"><a href="#waarom" class="ft-lk">Waarom dit project</a><a href="#wonen" class="ft-lk">Het wonen</a><a href="#aanbod" class="ft-lk">Woningaanbod</a><a href="#faq" class="ft-lk">FAQ</a><a href="#contact" class="ft-lk">Contact</a></div></div>';
+  out+='<div><div class="ft-nh">Contact</div><div class="ft-ls">'+(f.ontwnaam?'<span class="ft-lk">'+esc(f.ontwnaam)+'</span>':'')+(f.cpmail?'<a href="mailto:'+esc(f.cpmail)+'" class="ft-lk ac">'+esc(f.cpmail)+'</a>':'')+(f.cptel?'<a href="tel:'+esc(f.cptel)+'" class="ft-lk">'+esc(f.cptel)+'</a>':'')+'</div></div>';
+  out+='</div><div class="ft-bar"><span class="ft-cp">© '+esc(f.naam)+' – '+esc(f.loc)+'.</span><div class="ft-leg"><a href="#" class="ft-lk">Privacybeleid</a><a href="#" class="ft-lk">Disclaimer</a></div><span class="ft-sp">Gemaakt door <a href="https://springrealestate.com">Spring Real Estate</a></span></div></div></footer>\n';
+
+  out+='<script>function tFaq(i){var b=document.querySelector("#faq"+i+" .faq-btn");var d=document.getElementById("fbd"+i);var o=b.getAttribute("aria-expanded")==="true";b.setAttribute("aria-expanded",o?"false":"true");d.classList.toggle("open",!o)}<\/script>\n';
+  out+='</body>\n</html>';
+  return out;
 }
+
 
 function showPreview(html,seo){
   document.getElementById('previewWrap').style.display='block';
