@@ -33,6 +33,14 @@ body{font-family:var(--fn);background:var(--bg);color:var(--ink);line-height:1.5
 .modal-input:focus{border-color:var(--g)}.modal-input::placeholder{color:var(--koud)}
 .modal-btn{width:100%;padding:14px;background:var(--g);color:#fff;border:none;border-radius:var(--rsm);font-family:var(--fn);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s}.modal-btn:hover{background:var(--gl)}
 .modal-note{font-size:11.5px;color:var(--koud);margin-top:12px;text-align:center;line-height:1.5}
+.prov-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:22px}
+.prov-btn{padding:11px 8px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--muted);font-family:var(--fn);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .15s;text-align:center;line-height:1.4}
+.prov-btn.sel{background:var(--g);border-color:var(--g);color:#fff}
+.prov-tag{display:inline-block;margin-left:5px;font-size:9px;padding:1px 6px;border-radius:99px;letter-spacing:.04em;vertical-align:middle;font-weight:700}
+.prov-btn.sel .prov-tag{background:rgba(255,255,255,.22);color:#fff}
+.prov-btn:not(.sel) .prov-tag{background:var(--bd);color:var(--koud)}
+.modal-select{width:100%;padding:11px 13px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--rsm);color:var(--ink);font-family:var(--fn);font-size:13px;outline:none;margin-bottom:14px;-webkit-appearance:none;appearance:none;transition:border-color .15s}
+.modal-select:focus{border-color:var(--g)}
 
 /* ── TOP BAR ── */
 .top{position:sticky;top:0;z-index:20;background:rgba(12,12,12,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:0 24px;height:52px;display:flex;align-items:center;gap:12px}
@@ -184,10 +192,26 @@ footer b{color:var(--g)}
       <div class="modal-mark">S</div>
       <div class="modal-brand">Spring Real Estate</div>
     </div>
-    <h2>Groq API-sleutel instellen</h2>
-    <p>De Website Generator gebruikt Groq AI. Maak een gratis sleutel aan op <a href="https://console.groq.com" target="_blank" class="modal-link">console.groq.com</a> &rarr; API Keys &rarr; Create API key.</p>
-    <label class="modal-lbl" for="keyInput">Groq API-sleutel</label>
-    <input class="modal-input" type="password" id="keyInput" placeholder="gsk_...">
+    <h2>AI-provider instellen</h2>
+    <div class="prov-row">
+      <button class="prov-btn sel" id="provBtnGroq" onclick="setProv('groq')">Groq<span class="prov-tag">Gratis</span></button>
+      <button class="prov-btn" id="provBtnOai" onclick="setProv('openai')">OpenAI<span class="prov-tag">Betaald</span></button>
+    </div>
+    <div id="provPanelGroq">
+      <p>Gratis sleutel via <a href="https://console.groq.com" target="_blank" class="modal-link">console.groq.com</a> &rarr; API Keys. Limiet: 100k tokens/dag.</p>
+      <label class="modal-lbl">Groq API-sleutel</label>
+      <input class="modal-input" type="password" id="keyInputGroq" placeholder="gsk_...">
+    </div>
+    <div id="provPanelOai" style="display:none">
+      <p>Sleutel via <a href="https://platform.openai.com/api-keys" target="_blank" class="modal-link">platform.openai.com</a> &rarr; API Keys. ~&euro;0,003 per website.</p>
+      <label class="modal-lbl">OpenAI API-sleutel</label>
+      <input class="modal-input" type="password" id="keyInputOai" placeholder="sk-...">
+      <label class="modal-lbl">Model</label>
+      <select class="modal-select" id="oaiModel">
+        <option value="gpt-4o-mini">gpt-4o-mini &mdash; snel &amp; goedkoop (aanbevolen)</option>
+        <option value="gpt-4o">gpt-4o &mdash; beste kwaliteit</option>
+      </select>
+    </div>
     <button class="modal-btn" onclick="saveKey()">Opslaan &amp; doorgaan</button>
     <p class="modal-note">Sleutel wordt alleen lokaal opgeslagen in jouw browser &mdash; niet gedeeld.</p>
   </div>
@@ -621,13 +645,54 @@ footer b{color:var(--g)}
 </div>
 
 <script>
-var GU='https://api.groq.com/openai/v1/chat/completions';
 var wtCount=0,generatedHtml='',lastFormData=null,lastContent=null,lastFaq=[];
 
-/* key */
-function saveKey(){var k=document.getElementById('keyInput').value.trim();if(!k){alert('Vul een API-sleutel in.');return;}localStorage.setItem('spring_groq_key',k);document.getElementById('setupModal').style.display='none';}
-function showSetup(){document.getElementById('setupModal').style.display='flex';}
-(function(){if(!localStorage.getItem('spring_groq_key'))showSetup();else document.getElementById('setupModal').style.display='none';})();
+/* provider modal */
+var _curProv='groq';
+function setProv(p){
+  _curProv=p;
+  document.getElementById('provBtnGroq').classList.toggle('sel',p==='groq');
+  document.getElementById('provBtnOai').classList.toggle('sel',p==='openai');
+  document.getElementById('provPanelGroq').style.display=p==='groq'?'':'none';
+  document.getElementById('provPanelOai').style.display=p==='openai'?'':'none';
+}
+function saveKey(){
+  if(_curProv==='groq'){
+    var k=document.getElementById('keyInputGroq').value.trim();
+    if(!k){alert('Vul een Groq API-sleutel in.');return;}
+    localStorage.setItem('spring_provider','groq');
+    localStorage.setItem('spring_groq_key',k);
+    localStorage.removeItem('spring_openai_key');
+  } else {
+    var k=document.getElementById('keyInputOai').value.trim();
+    if(!k){alert('Vul een OpenAI API-sleutel in.');return;}
+    localStorage.setItem('spring_provider','openai');
+    localStorage.setItem('spring_openai_key',k);
+    localStorage.setItem('spring_oai_model',document.getElementById('oaiModel').value);
+    localStorage.removeItem('spring_groq_key');
+  }
+  document.getElementById('setupModal').style.display='none';
+}
+function showSetup(){
+  var p=localStorage.getItem('spring_provider')||'groq';
+  setProv(p);
+  if(p==='groq'){var k=localStorage.getItem('spring_groq_key');if(k)document.getElementById('keyInputGroq').value=k;}
+  else{var k=localStorage.getItem('spring_openai_key');if(k)document.getElementById('keyInputOai').value=k;var m=localStorage.getItem('spring_oai_model');if(m)document.getElementById('oaiModel').value=m;}
+  document.getElementById('setupModal').style.display='flex';
+}
+function getApiConfig(){
+  var p=localStorage.getItem('spring_provider')||'groq';
+  if(p==='openai'){
+    var model=localStorage.getItem('spring_oai_model')||'gpt-4o-mini';
+    return {url:'https://api.openai.com/v1/chat/completions',key:localStorage.getItem('spring_openai_key')||'',m1:model,m2:model};
+  }
+  return {url:'https://api.groq.com/openai/v1/chat/completions',key:localStorage.getItem('spring_groq_key')||'',m1:'compound-beta-mini',m2:'llama-3.3-70b-versatile'};
+}
+(function(){
+  var p=localStorage.getItem('spring_provider')||'groq';
+  var hasKey=p==='openai'?!!localStorage.getItem('spring_openai_key'):!!localStorage.getItem('spring_groq_key');
+  if(!hasKey)showSetup();else document.getElementById('setupModal').style.display='none';
+})();
 
 /* screens */
 function startIntake(){
@@ -759,7 +824,7 @@ function agentCtx(ao){var p=[];if(ao.positionering)p.push('=== POSITIONERING AGE
 
 /* generate */
 async function generate(){
-  var key=localStorage.getItem('spring_groq_key');if(!key){showSetup();return;}
+  var key=getApiConfig().key;if(!key){showSetup();return;}
   var f=gfd();
   if(!f.naam||!f.loc||!f.omschrijving||!f.kernboodschap||!f.doelgroep){alert('Vul minimaal in: projectnaam, locatie, projectomschrijving (stap 1), kernboodschap en doelgroep (stap 2).');return;}
   document.getElementById('statusWrap').style.display='block';
@@ -783,7 +848,7 @@ async function generate(){
 }
 
 async function applyFeedback(){
-  var key=localStorage.getItem('spring_groq_key');if(!key){showSetup();return;}
+  var key=getApiConfig().key;if(!key){showSetup();return;}
   var fb=document.getElementById('feedbackInput').value.trim();if(!fb){alert('Vul feedback in.');return;}
   if(!lastContent||!lastFormData){alert('Genereer eerst een website.');return;}
   document.getElementById('s4').style.display='flex';setStep(4,'active','Verwerken…');
@@ -797,30 +862,35 @@ async function applyFeedback(){
   }catch(e){setStep(4,'err','Fout');showErr('Feedback fout: '+(e.message||String(e)));}
 }
 
-/* Groq calls */
+/* AI calls */
 async function step1(key,f){
-  var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'compound-beta-mini',messages:[{role:'user',content:'Wat is het woonkarakter van '+f.loc+(f.wijk?' ('+f.wijk+')':'')+' in Nederland? Sfeer, bewoners, architectuur, leefstijl, voorzieningen, bereikbaarheid. Max 120 woorden.'}],max_tokens:250,temperature:0.2})});
+  var cfg=getApiConfig();
+  var body={model:cfg.m1,messages:[{role:'user',content:'Wat is het woonkarakter van '+f.loc+(f.wijk?' ('+f.wijk+')':'')+' in Nederland? Sfeer, bewoners, architectuur, leefstijl, voorzieningen, bereikbaarheid. Max 120 woorden.'}],max_tokens:250,temperature:0.2};
+  var r=await fetch(cfg.url,{method:'POST',headers:{'Authorization':'Bearer '+cfg.key,'Content-Type':'application/json'},body:JSON.stringify(body)});
   if(!r.ok){var t=await r.text();throw new Error('Stap 1: '+r.status+' '+t.substr(0,200));}
   return(await r.json()).choices[0].message.content||'';
 }
 async function step2(key,f,locCtx){
   var wt=f.woningtypen.map(function(w,i){return (i+1)+'. '+w.naam+' ('+w.type+'): '+(w.opp1||'?')+(w.opp2?'–'+w.opp2:'')+'m²'+(w.kamers?', '+w.kamers+' kamers':'')+(w.prijs?', v.a. €'+Number(w.prijs).toLocaleString('nl-NL'):'')+' '+(w.bijz||'');}).join('\n')||'Niet opgegeven';
   var p='Je bent een senior UX-copywriter voor Nederlandse nieuwbouwprojecten. Schrijf directe, publiceerbare webcopy in het Nederlands.\n\nPROJECT: '+f.naam+'\nLocatie: '+f.loc+(f.wijk?' ('+f.wijk+')':'')+'\nType: '+f.transactie+(f.aantalTotaal?', '+f.aantalTotaal+' woningen':'')+(f.prijsseg?', '+f.prijsseg:'')+'\nOmschrijving: '+f.omschrijving+'\nArchitectuur: '+(f.architectuur||'nvt')+'\nDuurzaamheid: '+(f.duurzaamheid||'nvt')+'\nTagline: '+(f.tagline||'nvt')+'\nSfeer: '+(f.sfeer||'nvt')+'\nKernboodschap: '+f.kernboodschap+'\nDoelgroep: '+f.doelgroep+'\nUSPs:\n'+(f.usps||'nvt')+'\nOmgeving: '+(f.omgeving||'nvt')+'\nWoningtypen:\n'+wt+'\nLocatiecontext:\n'+locCtx+agentCtx(f.agentOutputs)+'\n\nGeef UITSLUITEND geldig JSON terug:\n{"hero_titel":"H1 max 6 woorden","hero_subtitel":"max 10 woorden","hero_intro":"1-2 zinnen","hero_beeld":"beschrijving ideaal sfeerbeeld","waarom_intro":"1-2 zinnen","waarom_usps":[{"icoon":"emoji","titel":"kort","tekst":"2 zinnen"}],"waarom_slot":"afsluitende zin","wonen_intro":"2-3 zinnen","wonen_punten":["punt1","punt2","punt3","punt4"],"locatie_intro":"2 zinnen","locatie_punten":[{"label":"categorie","tekst":"beschrijving"}],"leven_intro":"H2","leven_tekst":"inspirerend 3-4 zinnen GEEN verkooptaal","aanbod_intro":"1 zin","planning_intro":"1 zin","impressies_tekst":"1-2 zinnen","ontwikkelaar_intro":"1 zin","contact_intro":"2 zinnen","footer_quote":"afsluitende zin"}\nMinimaal 4 waarom_usps en 4 locatie_punten.';
-  var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:p}],response_format:{type:'json_object'},max_tokens:2400,temperature:0.72})});
+  var cfg=getApiConfig();
+  var r=await fetch(cfg.url,{method:'POST',headers:{'Authorization':'Bearer '+cfg.key,'Content-Type':'application/json'},body:JSON.stringify({model:cfg.m2,messages:[{role:'user',content:p}],response_format:{type:'json_object'},max_tokens:2400,temperature:0.72})});
   if(!r.ok){var t=await r.text();throw new Error('Stap 2: '+r.status+' '+t.substr(0,200));}
   var txt=(await r.json()).choices[0].message.content||'{}';
   try{return JSON.parse(txt);}catch(e){throw new Error('JSON stap 2: '+txt.substr(0,200));}
 }
 async function step3(key,f,c){
   var p='SEO-specialist voor nieuwbouwprojecten.\nPROJECT: '+f.naam+' – '+f.loc+(f.wijk?', '+f.wijk:'')+'\nDoelgroep: '+f.doelgroep+'\nKernboodschap: '+f.kernboodschap+'\nHero: '+(c.hero_titel||'')+'\n\nGeef UITSLUITEND geldig JSON:\n{"faq":[{"vraag":"...","antwoord":"minimaal 2 zinnen"}],"seo":{"title":"max 60 tekens","meta_description":"150-160 tekens","h1":"","h2_structuur":[""],"focus_keyword":"","secundaire_zoekwoorden":[""],"url_slug":"'+f.slug+'","og_titel":"","og_beschrijving":""}}\nFAQ minimaal 10 vragen over: prijs, planning, registreren, bezichtigen, financiering, parkeren, duurzaamheid, omgeving, contracten, oplevering.';
-  var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:p}],response_format:{type:'json_object'},max_tokens:2200,temperature:0.6})});
+  var cfg=getApiConfig();
+  var r=await fetch(cfg.url,{method:'POST',headers:{'Authorization':'Bearer '+cfg.key,'Content-Type':'application/json'},body:JSON.stringify({model:cfg.m2,messages:[{role:'user',content:p}],response_format:{type:'json_object'},max_tokens:2200,temperature:0.6})});
   if(!r.ok){var t=await r.text();throw new Error('Stap 3: '+r.status+' '+t.substr(0,200));}
   var txt=(await r.json()).choices[0].message.content||'{}';
   try{return JSON.parse(txt);}catch(e){throw new Error('JSON stap 3: '+txt.substr(0,200));}
 }
 async function step4(key,f,c,fb){
   var p='Je hebt webcopy gemaakt voor "'+f.naam+'" in '+f.loc+'. Feedback: '+fb+'\n\nHuidige content:\n'+JSON.stringify(c,null,2)+'\n\nPas ALLEEN de genoemde secties aan. Laat de rest exact hetzelfde. Geef de complete JSON terug met exact dezelfde sleutels.';
-  var r=await fetch(GU,{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:p}],response_format:{type:'json_object'},max_tokens:2400,temperature:0.65})});
+  var cfg=getApiConfig();
+  var r=await fetch(cfg.url,{method:'POST',headers:{'Authorization':'Bearer '+cfg.key,'Content-Type':'application/json'},body:JSON.stringify({model:cfg.m2,messages:[{role:'user',content:p}],response_format:{type:'json_object'},max_tokens:2400,temperature:0.65})});
   if(!r.ok){var t=await r.text();throw new Error('Stap 4: '+r.status+' '+t.substr(0,200));}
   var txt=(await r.json()).choices[0].message.content||'{}';
   try{return JSON.parse(txt);}catch(e){throw new Error('JSON feedback: '+txt.substr(0,200));}
